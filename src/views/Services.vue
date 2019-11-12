@@ -1,9 +1,12 @@
 <template>
   <div class="services">
     <div v-for="(service, index) in services" :key="index">
-      <router-link :to="'/dashboards/' + service.name">{{
+      <img :src="service.image" />
+      <router-link class="btn btn-primary" :to="'/dashboards/' + service.name">
+        zum {{
         service.name
-      }}</router-link>
+        }} Dashboard
+      </router-link>
     </div>
   </div>
 </template>
@@ -20,3 +23,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.services img {
+  width: 200px;
+  margin-right: 10px;
+}
+</style>

@@ -13,12 +13,12 @@ const routes = [
     component: Services
   },
   {
-    path: "/dashboards/:id",
+    path: "/dashboards/:service",
     name: "Dashboards",
     component: Dashboards
   },
   {
-    path: "/metrics/:id",
+    path: "/metrics/:service/:dashboard",
     name: "Metrics",
     component: Metrics
   }
