@@ -1,12 +1,9 @@
 <template>
   <div class="top-nav-bar">
     <div class="search-box">
-      <a href="#">
-        <img src="@/assets/img/T_Logo_3c_p.png" alt="Plant-Shop-Logo" class="logo" />
-      </a>
-      <a href="index.html">
-        <h1>Dashboard ML</h1>
-      </a>
+      <img src="@/assets/img/T_Logo_3c_p.png" alt="Plant-Shop-Logo" class="logo" />
+
+      <h1>Dashboard ML</h1>
       <input type="text" class="form-control" />
       <span class="input-group-text">
         <i class="fa fa-search"></i>
