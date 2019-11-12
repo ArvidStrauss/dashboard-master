@@ -1,0 +1,28 @@
+[
+  {
+    "name": "barmer",
+    "dashboards": [
+      {
+        "name": "5 minutes",
+        "ranking": 5
+      },
+      {
+        "name": "7 minutes",
+        "ranking": 7
+      }
+    ]
+  },
+  {
+    "name": "telekom",
+    "dashboards": [
+      {
+        "name": "10 minutes",
+        "ranking": 10
+      },
+      {
+        "name": "20 minutes",
+        "ranking": 20
+      }
+    ]
+  }
+]
