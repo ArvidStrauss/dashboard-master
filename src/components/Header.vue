@@ -2,7 +2,6 @@
   <div class="top-nav-bar">
     <div class="search-box">
       <img src="@/assets/img/T_Logo_3c_p.png" alt="Plant-Shop-Logo" class="logo" />
-
       <h1>Dashboard ML</h1>
     </div>
     <div class="menu-bar">
