@@ -1,6 +1,7 @@
 [
   {
     "name": "barmer",
+    "alt" : "barmer",
     "image": "../Barmer_Logo.png",
     "dashboards": [
       {
@@ -31,6 +32,7 @@
   },
   {
     "name": "telekom",
+    "alt" : "telekom",
     "image": "../T_Logo_3c_n_bg.png",
     "dashboards": [
       {
