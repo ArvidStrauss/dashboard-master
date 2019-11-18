@@ -1,6 +1,5 @@
 <template>
   <div class="metrics">
-    <Metric />
     <div v-for="(metric, index) in dashboard.metrics" :key="index">
       <button class="btn btn-primary">{{ metric.name }}</button>
     </div>
@@ -9,13 +8,10 @@
 
 <script>
 import json from "@/assets/services.json";
-import Metric from "@/components/Metric.vue";
 
 export default {
   name: "Metrics",
-  components: {
-    Metric
-  },
+  components: {},
   data: function() {
     return {
       services: json
