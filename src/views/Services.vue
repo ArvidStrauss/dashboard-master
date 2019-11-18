@@ -8,16 +8,20 @@
     <div class=" w-75 mx-auto service__grid">
       <div v-for="(service, index) in services" :key="index">
         
+        <!--Die Service Card -->
         <div class="card" style="width: 18rem;">
           <img class="card-img-top" :src="service.image" :alt="service.alt"> <!--zum Test hardcodiert-->
           <div class="card-body">
             <h4 class="card-title" >{{ service.name }}</h4>
             <p class="card-text" >{{ service.description }}</p>
+            
+            <!-- Der Button -->
             <button type="button" class="button" @click="()=>$router.push('/dashboards/' + service.name)">
               <transition name="fade" mode="out-in">
                 <p class="btnTitle" >Zum {{ service.name }} Dashboard</p>
               </transition>
             </button>
+            
           </div>
         </div>
       
