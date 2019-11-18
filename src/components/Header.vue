@@ -4,10 +4,6 @@
       <img src="@/assets/img/T_Logo_3c_p.png" alt="Plant-Shop-Logo" class="logo" />
 
       <h1>Dashboard ML</h1>
-      <input type="text" class="form-control" />
-      <span class="input-group-text">
-        <i class="fa fa-search"></i>
-      </span>
     </div>
     <div class="menu-bar">
       <ul>
@@ -67,33 +63,6 @@ export default {
   color: var(--darkgrey);
   margin-top: 5px;
   font-size: 38px;
-}
-
-.top-nav-bar .search-box input.form-control {
-  margin-top: 9px;
-  margin-left: 30px;
-  border: 1px solid var(--superlightgrey);
-  border-radius: 20px 0 0 20px !important;
-  background: var(--superlightgrey);
-  box-shadow: none !important;
-}
-
-.top-nav-bar .search-box input.form-control:focus {
-  border-color: var(--superlightgrey);
-  background-color: var(--superlightgrey);
-}
-
-.top-nav-bar .search-box span.input-group-text {
-  background: var(--superlightgrey) !important;
-  border: 1px solid var(--superlightgrey) !important;
-  margin: 8.5px 10px 3px 0 !important;
-  border-radius: 0 20px 20px 0 !important;
-  cursor: pointer;
-  height: 38px;
-}
-
-.top-nav-bar .search-box span.input-group-text i.fa-search {
-  color: var(--lightgrey);
 }
 
 .menu-bar {
