@@ -2,6 +2,7 @@
   {
     "name": "barmer",
     "image": "../Barmer_Logo.png",
+    "desc": "Versicherungsunterhmen",
     "dashboards": [
       {
         "name": "requests",
@@ -31,6 +32,7 @@
   },
   {
     "name": "telekom",
+    "desc": "Wir",
     "image": "../T_Logo_3c_n_bg.png",
     "dashboards": [
       {
