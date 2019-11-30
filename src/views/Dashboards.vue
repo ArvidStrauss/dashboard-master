@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboards container w-75 mx-auto">
+  <div class="container w-75 mx-auto mt-4">
     <div v-for="(dashboard, index) in service.dashboards" :key="index">
       <div class="row mb-4">
         <div class="card w-100">
@@ -8,12 +8,12 @@
               <h6 class="font-weight-bold text-white">{{ dashboard.name }}</h6>
               <ul class="nav nav-tabs card-header-tabs pull-right"  id="">
                 <li class="nav-item">
-                  <a class="nav-link " id="" data-toggle="tab" href="#home" role="tab" aria-controls="edit" aria-selected="false">Edit
-                  <!-- Platzhalter-->
-                  </a>
+                  <router-link
+                  class="nav-link "
+                  :to="'/dashboards/' +serviceName +'/edit/' +dashboard.name">Edit</router-link>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="" data-toggle="tab" href="#profile" role="tab" aria-controls="delete" aria-selected="false">Delete
+                  <a class="nav-link" id="" v-on:click="removeEntry(index)">Delete
                   <!-- Platzhalter-->
                   </a>
                 </li>
@@ -37,15 +37,13 @@
 </template>
 
 <script>
-import json from "@/assets/services.json";
 
 export default {
   name: "Dashboards",
   data: function() {
     return {
-      services: json,
-      pages: [],
-      indexo: null
+      services: []
+    
     };
   },
   computed: {
@@ -53,14 +51,19 @@ export default {
       return this.$route.params.service;
     },
     service: function() {
-      return this.pages.find(element => element.name == this.serviceName);
+      return this.services.find(element => element.name == this.serviceName);
     },
+  },
+  methods: {
+    removeEntry:function(index) {
+        this.$delete(this.service.dashboards, index);
+    }
   },
   mounted() {
     const baseURI = 'https://api.myjson.com/bins/1cpyp2'
       this.$http.get(baseURI)
       .then((result) => {
-        this.pages = result.data
+        this.services = result.data
       });
   }
 };
@@ -69,6 +72,9 @@ export default {
 <style scoped>
   h6{
     font-size: 14pt;
+  }
+  a{
+    cursor: pointer;
   }
   .active{
     color: var(--magenta) !important;
