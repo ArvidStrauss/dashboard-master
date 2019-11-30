@@ -43,7 +43,9 @@ export default {
   name: "Dashboards",
   data: function() {
     return {
-      services: json
+      services: json,
+      pages: [],
+      indexo: null
     };
   },
   computed: {
@@ -51,8 +53,15 @@ export default {
       return this.$route.params.service;
     },
     service: function() {
-      return this.services.find(element => element.name == this.serviceName);
-    }
+      return this.pages.find(element => element.name == this.serviceName);
+    },
+  },
+  mounted() {
+    const baseURI = 'https://api.myjson.com/bins/1cpyp2'
+      this.$http.get(baseURI)
+      .then((result) => {
+        this.pages = result.data
+      });
   }
 };
 </script>
