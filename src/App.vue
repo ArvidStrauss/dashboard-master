@@ -2,7 +2,9 @@
   <div id="app">
     <Header></Header>
     <div class="router-view">
-      <router-view />
+      <transition name="fade">
+        <router-view />
+      </transition>
     </div>
     <Footer></Footer>
   </div>
@@ -57,12 +59,24 @@ body {
   text-align: center;
 }
 .router-view {
-  margin-top: 70px;
+  margin-top: 0 vh;
   min-height: 80vh;
 }
 .btn.btn-primary {
   background-color: var(--cyan);
   border: none;
   margin: 20px 0;
+}
+.fade-enter-active, .fade-leave-active {
+  transition-property: opacity;
+  transition-duration: .3s;
+}
+
+.fade-enter-active {
+  transition-delay: .3s;
+}
+
+.fade-enter, .fade-leave-active {
+  opacity: 0
 }
 </style>
