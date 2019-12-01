@@ -30,15 +30,15 @@ export default {
 
 :root {
   /* Colour Variables Telekom Brand Design */
-  --magenta: rgb(226, 0, 116);
-  --white: rgb(255, 255, 255);
+  --magenta: rgb(226, 0, 116) !important;
+  --white: #FBFBFB !important;
   --black: rgb(75, 75, 75);
   --superlightgrey: rgb(238, 238, 238);
   --lightgrey: #a4a4a4;
   --darkgrey: #6c6c6c;
   --darkblue: rgb(16, 99, 173);
   --lightblue: rgb(83, 186, 242);
-  --cyan: #1bada2;
+  --cyan: #1bada2 !important;
   --green: #bfcb44;
   --yellow: #ffd329;
   --orange: #ff9a1e;
