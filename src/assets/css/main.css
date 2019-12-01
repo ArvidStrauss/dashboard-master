@@ -28,6 +28,9 @@ hr{
 	border: none;
 	margin: 20px 0;
 }
+.btn.btn-primary:hover {
+	background-color: #199E94;
+}
 
 .fancyButton{
 	display: block;

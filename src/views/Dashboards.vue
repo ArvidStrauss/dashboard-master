@@ -16,6 +16,15 @@
         </li>
       </ol>
     </nav>
+    <div class="">
+      <router-link
+                  class="btn btn-secondary pull-left"
+                  :to="'/dashboards/' +serviceName +'/new/dashboard'">
+                New Dashboard
+      </router-link> 
+    </div>
+    <br>
+    <br>
     <div v-for="(dashboard, index) in service.dashboards" :key="index">
       <div class="row mb-4">
         <div class="card w-100">
