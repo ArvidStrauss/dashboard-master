@@ -44,7 +44,7 @@
           <div class="card-body">
             <h3 class="card-title " >{{ service.name }}</h3>
             <p class="card-text" >{{ service.desc }}</p>
-            <router-link class="grid__button" :to="'/dashboards/' +service.name">
+            <router-link class="fancyButton" :to="'/dashboards/' +service.name">
               Select
             </router-link> 
           </div>
@@ -93,24 +93,6 @@ export default {
 
 <style scoped>
   
-  .grid__button{
-    display: block;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    border: 1px solid var(--magenta);
-    color: var(--magenta);
-    font-weight: bold;
-    background: linear-gradient(to right, var(--magenta) 50%, white 50%);
-    background-size: 200% 100%;
-    background-position:right bottom;
-    transition:all 2s ease;
-  }
-  .grid__button:hover{
-    background-position:left bottom;
-    color: white;
-  }
-
-
   img{
     height: 150px;
   }
@@ -118,10 +100,15 @@ export default {
   .panel--hide{
     display: none;
   }
-
-  .bg-primary{
-    background-color: var(--cyan) !important;
+  
+  /* Animations */
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity 1s;
   }
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+  }
+
   /*--------------------------------
       CSS GRID für die Cards
   ---------------------------------*/
@@ -133,12 +120,6 @@ export default {
   }
 
   .grid__item{
-  }
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity .5s;
-  }
-  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-    opacity: 0;
   }
   
   /*Tablet*/

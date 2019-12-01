@@ -90,23 +90,27 @@ export default {
   h6{
     font-size: 14pt;
   }
-  a{
-    cursor: pointer;
-  }
+
+  /* Nav */
   .nav-link.active{
     color: black !important;
   }
+  
   .nav-link.active:hover{
     color: var(--magenta) !important;
   }
+  
   .nav .nav-item a{
     color: white;
     font-size: 13pt;
   }
+  
   .nav .nav-item a:hover{
     border-bottom: 1px solid var(--white);
     font-weight: bolder;
   }
+  
+  /* Cards */
   .card__header{
     display: grid;
     grid-template-columns: 75% auto;
@@ -123,18 +127,6 @@ export default {
     background-color: var(--cyan) !important;
   }
   
-  .breadcrumb__link{
-    color: black;
-  }
-  .breadcrumb__link:hover{
-    color: var(--magenta);
-    cursor: pointer;
-  }
-
-  .breadcrumb__img{
-    height: 20px;
-    width: 20px;
-  }
   @media only screen and (max-width: 1025px){
     .card__header{
       grid-template-columns: 60% auto;

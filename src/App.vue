@@ -53,6 +53,7 @@ body {
   font-family: TeleGroteskNextRegular !important;
   background-color: var(--white);
 }
+
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -61,11 +62,6 @@ body {
 .router-view {
   margin-top: 0 vh;
   min-height: 80vh;
-}
-.btn.btn-primary {
-  background-color: var(--cyan);
-  border: none;
-  margin: 20px 0;
 }
 .fade-enter-active, .fade-leave-active {
   transition-property: opacity;

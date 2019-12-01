@@ -65,33 +65,12 @@ export default {
   hr{
     background-color: #E20074;
   }
-  .border--magenta{
-    border-left: 1px solid;
-    border-right: 1px solid;
-    border-bottom: 1px solid;
-    border-color: #E20074;
-  }
+  
   .img--size{
     width: 200px;
     height: 200px;
   }
 
-  .form--width{
-    width: 50%;
-  }
-  
-  .breadcrumb__link{
-    color: black;
-  }
-  .breadcrumb__link:hover{
-    color: var(--magenta);
-    cursor: pointer;
-  }
-
-  .breadcrumb__img{
-    height: 20px;
-    width: 20px;
-  }
   /*Table*/
   @media only screen and (max-width: 1200px){
     .form--width{

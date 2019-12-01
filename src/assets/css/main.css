@@ -1,0 +1,75 @@
+/* MULTI USED CSS CLASSES */
+
+/* Elements */
+a{
+	cursor: pointer;
+}
+
+hr{
+	background-color: var(--magenta);
+}
+
+/* Colours */
+.bg-primary{
+	background-color: var(--cyan) !important;
+}
+
+.border--magenta{
+	border-left: 1px solid;
+	border-right: 1px solid;
+	border-bottom: 1px solid;
+	border-color: var(--magenta);
+}
+
+/* Buttons */
+
+.btn.btn-primary {
+	background-color: var(--cyan);
+	border: none;
+	margin: 20px 0;
+}
+
+.fancyButton{
+	display: block;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	border: 1px solid var(--magenta);
+	color: var(--magenta);
+	font-weight: bold;
+	background: linear-gradient(to right, var(--magenta) 50%, white 50%);
+	background-size: 200% 100%;
+	background-position:right bottom;
+	transition:all 1.5s ease;
+}
+
+.fancyButton:hover{
+	background-position:left bottom;
+	color: white;
+}
+
+/* Forms */
+
+.form--width{
+	width: 50%;
+}
+
+.form-control:focus {
+	border-color: #FF0000;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0), 0 0 5px var(--magenta);
+}
+
+/* other Components */
+
+.breadcrumb__link{
+	color: black;
+}
+
+.breadcrumb__link:hover{
+	color: var(--magenta);
+	cursor: pointer;
+}
+
+.breadcrumb__img{
+	height: 20px;
+	width: 20px;
+}
