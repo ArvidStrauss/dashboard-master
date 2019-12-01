@@ -25,38 +25,36 @@
     </div>
     <br>
     <br>
-    <div v-if="services">
-      <div v-for="(dashboard, index) in service.dashboards" :key="index">
-        <div class="row mb-4">
-          <div class="card w-100">
-            <div class="card-header">
-              <div class="card__header">
-                <h6 class="font-weight-bold text-white">{{ dashboard.name }}</h6>
-                <ul class="nav nav-tabs card-header-tabs pull-right"  id="">
-                  <li class="nav-item">
-                    <router-link
-                    class="nav-link "
-                    :to="'/dashboards/' +serviceName +'/edit/' +dashboard.name">Edit</router-link>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" id="" v-on:click="removeEntry(index)">Delete
-                    <!-- Platzhalter-->
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <router-link
-                    class="nav-link active"
-                    :to="'/metrics/' + serviceName + '/' + dashboard.name">Select</router-link> 
-                  </li>
-                </ul>
-              </div>
+    <div v-for="(dashboard, index) in service.dashboards" :key="index">
+      <div class="row mb-4">
+        <div class="card w-100">
+          <div class="card-header">
+            <div class="card__header">
+              <h6 class="font-weight-bold text-white">{{ dashboard.name }}</h6>
+              <ul class="nav nav-tabs card-header-tabs pull-right"  id="">
+                <li class="nav-item">
+                  <router-link
+                  class="nav-link "
+                  :to="'/dashboards/' +serviceName +'/edit/' +dashboard.name">Edit</router-link>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="" v-on:click="removeEntry(index)">Delete
+                  <!-- Platzhalter-->
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <router-link
+                  class="nav-link active"
+                  :to="'/metrics/' + serviceName + '/' + dashboard.name">Select</router-link> 
+                </li>
+              </ul>
             </div>
-            <div class="card-body card__body--height">
-              <article class="">
-                {{ dashboard.description }}
-              </article>
-            </div>   
           </div>
+          <div class="card-body card__body--height">
+            <article class="">
+              {{ dashboard.description }}
+            </article>
+          </div>   
         </div>
       </div>
     </div>
