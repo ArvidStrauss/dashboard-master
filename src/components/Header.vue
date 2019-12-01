@@ -31,7 +31,7 @@ export default {
 
 .top-nav-bar .search-box img.logo {
   margin: 10px 50px;
-  width: 40px;
+  width: 80px;
 }
 
 .top-nav-bar .search-box a {
