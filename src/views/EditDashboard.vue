@@ -29,25 +29,17 @@
         <label>Description</label>
         <textarea rows="3" class="form-control text-center" placeholder="Beschreibung" v-model="services[serviceID].dashboards[dashboardID].description"></textarea>
         <hr class="bg-magenta">
-        <button class="btn btn-primary w-50">Add new chart</button>
-        <div>
-  <b-button v-b-toggle.collapse-1 variant="primary">Toggle Collapse</b-button>
-  <b-collapse id="collapse-1" class="mt-2">
-    <b-card>
-      <p class="card-text">Collapse contents Here</p>
-      <b-button v-b-toggle.collapse-1-inner size="sm">Toggle Inner Collapse</b-button>
-      <b-collapse id="collapse-1-inner" class="mt-2">
-        <b-card>Hello!</b-card>
-      </b-collapse>
-    </b-card>
-  </b-collapse>
-</div>
+        <a class="btn btn-primary w-50 text-white" @click="addChart()">Add new chart</a>
+
         <div v-for="(metric, index) in service.dashboards[dashboardID].metrics" :key="index">
-          <div class="container border rounded">
+          <div class="container border rounded py-2 mb-2">
             
-            <b-btn v-b-toggle="'chart' +index" variant="primary">Chart {{ metric.name }} </b-btn>
-            <b-collapse :id="'chart' +index" class="collapse">
-              <b-card>  
+            <b-link class="paragraphLink w-100" v-b-toggle="'chart' +index" variant="primary">Chart {{ metric.name }} ⮟</b-link>
+
+            <b-collapse :id="'chart' +index" class="collapse">  
+                <br>
+                <label>Name</label>
+                <input type="text" name="" class="form-control" v-model="metric.name">
                 <label>Model</label>
                 <select class="form-control">
                   <option>Model_1</option>
@@ -81,7 +73,6 @@
                   <br>            
                 </div>
                 <br>
-            </b-card>
           </b-collapse>
         </div>
         </div>
@@ -130,6 +121,11 @@ export default {
       if(btn == 'Line'){
         document.getElementById("radioBtnLineChart").checked=true;
       }
+    },
+    addChart: function(){
+      this.services[this.serviceID].dashboards[this.dashboardID].metrics.push({
+        name: ''
+      });
     }
   },
   mounted(){
