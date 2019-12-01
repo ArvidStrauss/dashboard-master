@@ -1,5 +1,5 @@
 <template>
-  <section  class="mt-4 form--width mx-auto">
+  <section v-if="services" class="mt-4 form--width mx-auto">
     <h2 class="text-center mb-3">edit {{dashboardName }}</h2>
     <nav class="">
       <ol class="breadcrumb bg-white">
@@ -31,9 +31,8 @@
         <hr class="bg-magenta">
         <a class="btn btn-primary w-50 text-white" @click="addChart()">Add new chart</a>
 
-        <div v-for="(metric, index) in service.dashboards[dashboardID].metrics" :key="index">
+        <div v-for="(metric, index) in services[serviceID].dashboards[dashboardID].metrics" :key="index">
           <div class="container border rounded py-2 mb-2">
-            
             <b-link class="paragraphLink w-100" v-b-toggle="'chart' +index" variant="primary">Chart {{ metric.name }} ⮟</b-link>
 
             <b-collapse :id="'chart' +index" class="collapse">  
@@ -91,7 +90,7 @@ export default {
   name: "EditDashboards",
   data: function() {
     return {
-      services: json,
+      services: null,
       serviceID: -1,
       dashboardID: -1,
       imageToggle: true
@@ -129,6 +128,7 @@ export default {
     }
   },
   mounted(){
+      this.services = json;
       this.serviceID = this.services.map(function(e) { return e.name; }).indexOf(this.$route.params.service);
       this.dashboardID = this.service.dashboards.map(function(e) {return e.name;}).indexOf(this.$route.params.dashboard);
   }

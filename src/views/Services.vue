@@ -1,5 +1,5 @@
 <template>
-  <div class="services">
+  <div v-if="services" class="services">
     <div v-if="panel == 0" class="w-100">
       <transition name="fade">
         <button class="float-right btn btn-sm btn-secondary mr-2 mt-1" v-on:click="showPanel()">Show Info</button>
@@ -61,7 +61,7 @@ export default {
   name: "Services",
   data: function() {
     return {
-      services: json,
+      services: null,
       panel: 1
     };
   },
@@ -87,6 +87,9 @@ export default {
     if (sessionStorage.getItem("panel") !== null) {
       this.panel = sessionStorage.getItem("panel");
     }
+  },
+  mounted(){
+    this.services=json;
   }
 };
 </script>

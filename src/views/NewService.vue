@@ -1,5 +1,5 @@
 <template>
-  <section class="mt-4 form--width mx-auto">
+  <section v-if="services" class="mt-4 form--width mx-auto">
     <h3 class="text-center mb-3">add new Service</h3>
     <nav class="">
       <ol class="breadcrumb bg-white">
@@ -39,7 +39,7 @@ export default {
   name: "EditServices",
   data: function() {
     return {
-      services: json,
+      services: null,
       imageToggle: true
     };
   },
@@ -52,6 +52,7 @@ export default {
     }
   },
   created(){
+    this.services = json;
     this.services.push({
         name: "",
         image: "",

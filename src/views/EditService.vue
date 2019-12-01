@@ -1,5 +1,5 @@
 <template>
-  <section class="mt-4 form--width mx-auto">
+  <section v-if="services" class="mt-4 form--width mx-auto">
     <h3 class="text-center mb-3">edit {{ serviceName }}</h3>
     <nav class="">
       <ol class="breadcrumb bg-white">
@@ -42,7 +42,7 @@ export default {
   name: "EditServices",
   data: function() {
     return {
-      services: json,
+      services: null,
       serviceID: -1,
       imageToggle: true
     };
@@ -56,7 +56,8 @@ export default {
     }
   },
   mounted(){
-      this.serviceID = this.services.map(function(e) { return e.name; }).indexOf(this.$route.params.service);
+    this.services = json;
+    this.serviceID = this.services.map(function(e) { return e.name; }).indexOf(this.$route.params.service);
   }
 };
 </script>
