@@ -24,19 +24,27 @@
     </transition>
     <br v-if="panel== 0">
     <br>
+    <h3>Services</h3>
+    <div class="w-75 mx-auto">
+      <router-link
+                  class="btn btn-secondary pull-left"
+                  :to="'/new/service'">New Service</router-link> 
+    </div>
+    <br>
+    <br>
     <div class=" w-75 mx-auto service__grid">
       <div v-for="(service, index) in services" :key="index">
         
         <!--Die Service Card -->
         <div class="card" style="width: 18rem;">
           <router-link
-                  class=""
+                  class="btn"
                   :to="'/edit/' +service.name">Edit</router-link> 
           <img class="card-img-top border-bottom" :src="service.image" :alt="service.alt"> <!--zum Test hardcodiert-->
           <div class="card-body">
             <h3 class="card-title " >{{ service.name }}</h3>
             <p class="card-text" >{{ service.desc }}</p>
-            <router-link class="btn btn-lg btn-primary px-4" :to="'/dashboards/' +service.name">
+            <router-link class="grid__button" :to="'/dashboards/' +service.name">
               Select
             </router-link> 
           </div>
@@ -75,7 +83,7 @@ export default {
       sessionStorage.setItem('panel', '1');
     }
   },
-  mounted(){
+  created(){
     if (sessionStorage.getItem("panel") !== null) {
       this.panel = sessionStorage.getItem("panel");
     }
@@ -84,6 +92,24 @@ export default {
 </script>
 
 <style scoped>
+  
+  .grid__button{
+    display: block;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border: 1px solid var(--magenta);
+    color: var(--magenta);
+    font-weight: bold;
+    background: linear-gradient(to right, var(--magenta) 50%, white 50%);
+    background-size: 200% 100%;
+    background-position:right bottom;
+    transition:all 2s ease;
+  }
+  .grid__button:hover{
+    background-position:left bottom;
+    color: white;
+  }
+
 
   img{
     height: 150px;
@@ -95,13 +121,6 @@ export default {
 
   .bg-primary{
     background-color: var(--cyan) !important;
-  }
-
-  .btn-primary{
-    background-color: var(--magenta) !important;
-  }
-  .btn-primary:hover{
-    background-color: #CE006A !important;
   }
   /*--------------------------------
       CSS GRID für die Cards
