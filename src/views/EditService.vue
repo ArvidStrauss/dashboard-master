@@ -1,8 +1,23 @@
 <template>
-  <section class="mt-4">
+  <section class="mt-4 form--width mx-auto">
+    <h3 class="text-center mb-3">edit {{ serviceName }}</h3>
+    <nav class="">
+      <ol class="breadcrumb bg-white">
+        <li class="breadcrumb-item" @mouseover="imageToggle = false" @mouseleave="imageToggle = true">
+          <router-link
+                  class="breadcrumb__link"
+                  :to="'/'" >
+            <img src="@/assets/img/home.png"  class="breadcrumb__img" v-if="imageToggle == true">
+            <img src="@/assets/img/home--magenta.png"  class="breadcrumb__img" v-if="imageToggle == false"> 
+          </router-link>
+        </li>
+        <li class="breadcrumb-item active">
+          {{ serviceName }}
+        </li>
+      </ol>
+    </nav>
     <form>
-      <div class="container border--magenta form--width rounded mx-auto form-group pb-4">
-        <h3 class="text-center mb-3">{{ serviceName }} bearbeiten</h3>
+      <div class="container border--magenta rounded form-group pb-4">
         <label>Title</label>
         <input type="text" name="name" class="form-control text-center" v-model="services[serviceID].name" value="serviceName">
         <br>
@@ -15,7 +30,7 @@
         <div class=" mx-auto form--width">
           <input type="file" class="form-control-file">  
         </div>      
-        <button class="btn btn-lg w-50 btn-primary" type="submit">Speichern</button>
+        <button class="btn btn-lg w-50 btn-primary" type="" >Save</button>
       </div>
     </form>
   </section>
@@ -28,7 +43,8 @@ export default {
   data: function() {
     return {
       services: json,
-      serviceID: -1
+      serviceID: -1,
+      imageToggle: true
     };
   },
   computed: {
@@ -63,7 +79,19 @@ export default {
   .form--width{
     width: 50%;
   }
+  
+  .breadcrumb__link{
+    color: black;
+  }
+  .breadcrumb__link:hover{
+    color: var(--magenta);
+    cursor: pointer;
+  }
 
+  .breadcrumb__img{
+    height: 20px;
+    width: 20px;
+  }
   /*Table*/
   @media only screen and (max-width: 1200px){
     .form--width{

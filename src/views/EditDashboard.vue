@@ -1,8 +1,28 @@
 <template>
-  <section  class="mt-4">
+  <section  class="mt-4 form--width mx-auto">
+    <h2 class="text-center mb-3">{{dashboardName }} bearbeiten</h2>
+    <nav class="">
+      <ol class="breadcrumb bg-white">
+        <li class="breadcrumb-item" @mouseover="imageToggle = false" @mouseleave="imageToggle = true">
+          <router-link
+                  class="breadcrumb__link"
+                  :to="'/'" >
+            <img src="@/assets/img/home.png"  class="breadcrumb__img" v-if="imageToggle == true">
+            <img src="@/assets/img/home--magenta.png"  class="breadcrumb__img" v-if="imageToggle == false"> 
+          </router-link>
+        </li>
+        <li class="breadcrumb-item">
+          <router-link
+                  class=" breadcrumb__link"
+                  :to="'/dashboards/' + serviceName "> {{ serviceName }}</router-link>
+        </li>
+        <li class="breadcrumb-item active">
+          {{ dashboardName }}
+        </li>
+      </ol>
+    </nav>
     <form>
-      <div class="container border--magenta rounded form--width mx-auto form-group pb-4">
-        <h2 class="text-center mb-3">{{dashboardName }} bearbeiten</h2>
+      <div class="container border--magenta rounded form-group pb-4">
         <p>Titel</p>
         <input type="text" class="form-control text-center" name="" placeholder="Titel" v-model="services[1].dashboards[1].name">
         <p>Beschreibung</p>
@@ -10,40 +30,72 @@
         <hr class="bg-magenta">
         
         <div class="container border rounded">
-          <p>Diagramm 1</p>
-          <label>Model</label>
-          <select class="form-control">
-            <option>Model_1</option>
-          </select>
-          <br>
-          <label>Zeitparameter</label>
-          <select class="form-control">
-            <option>5 min</option>
-          </select>
-          <br>
-          <label>Wählen Sie einen Diagrammtypen</label>
-          <div class="container">
-            <div class="row">
-              <div class="col">
-                <div class="col-sm-14 border img--size">
-                  <img src="@/assets/img/diagramm.png" class="img-fluid img-thumb">
+          <a class="paragraphLink" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <p>Diagramm 1 ⮟</p>
+          </a>
+          <div id="collapseExample" class="collapse">
+            <label>Model</label>
+            <select class="form-control">
+              <option>Model_1</option>
+            </select>
+            <br>
+            <label>Zeitparameter</label>
+            <select class="form-control">
+              <option>5 min</option>
+            </select>
+            <br>
+            <label>Wählen Sie einen Diagrammtypen</label>
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <div class="col-sm-14 border img--size">
+                    <img src="@/assets/img/diagramm.png" class="img-fluid img-thumb">
+                  </div>
                 </div>
-              </div>
-              <div class="col">
-                <div class="col-sm-14 border img--size">
-                  <img src="@/assets/img/diagramm.png" class="img-fluid img-thumb">
+                <div class="col">
+                  <div class="col-sm-14 border img--size">
+                    <img src="@/assets/img/diagramm.png" class="img-fluid img-thumb">
+                  </div>
                 </div>
-              </div>
-            </div>            
+              </div>            
+            </div>
+            <br>
           </div>
-          <br>
         </div>
         <br>
-        <p>
-          {{ serviceID }}
-          : 
-          {{ dashboardID }}
-        </p>
+        <div class="container border rounded">
+          <a class="paragraphLink" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <p>Diagramm 1 ⮟</p>
+          </a>
+          <div id="collapseExample" class="collapse">
+            <label>Model</label>
+            <select class="form-control">
+              <option>Model_1</option>
+            </select>
+            <br>
+            <label>Zeitparameter</label>
+            <select class="form-control">
+              <option>5 min</option>
+            </select>
+            <br>
+            <label>Wählen Sie einen Diagrammtypen</label>
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <div class="col-sm-14 border img--size">
+                    <img src="@/assets/img/diagramm.png" class="img-fluid img-thumb">
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="col-sm-14 border img--size">
+                    <img src="@/assets/img/diagramm.png" class="img-fluid img-thumb">
+                  </div>
+                </div>
+              </div>            
+            </div>
+            <br>
+          </div>
+        </div>
         <button class="btn btn-lg w-50 btn-primary" type="submit">Speichern</button>
       </div>
     </form>
@@ -59,7 +111,8 @@ export default {
     return {
       services: json,
       serviceID: -1,
-      dashboardID: -1
+      dashboardID: -1,
+      imageToggle: true
     };
   },
   computed: {
@@ -103,7 +156,28 @@ export default {
   .form--width{
     width: 50%;
   }
+  
+  .paragraphLink{
+    text-decoration: none;
+    color: black;
+    font-size: 1.1em;
+  }
+  .paragraphLink:hover{
+    color: var(--magenta);
+  }
 
+  .breadcrumb__link{
+    color: black;
+  }
+  .breadcrumb__link:hover{
+    color: var(--magenta);
+    cursor: pointer;
+  }
+
+  .breadcrumb__img{
+    height: 20px;
+    width: 20px;
+  }
   /*Table*/
   @media only screen and (max-width: 1200px){
     .form--width{

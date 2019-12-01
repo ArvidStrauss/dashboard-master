@@ -1,5 +1,21 @@
 <template>
   <div class="container w-75 mx-auto mt-4">
+    <h3> {{ serviceName }} </h3>
+    <nav class="mx-auto w-100">
+      <ol class="breadcrumb bg-white">
+        <li class="breadcrumb-item" @mouseover="imageToggle = false" @mouseleave="imageToggle = true">
+          <router-link
+                  class="breadcrumb__link"
+                  :to="'/'" >
+            <img src="@/assets/img/home.png"  class="breadcrumb__img" v-if="imageToggle == true">
+            <img src="@/assets/img/home--magenta.png"  class="breadcrumb__img" v-if="imageToggle == false"> 
+          </router-link>
+        </li>
+        <li class="breadcrumb-item active">
+          {{ serviceName }}
+        </li>
+      </ol>
+    </nav>
     <div v-for="(dashboard, index) in service.dashboards" :key="index">
       <div class="row mb-4">
         <div class="card w-100">
@@ -42,8 +58,9 @@ export default {
   name: "Dashboards",
   data: function() {
     return {
-      services: []
-    
+      services: [],
+      imageToggle: true
+      
     };
   },
   computed: {
@@ -52,12 +69,12 @@ export default {
     },
     service: function() {
       return this.services.find(element => element.name == this.serviceName);
-    },
+    }
   },
   methods: {
     removeEntry:function(index) {
         this.$delete(this.service.dashboards, index);
-    }
+    },
   },
   mounted() {
     const baseURI = 'https://api.myjson.com/bins/1cpyp2'
@@ -76,17 +93,19 @@ export default {
   a{
     cursor: pointer;
   }
-  .active{
+  .nav-link.active{
+    color: black !important;
+  }
+  .nav-link.active:hover{
     color: var(--magenta) !important;
-    font-weight: bold;
   }
   .nav .nav-item a{
     color: white;
     font-size: 13pt;
   }
   .nav .nav-item a:hover{
-    border-bottom: 1px solid var(--cyan);
-    font-weight: bold;
+    border-bottom: 1px solid var(--white);
+    font-weight: bolder;
   }
   .card__header{
     display: grid;
@@ -103,7 +122,19 @@ export default {
   .row .card .card-header {
     background-color: var(--cyan) !important;
   }
+  
+  .breadcrumb__link{
+    color: black;
+  }
+  .breadcrumb__link:hover{
+    color: var(--magenta);
+    cursor: pointer;
+  }
 
+  .breadcrumb__img{
+    height: 20px;
+    width: 20px;
+  }
   @media only screen and (max-width: 1025px){
     .card__header{
       grid-template-columns: 60% auto;
