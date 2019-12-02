@@ -141,6 +141,10 @@ export default {
     display: none;
   }
 
+  hr{
+    background-color: var(--magenta);
+  }
+
   .img--size{
     width: 200px;
     height: 200px;

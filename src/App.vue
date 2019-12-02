@@ -34,8 +34,8 @@ export default {
   --white: #FBFBFB !important;
   --black: rgb(75, 75, 75);
   --superlightgrey: rgb(238, 238, 238);
-  --lightgrey: #a4a4a4;
-  --darkgrey: #6c6c6c;
+  --lightgrey: #a4a4a4 !important;
+  --darkgrey: #6c6c6c !important;
   --darkblue: rgb(16, 99, 173);
   --lightblue: rgb(83, 186, 242);
   --cyan: #1bada2 !important;

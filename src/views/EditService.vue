@@ -64,7 +64,7 @@ export default {
 
 <style scoped>
   hr{
-    background-color: #E20074;
+    background-color: var(--magenta);
   }
   
   .img--size{

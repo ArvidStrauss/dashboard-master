@@ -5,10 +5,6 @@ a{
 	cursor: pointer;
 }
 
-hr{
-	background-color: var(--magenta);
-}
-
 /* Colours */
 .bg-primary{
 	background-color: var(--cyan) !important;
@@ -21,6 +17,10 @@ hr{
 	border-color: var(--magenta);
 }
 
+.border--grey{
+	border-color: var(--darkgrey) !important;
+	border-width: 1px;
+}
 /* Buttons */
 
 .btn.btn-primary {
@@ -30,6 +30,24 @@ hr{
 }
 .btn.btn-primary:hover {
 	background-color: #199E94;
+}
+
+.normalButton{
+	display: block;
+	padding: 6px;
+	background-color: var(--darkgrey);
+	color: white;
+	border-radius: 1px;
+	border: none;
+	outline: none;
+}
+
+.normalButton:hover{
+	padding: 7px;
+}
+
+.normalButton:focus{
+	outline: none;
 }
 
 .fancyButton{
@@ -62,6 +80,10 @@ hr{
 }
 
 /* other Components */
+
+.routerLink:hover {
+	text-decoration: none;
+}
 
 .breadcrumb__link{
 	color: black;

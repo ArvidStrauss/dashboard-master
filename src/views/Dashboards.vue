@@ -18,9 +18,9 @@
     </nav>
     <div class="">
       <router-link
-                  class="btn btn-secondary pull-left"
+                  class="routerLink pull-left"
                   :to="'/dashboards/' +serviceName +'/new/dashboard'">
-                New Dashboard
+        <button class="normalButton">+ New Dashboard</button>
       </router-link> 
     </div>
     <br>
@@ -63,6 +63,7 @@
 
 <script>
 
+import json from "@/assets/services.json";
 export default {
   name: "Dashboards",
   data: function() {
@@ -85,12 +86,15 @@ export default {
         this.$delete(this.service.dashboards, index);
     },
   },
+  created(){
+    this.services=json;
+  },
   mounted() {
-    const baseURI = 'https://api.myjson.com/bins/1cpyp2'
+    /*const baseURI = 'https://api.myjson.com/bins/1cpyp2'
       this.$http.get(baseURI)
       .then((result) => {
         this.services = result.data
-      });
+      });*/
   }
 };
 </script>

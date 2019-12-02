@@ -18,9 +18,6 @@
         </li>
       </ol>
     </nav>
-    <p>
-    	{{ services }}
-    </p>
     <form>
       <div class="container border--magenta rounded form-group pb-4">
         <label>Title</label>
@@ -75,7 +72,6 @@
         <button class="btn btn-lg w-50 btn-primary" type="submit">Speichern</button>
       </div>
     </form>
-    <button @click="add()">Add</button>
   </section>
 </template>
 
@@ -116,13 +112,6 @@ export default {
         document.getElementById("radioBtnLineChart").checked=true;
       }
     },
-    add: function(){
-    	this.services[this.serviceID].dashboards.push({
-        name: "",
-        description: "",
-        metrics: []
-      });
-    }
   },
   mounted(){
     this.services = json;
@@ -140,6 +129,10 @@ export default {
   
   input[type="radio"]{
     display: none;
+  }
+
+  hr{
+    background-color: var(--magenta);
   }
 
   .img--size{

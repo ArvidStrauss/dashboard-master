@@ -2,12 +2,12 @@
   <div v-if="services" class="services">
     <div v-if="panel == 0" class="w-100">
       <transition name="fade">
-        <button class="float-right btn btn-sm btn-secondary mr-2 mt-1" v-on:click="showPanel()">Show Info</button>
+        <button class="float-right normalButton mr-2 mt-1" v-on:click="showPanel()">Show Info</button>
       </transition>
     </div>
     <div v-if="panel == 1" class="w-100">
       <transition name="fade">
-        <button class="float-right btn btn-sm btn-secondary mr-2 mt-1" v-on:click="hidePanel()">Close Info</button>
+        <button class="float-right normalButton mr-2 mt-1" v-on:click="hidePanel()">Close Info</button>
       </transition>
     </div>
     <transition name="fade">
@@ -25,10 +25,13 @@
     <br v-if="panel== 0">
     <br>
     <h3>Services</h3>
+    <br>
     <div class="w-75 mx-auto">
       <router-link
-                  class="btn btn-secondary pull-left"
-                  :to="'/new/service'">New Service</router-link> 
+                  class="routerLink pull-left"
+                  :to="'/new/service'">
+        <button class="normalButton">+ New Service</button>
+      </router-link> 
     </div>
     <br>
     <br>
@@ -36,11 +39,11 @@
       <div v-for="(service, index) in services" :key="index">
         
         <!--Die Service Card -->
-        <div class="card" style="width: 18rem;">
+        <div class="card border--grey" style="width: 18rem;">
           <router-link
                   class="btn"
                   :to="'/edit/' +service.name">Edit</router-link> 
-          <img class="card-img-top border-bottom" :src="service.image" :alt="service.alt"> <!--zum Test hardcodiert-->
+          <img class="card-img-top border-bottom border--grey" :src="service.image" :alt="service.alt"> <!--zum Test hardcodiert-->
           <div class="card-body">
             <h3 class="card-title " >{{ service.name }}</h3>
             <p class="card-text" >{{ service.desc }}</p>
@@ -99,7 +102,7 @@ export default {
   img{
     height: 150px;
   }
-
+  
   .panel--hide{
     display: none;
   }
