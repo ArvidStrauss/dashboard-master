@@ -26,47 +26,53 @@
         <label>Description</label>
         <textarea rows="3" class="form-control text-center" placeholder="Beschreibung" v-model="services[serviceID].dashboards[services[serviceID].dashboards.length -1].description"></textarea>
         <hr class="bg-magenta">
-        <button class="btn btn-primary w-50">Add new chart</button>
-        <div class="container border rounded">
-          <a class="paragraphLink" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-            <p>Chart 1 ⮟</p>
-          </a>
-          <div id="collapseExample" class="collapse">
-            <label>Model</label>
-            <select class="form-control">
-              <option>Model_1</option>
-            </select>
-            <br>
-            <label>Requested Time</label>
-            <select class="form-control">
-              <option>5 min</option>
-            </select>
-            <br>
-            <label>Choose a chart type</label>
-            <br>
-            <input type="radio" name="chart" id="radioBtnPointChart">
-            <input type="radio" name="chart" id="radioBtnLineChart">
-            
-            <div class="container">
-              <div class="row">
-                <div class="col">
-                  <div class="col-sm-14 border img--size" v-on:click="radioCheck('Point')">
-                    <img src="@/assets/img/diagramm.png" class="img-fluid img-thumb">
-                    <label>Point Chart</label>
+        <a class="btn btn-primary w-50 text-white" @click="addChart()">Add new chart</a>
+        <div v-for="(metric, index) in services[serviceID].dashboards[services[serviceID].dashboards.length -1].metrics" :key="index">
+            <div class="container border rounded">
+              <a class="paragraphLink" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                <p>Chart {{ metric.name }} ⮟</p>
+              </a>
+              <div id="collapseExample" class="collapse">
+                <br>
+                <label>Name</label>
+                <input type="text" name="" class="form-control" v-model="metric.name">
+                <br>
+                <label>Model</label>
+                <select class="form-control">
+                  <option>Model_1</option>
+                </select>
+                <br>
+                <label>Requested Time</label>
+                <select class="form-control">
+                  <option>5 min</option>
+                </select>
+                <br>
+                <label>Choose a chart type</label>
+                <br>
+                <input type="radio" name="chart" id="radioBtnPointChart">
+                <input type="radio" name="chart" id="radioBtnLineChart">
+                
+                <div class="container">
+                  <div class="row">
+                    <div class="col">
+                      <div class="col-sm-14 border img--size" v-on:click="radioCheck('Point')">
+                        <img src="@/assets/img/diagramm.png" class="img-fluid img-thumb">
+                        <label>Point Chart</label>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="col-sm-14 border img--size" v-on:click="radioCheck('Line')">
+                        <img src="@/assets/img/diagramm.png" class="img-fluid img-thumb">
+                        <label>Line Chart</label>
+                      </div>
+                    </div>
                   </div>
+                  <br>            
                 </div>
-                <div class="col">
-                  <div class="col-sm-14 border img--size" v-on:click="radioCheck('Line')">
-                    <img src="@/assets/img/diagramm.png" class="img-fluid img-thumb">
-                    <label>Line Chart</label>
-                  </div>
-                </div>
+                <br>
               </div>
-              <br>            
             </div>
-            <br>
           </div>
-        </div>
         <hr>
         <br>
         <button class="btn btn-lg w-50 btn-primary" type="submit">Speichern</button>
@@ -112,6 +118,11 @@ export default {
         document.getElementById("radioBtnLineChart").checked=true;
       }
     },
+    addChart: function(){
+      this.services[this.serviceID].dashboards[this.services[this.serviceID].dashboards.length -1].metrics.push({
+        name: ''
+      });
+    }
   },
   mounted(){
     this.services = json;
@@ -119,7 +130,11 @@ export default {
     this.services[this.serviceID].dashboards.push({
         name: "",
         description: "",
-        metrics: []
+        metrics: [
+          {
+            name: ""
+          }
+        ]
       });
   }
 };
