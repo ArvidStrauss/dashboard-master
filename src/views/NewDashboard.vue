@@ -1,6 +1,15 @@
 <template>
-  <section  v-if="services" class="mt-4 form--width mx-auto">
-    <h2 class="text-center mb-3">add new Dashboard to {{ serviceName }}</h2>
+  <section  v-if="dashboards" class="mt-4 form--width mx-auto border--magenta px-2">
+    <div>
+      <router-link
+                  class="pull-right breadcrumb__link mr-2"
+                  :to="'/dashboards/' + serviceName "><i class="fa fa-times" style="font-size: 25pt"></i> </router-link>
+      <br>
+    </div>
+    <br>
+    <div>
+      <h2 class="text-center mb-3">add new Dashboard to {{ serviceName }}</h2>
+    </div>
     <nav class="">
       <ol class="breadcrumb bg-white">
         <li class="breadcrumb-item" @mouseover="imageToggle = false" @mouseleave="imageToggle = true">
@@ -19,61 +28,12 @@
       </ol>
     </nav>
     <form>
-      <div class="container border--magenta rounded form-group pb-4">
+      <div class="container form-group pb-4">
         <label>Title</label>
-        <input type="text" class="form-control text-center" name="" placeholder="Titel" v-model="services[serviceID].dashboards[services[serviceID].dashboards.length -1].name">
+        <input type="text" class="form-control text-center" name="" placeholder="Titel" v-model="dashboards[dashboards.length -1].name">
         <br>
         <label>Description</label>
-        <textarea rows="3" class="form-control text-center" placeholder="Beschreibung" v-model="services[serviceID].dashboards[services[serviceID].dashboards.length -1].description"></textarea>
-        <hr class="bg-magenta">
-        <a class="btn btn-primary w-50 text-white" @click="addChart()">Add new chart</a>
-        <div v-for="(metric, index) in services[serviceID].dashboards[services[serviceID].dashboards.length -1].metrics" :key="index">
-            <div class="container border rounded">
-              <a class="paragraphLink" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                <p>Chart {{ metric.name }} ⮟</p>
-              </a>
-              <div id="collapseExample" class="collapse">
-                <br>
-                <label>Name</label>
-                <input type="text" name="" class="form-control" v-model="metric.name">
-                <br>
-                <label>Model</label>
-                <select class="form-control">
-                  <option>Model_1</option>
-                </select>
-                <br>
-                <label>Requested Time</label>
-                <select class="form-control">
-                  <option>5 min</option>
-                </select>
-                <br>
-                <label>Choose a chart type</label>
-                <br>
-                <input type="radio" name="chart" id="radioBtnPointChart">
-                <input type="radio" name="chart" id="radioBtnLineChart">
-                
-                <div class="container">
-                  <div class="row">
-                    <div class="col">
-                      <div class="col-sm-14 border img--size" v-on:click="radioCheck('Point')">
-                        <img src="@/assets/img/diagramm.png" class="img-fluid img-thumb">
-                        <label>Point Chart</label>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="col-sm-14 border img--size" v-on:click="radioCheck('Line')">
-                        <img src="@/assets/img/diagramm.png" class="img-fluid img-thumb">
-                        <label>Line Chart</label>
-                      </div>
-                    </div>
-                  </div>
-                  <br>            
-                </div>
-                <br>
-              </div>
-            </div>
-          </div>
-        <hr>
+        <textarea rows="3" class="form-control text-center" placeholder="Beschreibung" v-model="dashboards[dashboards.length -1].description"></textarea>
         <br>
         <button class="btn btn-lg w-50 btn-primary" type="submit">Speichern</button>
       </div>
@@ -82,14 +42,13 @@
 </template>
 
 <script>
-import json from "@/assets/services.json";
+import json from "@/assets/dashboards.json";
 
 export default {
   name: "EditDashboards",
   data: function() {
     return {
-      services: null,
-      serviceID: -1,
+      dashboards: null,
       imageToggle: true
     };
   },
@@ -99,14 +58,6 @@ export default {
     },
     dashboardName: function() {
       return this.$route.params.dashboard;
-    },
-    dashboard: function() {
-      return this.services
-        .find(element => element.name == this.serviceName)
-        .dashboards.find(element => element.name == this.dashboardName);
-    },
-    service: function() {
-      return this.services.find(element => element.name == this.serviceName);
     }
   },
   methods:{
@@ -118,18 +69,14 @@ export default {
         document.getElementById("radioBtnLineChart").checked=true;
       }
     },
-    addChart: function(){
-      this.services[this.serviceID].dashboards[this.services[this.serviceID].dashboards.length -1].metrics.push({
-        name: ''
-      });
-    }
   },
   mounted(){
-    this.services = json;
-    this.serviceID = this.services.map(function(e) { return e.name; }).indexOf(this.$route.params.service);
-    this.services[this.serviceID].dashboards.push({
+    this.dashboards = json;
+    
+    this.dashboards.push({
         name: "",
         description: "",
+        service: this.serviceName,
         metrics: [
           {
             name: ""

@@ -1,13 +1,13 @@
 <template>
   <div v-if="services" class="services">
-    <div v-if="panel == 0" class="w-100">
+    <div v-if="panel == 0" class="w-100 pr-4">
       <transition name="fade">
-        <button class="float-right normalButton mr-2 mt-1" v-on:click="showPanel()">Show Info</button>
+        <button class="float-right normalButton mt-2" v-on:click="showPanel()">Show Info</button>
       </transition>
     </div>
-    <div v-if="panel == 1" class="w-100">
+    <div v-if="panel == 1" class="w-100 pr-4">
       <transition name="fade">
-        <button class="float-right normalButton mr-2 mt-1" v-on:click="hidePanel()">Close Info</button>
+        <button class="float-right normalButton mt-2" v-on:click="hidePanel()">Close Info</button>
       </transition>
     </div>
     <transition name="fade">
@@ -26,29 +26,19 @@
     <br>
     <h3>Services</h3>
     <br>
-    <div class="w-75 mx-auto">
-      <router-link
-                  class="routerLink pull-left"
-                  :to="'/new/service'">
-        <button class="normalButton">+ New Service</button>
-      </router-link> 
-    </div>
-    <br>
     <br>
     <div class=" w-75 mx-auto service__grid">
       <div v-for="(service, index) in services" :key="index">
         
         <!--Die Service Card -->
-        <div class="card border--grey" style="width: 18rem;">
-          <router-link
-                  class="btn"
-                  :to="'/edit/' +service.name">Edit</router-link> 
+        <div class="card border--grey" style="width: 18rem;"> 
           <img class="card-img-top border-bottom border--grey" :src="service.image" :alt="service.alt"> <!--zum Test hardcodiert-->
           <div class="card-body">
             <h3 class="card-title " >{{ service.name }}</h3>
             <p class="card-text" >{{ service.desc }}</p>
             <router-link class="fancyButton" :to="'/dashboards/' +service.name">
-              Select
+              Open 
+              <i class="fa fa-step-forward"></i>
             </router-link> 
           </div>
         </div>
@@ -69,12 +59,6 @@ export default {
     };
   },
   computed: {
-    serviceName: function() {
-      return this.$route.params.service;
-    },
-    service: function() {
-      return this.services.find(element => element.name == this.serviceName);
-    }
   },
   methods: {
     hidePanel: function(){
