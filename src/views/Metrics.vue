@@ -1,20 +1,67 @@
 <template>
-  <div class="metrics">
-    <div v-for="(metric, index) in dashboard.metrics" :key="index">
-      <button class="btn btn-primary">{{ metric.name }}</button>
+  <div v-if="services" class="container mt-4">
+    <h3> {{ dashboardName}} </h3>
+    <br>
+    <div class="w-100 pr-4">
+      <router-link
+                  class="routerLink pull-right"
+                  :to="'/metrics/' +serviceName +'/' +dashboardName +'/new'">
+        <button class="normalButton">
+          <i class="fa fa-plus"></i> New Diagram
+        </button>
+      </router-link> 
+    </div>
+    <br>
+    <div class="w-75 mx-auto">
+      <nav class="">
+        <ol class="breadcrumb bg-white">
+          <li class="breadcrumb-item" @mouseover="imageToggle = false" @mouseleave="imageToggle = true">
+            <router-link
+                    class="breadcrumb__link"
+                    :to="'/'" >
+              <img src="@/assets/img/home.png"  class="breadcrumb__img" v-if="imageToggle == true">
+              <img src="@/assets/img/home--magenta.png"  class="breadcrumb__img" v-if="imageToggle == false"> 
+            </router-link>
+          </li>
+          <li class="breadcrumb-item">
+            <router-link
+                    class=" breadcrumb__link"
+                    :to="'/dashboards/' + serviceName "> {{ serviceName }}</router-link>
+          </li>
+          <li class="breadcrumb-item active">
+            {{ dashboardName }}
+          </li>
+        </ol>
+      </nav>
+      <div v-for="(metric, index) in dashboard.metrics" :key="index">
+        {{ metric.name }}
+        <a class="" id="" v-on:click="removeEntry(index)">
+          <button class="button--right">
+            <i class="fa fa-trash"></i> Delete
+          </button>
+        </a> 
+        <router-link
+            class=""
+            :to="'/metrics/' +serviceName +'/' +dashboardName +'/edit/' +metric.name">
+            <button >
+              <i class="fa fa-edit"></i> Edit
+            </button>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import json from "@/assets/services.json";
 
+import json from "@/assets/dashboards.json";
 export default {
-  name: "Metrics",
-  components: {},
+  name: "Dashboards",
   data: function() {
     return {
-      services: json
+      services: null,
+      imageToggle: true
+      
     };
   },
   computed: {
@@ -25,10 +72,35 @@ export default {
       return this.$route.params.dashboard;
     },
     dashboard: function() {
-      return this.services
-        .find(element => element.name == this.serviceName)
-        .dashboards.find(element => element.name == this.dashboardName);
+      return this.services.find(element => element.name == this.dashboardName);
     }
+  },
+  methods: {
+    removeEntry:function(index) {
+        this.$delete(this.dashboard.metrics, index);
+    },
+  },
+  created(){
+    this.services=json;
+  },
+  mounted() {
+    /*const baseURI = 'http://172.17.0.2:8000/GetServices'
+      this.$http.get(baseURI)
+      .then((result) => {
+        this.services = result.data
+      });
+    */
   }
 };
 </script>
+
+<style scoped>
+  
+  @media only screen and (max-width: 1025px){
+    
+  }
+  
+  @media only screen and (max-width: 700px){
+    
+  }
+</style>

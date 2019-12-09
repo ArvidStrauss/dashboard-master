@@ -89,6 +89,9 @@ export default {
 }
 
 @media only screen and (max-width: 1030px) {
+  .top-nav-bar .search-box img.logo{
+    width: 40px;
+  }
   .top-nav-bar {
     height: 118px;
     border-bottom: 0;

@@ -3,7 +3,7 @@
     <div>
       <router-link
                   class="pull-right breadcrumb__link mr-2"
-                  :to="'/dashboards/' + serviceName "><i class="fa fa-times" style="font-size: 25pt"></i> </router-link>
+                  :to="'/metrics/' + serviceName +'/' +dashboardName "><i class="fa fa-times" style="font-size: 25pt"></i> </router-link>
       <br>
     </div>
     <br>
@@ -25,16 +25,16 @@
                   class=" breadcrumb__link"
                   :to="'/dashboards/' + serviceName "> {{ serviceName }}</router-link>
         </li>
+        <li class="breadcrumb-item active">
+          {{ metricName }}
+        </li>
       </ol>
     </nav>
     <form>
       <div class="container form-group pb-4">
         <label>Title</label>
-        <input type="text" class="form-control text-center" name="" placeholder="Title" v-model="dashboards[dashboards.length -1].name">
-        <br>
-        <label>Description</label>
-        <textarea rows="3" class="form-control text-center" placeholder="Description" v-model="dashboards[dashboards.length -1].description"></textarea>
-        <br>
+        {{ dashboards[currentDashboard] }}
+        <input type="text" class="form-control" name="" v-model="dashboards[currentDashboard].metrics[currentMetric].name">
         <button class="btn btn-lg w-50 btn-primary" type="submit">Speichern</button>
       </div>
     </form>
@@ -58,6 +58,27 @@ export default {
     },
     dashboardName: function() {
       return this.$route.params.dashboard;
+    },
+    metricName: function(){
+      return this.$route.params.metric;
+    },
+    currentDashboard: function() {
+      let i = null;
+      this.dashboards.forEach((dashboard, index) => {
+        if(dashboard.name === this.dashboardName){
+          i = index;
+        }
+      });
+      return i;
+    },
+    currentMetric: function(){
+      let i = null;
+      this.dashboards[this.currentDashboard].metrics.forEach((metric, index) => {
+        if(metric.name === this.metricName){
+          i = index;
+        }
+      });
+      return i;
     }
   },
   methods:{
@@ -67,22 +88,10 @@ export default {
       }
       if(btn == 'Line'){
         document.getElementById("radioBtnLineChart").checked=true;
-      }
-    },
+      }    },
   },
   mounted(){
     this.dashboards = json;
-    
-    this.dashboards.push({
-        name: "",
-        description: "",
-        service: this.serviceName,
-        metrics: [
-          {
-            name: ""
-          }
-        ]
-      });
   }
 };
 </script>

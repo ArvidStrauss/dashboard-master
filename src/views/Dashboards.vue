@@ -5,7 +5,7 @@
     <div class="w-100 pr-4">
       <router-link
                   class="routerLink pull-right"
-                  :to="'/dashboards/' +serviceName +'/new/dashboard'">
+                  :to="'/dashboards/' +serviceName +'/new'">
         <button class="normalButton">
           <i class="fa fa-plus"></i> New Dashboard
         </button>

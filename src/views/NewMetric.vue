@@ -3,7 +3,7 @@
     <div>
       <router-link
                   class="pull-right breadcrumb__link mr-2"
-                  :to="'/dashboards/' + serviceName "><i class="fa fa-times" style="font-size: 25pt"></i> </router-link>
+                  :to="'/metrics/' + serviceName +'/' +dashboardName "><i class="fa fa-times" style="font-size: 25pt"></i> </router-link>
       <br>
     </div>
     <br>
@@ -25,16 +25,37 @@
                   class=" breadcrumb__link"
                   :to="'/dashboards/' + serviceName "> {{ serviceName }}</router-link>
         </li>
+        <li class="breadcrumb-item">
+          <router-link
+                  class=" breadcrumb__link"
+                  :to="'/metrics/' + serviceName +'/' +dashboardName "> {{ dashboardName }}</router-link>
+        </li>
       </ol>
     </nav>
     <form>
       <div class="container form-group pb-4">
         <label>Title</label>
-        <input type="text" class="form-control text-center" name="" placeholder="Title" v-model="dashboards[dashboards.length -1].name">
+        <input type="text" name="" placeholder="Title" class="form-control text-center" v-model="dashboard.metrics[dashboard.metrics.length -1].name">
         <br>
         <label>Description</label>
-        <textarea rows="3" class="form-control text-center" placeholder="Description" v-model="dashboards[dashboards.length -1].description"></textarea>
-        <br>
+        <textarea rows="3" class="form-control text-center" placeholder="Description" v-model="dashboard.metrics[dashboard.metrics.length -1].description"></textarea>
+		<hr>
+		<br>
+		<label>Model</label>
+		<select class="form-control">
+			<option>Model 1</option>
+		</select>
+		<br>
+		<label>Metric</label>
+		<select class="form-control">
+			<option>Metric 1</option>
+		</select>
+		<br>
+		<label>Prediction Time</label>
+		<select class="form-control">
+			<option>5 min</option>
+		</select>
+		<br>
         <button class="btn btn-lg w-50 btn-primary" type="submit">Speichern</button>
       </div>
     </form>
@@ -58,6 +79,9 @@ export default {
     },
     dashboardName: function() {
       return this.$route.params.dashboard;
+    },
+    dashboard: function() {
+      return this.dashboards.find(element => element.name == this.dashboardName);
     }
   },
   methods:{
@@ -73,15 +97,8 @@ export default {
   mounted(){
     this.dashboards = json;
     
-    this.dashboards.push({
-        name: "",
-        description: "",
-        service: this.serviceName,
-        metrics: [
-          {
-            name: ""
-          }
-        ]
+    this.dashboard.metrics.push({
+        name: ""
       });
   }
 };

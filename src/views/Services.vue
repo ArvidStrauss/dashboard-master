@@ -32,7 +32,7 @@
         
         <!--Die Service Card -->
         <div class="card border--grey" style="width: 18rem;"> 
-          <img class="card-img-top border-bottom border--grey" :src="service.image" :alt="service.alt"> <!--zum Test hardcodiert-->
+          <img class="card-img-top border-bottom border--grey" :src="service.image" :alt="service.name"> <!--zum Test hardcodiert-->
           <div class="card-body">
             <h3 class="card-title " >{{ service.name }}</h3>
             <p class="card-text" >{{ service.desc }}</p>
