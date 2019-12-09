@@ -5,10 +5,16 @@
     "description": "lorem ipsume",
     "metrics": [
       {
-        "title": "anomalies"
+        "title": "anomalies",
+        "model": "1",
+        "metric": "2",
+        "predtime": "5"
       },
       {
-        "title": "mittlere quadrat. abweichung"
+        "title": "mittlere quadrat. abweichung",
+        "model": "1",
+        "metric": "2",
+        "predtime": "5"
       }
     ]
   },
@@ -18,10 +24,16 @@
     "description": "lorem ipsume",
     "metrics": [
       {
-        "title": "next 5 minutes"
+        "title": "next 5 minutes",
+        "model": "1",
+        "metric": "2",
+        "predtime": "5"
       },
       {
-        "title": "next 10 minutes"
+        "title": "next 10 minutes",
+        "model": "1",
+        "metric": "2",
+        "predtime": "5"
       }
     ]
   },
@@ -31,10 +43,16 @@
     "description": "lorem ipsume",
     "metrics": [
       {
-        "title": "next 5 minutes"
+        "title": "next 5 minutes",
+        "model": "1",
+        "metric": "2",
+        "predtime": "5"
       },
       {
-        "title": "next 10 years"
+        "title": "next 10 years",
+        "model": "1",
+        "metric": "2",
+        "predtime": "5"
       }
     ]
   },
@@ -44,10 +62,16 @@
     "description": "lorem ipsume",
     "metrics": [
       {
-        "title": "anomalies"
+        "title": "anomalies",
+        "model": "1",
+        "metric": "2",
+        "predtime": "5"
       },
       {
-        "title": "next 10 minutes"
+        "title": "next 10 minutes",
+        "model": "1",
+        "metric": "2",
+        "predtime": "5"
       }
     ]
   }

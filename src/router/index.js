@@ -7,6 +7,7 @@ import EditDashboard from "../views/EditDashboard.vue";
 import NewDashboard from "../views/NewDashboard.vue";
 import NewMetric from "../views/NewMetric.vue";
 import EditMetric from "../views/EditMetric.vue";
+import SelectMetric from "../views/SelectMetric.vue";
 
 Vue.use(VueRouter);
 
@@ -45,6 +46,11 @@ const routes = [
     path: "/metrics/:service/:dashboard/edit/:metric",
     name: "EditMetric",
     component: EditMetric
+  },
+  {
+    path: "/metrics/:service/:dashboard/select/:metric",
+    name: "SelectMetric",
+    component: SelectMetric
   }
 ];
 

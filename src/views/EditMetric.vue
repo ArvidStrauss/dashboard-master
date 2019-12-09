@@ -44,10 +44,11 @@
           <option>Model 1</option>
         </select>
         <br>
-        <label>Metric</label>
-        <select class="form-control">
-          <option>Metric 1</option>
-        </select>
+        <router-link
+                  class="card routerLink breadcrumb__link pt-2"
+                  :to="'/metrics/' +serviceName +'/' +dashboardName +'/select/' +dashboards[dashboardID].metrics[metricID].title">
+          <p>choose Metric</p>        
+        </router-link>
         <br>
         <label>Prediction Time</label>
         <select class="form-control">
