@@ -33,8 +33,27 @@
     <form>
       <div class="container form-group pb-4">
         <label>Title</label>
-        {{ dashboards[currentDashboard] }}
-        <input type="text" class="form-control" name="" v-model="dashboards[currentDashboard].metrics[currentMetric].name">
+        <input type="text" name="" placeholder="Title" class="form-control text-center" v-model="dashboards[dashboardID].metrics[metricID].title">
+        <br>
+        <label>Description</label>
+        <textarea rows="3" class="form-control text-center" placeholder="Description" v-model="dashboards[dashboardID].metrics[metricID].description"></textarea>
+        <hr>
+        <br>
+        <label>Model</label>
+        <select class="form-control">
+          <option>Model 1</option>
+        </select>
+        <br>
+        <label>Metric</label>
+        <select class="form-control">
+          <option>Metric 1</option>
+        </select>
+        <br>
+        <label>Prediction Time</label>
+        <select class="form-control">
+          <option>5 min</option>
+        </select>
+        <br>
         <button class="btn btn-lg w-50 btn-primary" type="submit">Speichern</button>
       </div>
     </form>
@@ -49,7 +68,9 @@ export default {
   data: function() {
     return {
       dashboards: null,
-      imageToggle: true
+      imageToggle: true,
+      dashboardID: -1,
+      metricID: -1
     };
   },
   computed: {
@@ -61,24 +82,6 @@ export default {
     },
     metricName: function(){
       return this.$route.params.metric;
-    },
-    currentDashboard: function() {
-      let i = null;
-      this.dashboards.forEach((dashboard, index) => {
-        if(dashboard.name === this.dashboardName){
-          i = index;
-        }
-      });
-      return i;
-    },
-    currentMetric: function(){
-      let i = null;
-      this.dashboards[this.currentDashboard].metrics.forEach((metric, index) => {
-        if(metric.name === this.metricName){
-          i = index;
-        }
-      });
-      return i;
     }
   },
   methods:{
@@ -92,6 +95,9 @@ export default {
   },
   mounted(){
     this.dashboards = json;
+
+    this.dashboardID = this.dashboards.map(function(e) {return e.name;}).indexOf(this.$route.params.dashboard);
+    this.metricID = this.dashboards[this.dashboardID].metrics.map(function(e) {return e.title;}).indexOf(this.$route.params.metric);
   }
 };
 </script>

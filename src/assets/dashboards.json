@@ -5,10 +5,10 @@
     "description": "lorem ipsume",
     "metrics": [
       {
-        "name": "anomalies"
+        "title": "anomalies"
       },
       {
-        "name": "mittlere quadrat. abweichung"
+        "title": "mittlere quadrat. abweichung"
       }
     ]
   },
@@ -18,10 +18,10 @@
     "description": "lorem ipsume",
     "metrics": [
       {
-        "name": "next 5 minutes"
+        "title": "next 5 minutes"
       },
       {
-        "name": "next 10 minutes"
+        "title": "next 10 minutes"
       }
     ]
   },
@@ -31,10 +31,10 @@
     "description": "lorem ipsume",
     "metrics": [
       {
-        "name": "next 5 minutes"
+        "title": "next 5 minutes"
       },
       {
-        "name": "next 10 years"
+        "title": "next 10 years"
       }
     ]
   },
@@ -44,10 +44,10 @@
     "description": "lorem ipsume",
     "metrics": [
       {
-        "name": "anomalies"
+        "title": "anomalies"
       },
       {
-        "name": "next 10 minutes"
+        "title": "next 10 minutes"
       }
     ]
   }

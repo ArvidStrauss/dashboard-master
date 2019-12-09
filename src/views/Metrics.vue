@@ -34,7 +34,7 @@
         </ol>
       </nav>
       <div v-for="(metric, index) in dashboard.metrics" :key="index">
-        {{ metric.name }}
+        {{ metric.title }}
         <a class="" id="" v-on:click="removeEntry(index)">
           <button class="button--right">
             <i class="fa fa-trash"></i> Delete
@@ -42,7 +42,7 @@
         </a> 
         <router-link
             class=""
-            :to="'/metrics/' +serviceName +'/' +dashboardName +'/edit/' +metric.name">
+            :to="'/metrics/' +serviceName +'/' +dashboardName +'/edit/' +metric.title">
             <button >
               <i class="fa fa-edit"></i> Edit
             </button>
