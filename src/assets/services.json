@@ -1,62 +1,20 @@
 [
-  {
-    "name": "barmer",
-    "image": "../Barmer_Logo.png",
-    "dashboards": [
-      {
-        "name": "requests",
-        "description": "lorem ipsume",
-        "metrics": [
-          {
-            "name": "anomalies"
-          },
-          {
-            "name": "mittlere quadrat. abweichung"
-          }
-        ]
-      },
-      {
-        "name": "response time",
-        "description": "lorem ipsume",
-        "metrics": [
-          {
-            "name": "next 5 minutes"
-          },
-          {
-            "name": "next 10 minutes"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "name": "telekom",
-    "image": "../T_Logo_3c_n_bg.png",
-    "dashboards": [
-      {
-        "name": "303 errors",
-        "description": "lorem ipsume",
-        "metrics": [
-          {
-            "name": "next 5 minutes"
-          },
-          {
-            "name": "next 10 years"
-          }
-        ]
-      },
-      {
-        "name": "405 erros",
-        "description": "lorem ipsume",
-        "metrics": [
-          {
-            "name": "anomalies"
-          },
-          {
-            "name": "next 10 minutes"
-          }
-        ]
-      }
-    ]
-  }
+	{
+		"name": "Siemens",
+		"desc": "Lorem",
+		"image": "../Barmer_Logo.png",
+		"alt": "Siemens"
+	},
+	{
+		"name": "Telekom",
+		"desc": "Lorem",
+		"image": "../T_Logo_3c_n_bg.png",
+		"alt": "Telekom"
+	},
+	{
+		"name": "Barmer",
+		"desc": "Lorem Polorem",
+		"image": "../Barmer_Logo.png",
+		"alt": "Siemens"
+	}
 ]

@@ -1,0 +1,54 @@
+[
+  {
+    "name": "requests",
+    "service": "Telekom",
+    "description": "lorem ipsume",
+    "metrics": [
+      {
+        "title": "anomalies"
+      },
+      {
+        "title": "mittlere quadrat. abweichung"
+      }
+    ]
+  },
+  {
+    "name": "response time",
+    "service": "Telekom",
+    "description": "lorem ipsume",
+    "metrics": [
+      {
+        "title": "next 5 minutes"
+      },
+      {
+        "title": "next 10 minutes"
+      }
+    ]
+  },
+  {
+    "name": "303 errors",
+    "service": "Barmer",
+    "description": "lorem ipsume",
+    "metrics": [
+      {
+        "title": "next 5 minutes"
+      },
+      {
+        "title": "next 10 years"
+      }
+    ]
+  },
+  {
+    "name": "405 erros",
+    "service": "Barmer",
+    "description": "lorem ipsume",
+    "metrics": [
+      {
+        "title": "anomalies"
+      },
+      {
+        "title": "next 10 minutes"
+      }
+    ]
+  }
+]

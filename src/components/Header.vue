@@ -2,26 +2,9 @@
   <div class="top-nav-bar">
     <div class="search-box">
       <img src="@/assets/img/T_Logo_3c_p.png" alt="Plant-Shop-Logo" class="logo" />
-      <h1>Dashboard ML</h1>
-    </div>
-    <div class="menu-bar">
-      <ul>
-        <li>
-          <router-link to="/">
-            <i class="fa fa-home"></i>Services
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/dashboards">
-            <i class="fa fa-user-plus"></i>Dashboards
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/metrics">
-            <i class="fa fa-user"></i>Metrics
-          </router-link>
-        </li>
-      </ul>
+      <router-link class="" :to="'/'">
+        <h1 class="text-center">Dashboard ML</h1>
+      </router-link> 
     </div>
   </div>
 </template>
@@ -34,7 +17,7 @@ export default {
 
 <style scoped>
 .top-nav-bar {
-  height: 57px;
+  max-height: 57px;
   top: 0;
   position: sticky;
   background: var(--white);
@@ -44,12 +27,11 @@ export default {
 
 .search-box {
   display: inline-flex;
-  width: 60%;
 }
 
 .top-nav-bar .search-box img.logo {
   margin: 10px 50px;
-  width: 40px;
+  width: 80px;
 }
 
 .top-nav-bar .search-box a {
@@ -107,6 +89,9 @@ export default {
 }
 
 @media only screen and (max-width: 1030px) {
+  .top-nav-bar .search-box img.logo{
+    width: 40px;
+  }
   .top-nav-bar {
     height: 118px;
     border-bottom: 0;

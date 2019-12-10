@@ -116,7 +116,7 @@ export default {
 }
 
 .footer-distributed h3 span {
-  color: var(--magenta);
+  color: var(--white);
 }
 
 /* Footer links */
