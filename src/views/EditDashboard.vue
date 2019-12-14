@@ -33,10 +33,10 @@
     <form>
       <div class="container form-group pb-4">
         <p class="text-left"> Title </p>
-        <input type="text" class="form-control dashboards" name="" placeholder="Title" v-model="dashboards[dashboardID].name">
+        <input type="text" required class="form-control dashboards" name="" placeholder="Title" v-model="dashboards[dashboardID].name">
         <br>
         <p class="text-left">Description</p>
-        <textarea rows="3" class="form-control dashboards" placeholder="Description" v-model="dashboards[dashboardID].description"></textarea>
+        <textarea rows="3" required class="form-control dashboards" placeholder="Description" v-model="dashboards[dashboardID].description"></textarea>
         <br>
         <button class="btn btn-lg w-50 btn-primary" type="submit">Speichern</button>
       </div>

@@ -34,7 +34,7 @@
         </ol>
       </nav>
       <div v-for="(metric, index) in dashboard.metrics" :key="index">
-        {{ metric }}
+        {{ metric.title }}
         <a class="" id="" v-on:click="removeEntry(index)">
           <button class="button--right">
             <i class="fa fa-trash"></i> Delete

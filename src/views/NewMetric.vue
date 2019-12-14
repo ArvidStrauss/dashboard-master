@@ -35,10 +35,10 @@
     <form>
       <div class="container form-group pb-4">
         <p class="text-left">Title</p>
-        <input type="text" name="" placeholder="Title" class="form-control dashboards" v-model="dashboard.metrics[dashboard.metrics.length -1].title">
+        <input type="text" required name="" placeholder="Title" class="form-control dashboards" v-model="dashboard.metrics[dashboard.metrics.length -1].title">
         <br>
         <p class="text-left">Description</p>
-        <textarea rows="3" class="form-control dashboards" placeholder="Description" v-model="dashboard.metrics[dashboard.metrics.length -1].description"></textarea>
+        <textarea rows="3" required class="form-control dashboards" placeholder="Description" v-model="dashboard.metrics[dashboard.metrics.length -1].description"></textarea>
 		<hr>
 		<br>
 		<router-link
@@ -55,8 +55,8 @@
 		<br>
     <hr>
 		<p class="text-left">Prediction Time</p>
-		<select class="form-control">
-			<option>5 min</option>
+		<select class="form-control" v-model="dashboard.metrics[dashboard.metrics.length -1].predtime" requiered>
+			<option selected>5 min</option>
 		</select>
 		<br>
         <button class="btn btn-lg w-50 btn-primary" type="submit">Speichern</button>
