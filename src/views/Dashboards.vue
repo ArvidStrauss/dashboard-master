@@ -6,7 +6,7 @@
       <router-link
                   class="routerLink pull-right"
                   :to="'/dashboards/' +serviceName +'/new'">
-        <button class="normalButton">
+        <button class="normalButton cursor--add">
           <i class="fa fa-plus"></i> New Dashboard
         </button>
       </router-link> 
@@ -26,7 +26,7 @@
           </li>
         </ol>
       </nav>
-      <div v-for="(dashboard, index) in currentChoice" :key="index">
+      <div v-for="(dashboard, index) in sortedChoice" :key="index">
         <div class="row mb-4">
           <div class="card__grid">
             <div class="card__header pt-2 pb-1">
@@ -80,7 +80,8 @@ export default {
   data: function() {
     return {
       dashboards: null,
-      imageToggle: true
+      imageToggle: true,
+      sorting: -1
       
     };
   },
@@ -96,6 +97,9 @@ export default {
         }
       });
       return dashboardChoice;
+    },
+    sortedChoice: function(){
+      return this.currentChoice.slice(0).sort((a, b) => a.name < b.name ? this.sorting : -this.sorting )
     }
   },
   methods: {
@@ -172,6 +176,11 @@ export default {
     border-right: none;
     border-left: 1px solid var(--lightgrey);
   }
+
+  .cursor--add{
+    cursor: copy;
+  }
+
   .button--right{
     border-bottom-right-radius: 5px;
   }

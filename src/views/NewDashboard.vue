@@ -8,7 +8,7 @@
     </div>
     <br>
     <div>
-      <h2 class="text-center mb-3">add new Dashboard to {{ serviceName }}</h2>
+      <h2 class="dashboards mb-3">add new Dashboard to {{ serviceName }}</h2>
     </div>
     <nav class="">
       <ol class="breadcrumb bg-white">
@@ -29,11 +29,11 @@
     </nav>
     <form>
       <div class="container form-group pb-4">
-        <label>Title</label>
-        <input type="text" class="form-control text-center" name="" placeholder="Title" v-model="dashboards[dashboards.length -1].name">
+        <p class="text-left">Title</p>
+        <input type="text" class="form-control dashboards" name="" placeholder="Title" v-model="dashboards[dashboards.length -1].name">
         <br>
-        <label>Description</label>
-        <textarea rows="3" class="form-control text-center" placeholder="Description" v-model="dashboards[dashboards.length -1].description"></textarea>
+        <p class="text-left">Description</p>
+        <textarea rows="3" class="form-control dashboards" placeholder="Description" v-model="dashboards[dashboards.length -1].description"></textarea>
         <br>
         <button class="btn btn-lg w-50 btn-primary" type="submit">Speichern</button>
       </div>

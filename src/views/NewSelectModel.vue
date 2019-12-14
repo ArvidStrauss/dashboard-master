@@ -3,10 +3,10 @@
     <div>
       <router-link
                   class="pull-right breadcrumb__link mr-2"
-                  :to="'/metrics/' +serviceName +'/' +dashboardName +'/edit/' +dashboards[dashboardID].metrics[metricID].title"><i class="fa fa-arrow-left" style="font-size: 25pt"></i> </router-link>
+                  :to="'/metrics/' +serviceName +'/' +dashboardName +'/new'"><i class="fa fa-arrow-left" style="font-size: 25pt"></i> </router-link>
       <br>
     </div>
-    <h2 class="text-center mb-3">Select a metric for {{ metricName }}</h2>
+    <h2 class="text-center mb-3">Select a model for {{ metricName }}</h2>
     <br>
     <div v-for="(metri, index) in metrica" :key="index">
       <div class="border rounded border--magenta-hover mb-2" v-on:click="editMetric(metri.name)">
@@ -46,15 +46,14 @@ export default {
   },
   methods:{
     editMetric: function(m){
-      let url='/metrics/' +this.serviceName +'/' +this.dashboardName +'/edit/' + this.dashboards[this.dashboardID].metrics[this.metricID].title;
-      this.dashboards[this.dashboardID].metrics[this.metricID].metric = m;
+      let url='/metrics/' +this.serviceName +'/' +this.dashboardName +'new';
+      this.dashboards[this.dashboardID].metrics[this.dashboards[this.dashboardID].metrics.length -1].model = m;
       this.$router.push(url);
     }
   },
   mounted(){
     this.dashboards = json;
     this.dashboardID = this.dashboards.map(function(e) {return e.name;}).indexOf(this.$route.params.dashboard);
-    this.metricID = this.dashboards[this.dashboardID].metrics.map(function(e) {return e.title;}).indexOf(this.$route.params.metric);
   }
 };
 </script>

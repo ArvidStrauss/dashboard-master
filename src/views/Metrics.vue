@@ -6,7 +6,7 @@
       <router-link
                   class="routerLink pull-right"
                   :to="'/metrics/' +serviceName +'/' +dashboardName +'/new'">
-        <button class="normalButton">
+        <button class="normalButton cursor--add">
           <i class="fa fa-plus"></i> New Diagram
         </button>
       </router-link> 
@@ -95,6 +95,9 @@ export default {
 </script>
 
 <style scoped>
+  .cursor--add{
+    cursor: copy;
+  }
   
   @media only screen and (max-width: 1025px){
     

@@ -1,6 +1,6 @@
 [
   {
-    "name": "requests",
+    "name": "xrequests",
     "service": "Telekom",
     "description": "lorem ipsume",
     "metrics": [

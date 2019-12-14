@@ -2,18 +2,18 @@ Dashboard
 -Buttons mit Symbol und Text rechts, keine Reiter X
 -New Button rechts oben X
 -bei mobile buttons unter description anordnen X
--titel linksbündig
--Metrik selektor extra Liste zum auswählen
--NUR liniendiagramm
+-titel linksbündig X
+-Metrik selektor extra Liste zum auswählen X
+-NUR liniendiagramm 
 -Schließen Button rechts oben X
 - Chart Dashbord Editor getrennt X
 -service service 1-1 verbindung, nicht doppel wählbar X
 -Services nur anzeigen, nicht editierbar/hinzufügbar X 
-- alphabetisch dashboards sortieren
+- alphabetisch dashboards sortieren X
 
 
 DASHBOARD
--alphabetisch sortieren
+-alphabetisch sortieren X
 -button rechts oben X
 -mobile buttons unter description X
 -buttons mit symbol und text X
