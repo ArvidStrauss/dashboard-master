@@ -8,7 +8,7 @@
     </div>
     <br>
     <div>
-      <h2 class="text-center mb-3">add new Dashboard to {{ serviceName }}</h2>
+      <h2 class="dashboards mb-3">add new Dashboard to {{ serviceName }}</h2>
     </div>
     <nav class="">
       <ol class="breadcrumb bg-white">
@@ -32,26 +32,29 @@
     </nav>
     <form>
       <div class="container form-group pb-4">
-        <label>Title</label>
-        <input type="text" name="" placeholder="Title" class="form-control text-center" v-model="dashboards[dashboardID].metrics[metricID].title">
+        <p class="text-left">Title</p>
+        <input type="text" required name="" placeholder="Title" class="form-control dashboards" v-model="dashboards[dashboardID].metrics[metricID].title">
         <br>
-        <label>Description</label>
-        <textarea rows="3" class="form-control text-center" placeholder="Description" v-model="dashboards[dashboardID].metrics[metricID].description"></textarea>
+        <p class="text-left">Description</p>
+        <textarea rows="3" required class="form-control dashboards" placeholder="Description" v-model="dashboards[dashboardID].metrics[metricID].description"></textarea>
         <hr>
         <br>
-        <label>Model</label>
-        <select class="form-control">
-          <option>Model 1</option>
-        </select>
+        <router-link
+                  class="card routerLink breadcrumb__link pt-2 pl-4"
+                  :to="'/metrics/' +serviceName +'/' +dashboardName +'/selectMo/' +dashboards[dashboardID].metrics[metricID].title">
+          <p class="text-left">choose Model</p>        
+        </router-link>
         <br>
-        <label>Metric</label>
-        <select class="form-control">
-          <option>Metric 1</option>
-        </select>
+        <router-link
+                  class="card routerLink breadcrumb__link pt-2 pl-4"
+                  :to="'/metrics/' +serviceName +'/' +dashboardName +'/selectMe/' +dashboards[dashboardID].metrics[metricID].title">
+          <p class="text-left">choose Metric</p>        
+        </router-link>
         <br>
-        <label>Prediction Time</label>
-        <select class="form-control">
-          <option>5 min</option>
+        <hr>
+        <p class="text-left">Prediction Time</p>
+        <select class="form-control" required v-model="dashboards[dashboardID].metrics[metricID].predtime">
+          <option selected>5 min</option>
         </select>
         <br>
         <button class="btn btn-lg w-50 btn-primary" type="submit">Speichern</button>

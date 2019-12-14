@@ -6,7 +6,7 @@
       <router-link
                   class="routerLink pull-right"
                   :to="'/metrics/' +serviceName +'/' +dashboardName +'/new'">
-        <button class="normalButton">
+        <button class="normalButton cursor--add" @click="newMetric()">
           <i class="fa fa-plus"></i> New Diagram
         </button>
       </router-link> 
@@ -79,6 +79,14 @@ export default {
     removeEntry:function(index) {
         this.$delete(this.dashboard.metrics, index);
     },
+    newMetric: function(){
+      this.dashboard.metrics.push({
+        title: "",
+        model: "",
+        metric: "",
+        predtime: ""
+      });
+    }
   },
   created(){
     this.services=json;
@@ -95,6 +103,9 @@ export default {
 </script>
 
 <style scoped>
+  .cursor--add{
+    cursor: copy;
+  }
   
   @media only screen and (max-width: 1025px){
     
