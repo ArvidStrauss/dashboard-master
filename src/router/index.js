@@ -61,12 +61,12 @@ const routes = [
     component: SelectModel
   },
   {
-    path: "/metrics/:service/:dashboard/selectMo/new",
+    path: "/metrics/:service/:dashboard/selectMoNew",
     name: "NewSelectModel",
     component: NewSelectModel
   },
   {
-    path: "/metrics/:service/:dashboard/selectMe/new",
+    path: "/metrics/:service/:dashboard/selectMeNew",
     name: "NewSelectMetric",
     component: NewSelectMetric
   }

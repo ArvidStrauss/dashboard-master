@@ -35,7 +35,7 @@
     <form>
       <div class="container form-group pb-4">
         <p class="text-left">Title</p>
-        <input type="text" name="" placeholder="Title" class="form-control dashboards" v-model="dashboard.metrics[dashboard.metrics.length -1].name">
+        <input type="text" name="" placeholder="Title" class="form-control dashboards" v-model="dashboard.metrics[dashboard.metrics.length -1].title">
         <br>
         <p class="text-left">Description</p>
         <textarea rows="3" class="form-control dashboards" placeholder="Description" v-model="dashboard.metrics[dashboard.metrics.length -1].description"></textarea>
@@ -43,13 +43,13 @@
 		<br>
 		<router-link
               class="card routerLink breadcrumb__link pt-2 pl-4"
-              :to="'/metrics/' +serviceName +'/' +dashboardName +'/selectMo/new'">
+              :to="'/metrics/' +serviceName +'/' +dashboardName +'/selectMoNew'">
       <p class="text-left">choose Model</p>        
     </router-link>
     <br>
     <router-link
               class="card routerLink breadcrumb__link pt-2 pl-4"
-              :to="'/metrics/' +serviceName +'/' +dashboardName +'/selectMe/new'">
+              :to="'/metrics/' +serviceName +'/' +dashboardName +'/selectMeNew'">
       <p class="text-left">choose Metric</p>        
     </router-link>
 		<br>
@@ -99,10 +99,6 @@ export default {
   },
   mounted(){
     this.dashboards = json;
-    
-    this.dashboard.metrics.push({
-        name: ""
-      });
   }
 };
 </script>

@@ -6,7 +6,7 @@
       <router-link
                   class="routerLink pull-right"
                   :to="'/metrics/' +serviceName +'/' +dashboardName +'/new'">
-        <button class="normalButton cursor--add">
+        <button class="normalButton cursor--add" @click="newMetric()">
           <i class="fa fa-plus"></i> New Diagram
         </button>
       </router-link> 
@@ -34,7 +34,7 @@
         </ol>
       </nav>
       <div v-for="(metric, index) in dashboard.metrics" :key="index">
-        {{ metric.title }}
+        {{ metric }}
         <a class="" id="" v-on:click="removeEntry(index)">
           <button class="button--right">
             <i class="fa fa-trash"></i> Delete
@@ -79,6 +79,14 @@ export default {
     removeEntry:function(index) {
         this.$delete(this.dashboard.metrics, index);
     },
+    newMetric: function(){
+      this.dashboard.metrics.push({
+        title: "",
+        model: "",
+        metric: "",
+        predtime: ""
+      });
+    }
   },
   created(){
     this.services=json;

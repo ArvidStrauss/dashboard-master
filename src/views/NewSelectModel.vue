@@ -46,7 +46,7 @@ export default {
   },
   methods:{
     editMetric: function(m){
-      let url='/metrics/' +this.serviceName +'/' +this.dashboardName +'new';
+      let url='/metrics/' +this.serviceName +'/' +this.dashboardName +'/new';
       this.dashboards[this.dashboardID].metrics[this.dashboards[this.dashboardID].metrics.length -1].model = m;
       this.$router.push(url);
     }
