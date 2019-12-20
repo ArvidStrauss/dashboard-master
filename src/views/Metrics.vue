@@ -47,7 +47,7 @@
           </li>
         </ol>
       </nav>
-      <draggable v-model="dashboard.metrics" :move="saveDis">
+      <draggable v-model="dashboard.metrics" v-if="screenWidthCheck() === true" :move="saveJson()" class="chart__grid">
         <div v-for="(metric, index) in dashboard.metrics" :key="index">
           {{ metric.title }}
           <a class="" id="" v-on:click="removeEntry(index)">
@@ -70,6 +70,29 @@
           </router-link>
         </div>
       </draggable>
+      <div v-else>
+         <div v-for="(metric, index) in dashboard.metrics" :key="index">
+          {{ metric.title }}
+          <a class="" id="" v-on:click="removeEntry(index)">
+            <button class="button--right">
+              <i class="fa fa-trash"></i> Delete
+            </button>
+          </a>
+          <router-link
+            class=""
+            :to="
+              '/metrics/' +
+                serviceName +
+                '/' +
+                dashboardName +
+                '/edit/' +
+                metric.title
+            "
+          >
+            <button><i class="fa fa-edit"></i> Edit</button>
+          </router-link>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -112,7 +135,15 @@ export default {
         position: this.dashboard.metrics.length + 1
       });
     },
-    saveDis: function() {
+    screenWidthCheck: function(){
+      if(window.screen.width > 1000 ){
+        return true;
+      }
+      else{
+        return false;
+      }
+    },
+    saveJson: function() {
       //this.$http.post('http://localhost:8000/SaveJson', this.services);
     }
   },
@@ -135,9 +166,24 @@ export default {
   cursor: copy;
 }
 
-@media only screen and (max-width: 1025px) {
+/*--------------------------------
+      CSS GRID für die Charts
+  ---------------------------------*/
+.chart__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-row-gap: 1em;
+  grid-column-gap: 1em;
 }
 
-@media only screen and (max-width: 700px) {
+.grid__item {
 }
+
+/*Tablet & Phone*/
+@media only screen and (max-width: 1000px) {
+  .chart__grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
 </style>
