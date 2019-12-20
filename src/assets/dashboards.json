@@ -8,13 +8,15 @@
         "title": "anomalies",
         "model": "1",
         "metric": "2",
-        "predtime": "5"
+        "predtime": "5",
+        "position": "1"
       },
       {
         "title": "mittlere quadrat. abweichung",
         "model": "1",
         "metric": "2",
-        "predtime": "5"
+        "predtime": "5",
+        "position": "2"
       }
     ]
   },
@@ -27,13 +29,15 @@
         "title": "next 5 minutes",
         "model": "1",
         "metric": "2",
-        "predtime": "5"
+        "predtime": "5",
+        "position": "2"
       },
       {
         "title": "next 10 minutes",
         "model": "1",
         "metric": "2",
-        "predtime": "5"
+        "predtime": "5",
+        "position": "1"
       }
     ]
   },
@@ -46,13 +50,15 @@
         "title": "next 5 minutes",
         "model": "1",
         "metric": "2",
-        "predtime": "5"
+        "predtime": "5",
+        "position": "1"
       },
       {
         "title": "next 10 years",
         "model": "1",
         "metric": "2",
-        "predtime": "5"
+        "predtime": "5",
+        "position": "2"
       }
     ]
   },
@@ -65,13 +71,15 @@
         "title": "anomalies",
         "model": "1",
         "metric": "2",
-        "predtime": "5"
+        "predtime": "5",
+        "position": "1"
       },
       {
         "title": "next 10 minutes",
         "model": "1",
         "metric": "2",
-        "predtime": "5"
+        "predtime": "5",
+        "position": "2"
       }
     ]
   }

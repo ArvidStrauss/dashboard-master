@@ -70,7 +70,6 @@ const routes = [
     name: "NewSelectMetric",
     component: NewSelectMetric
   }
-
 ];
 
 const router = new VueRouter({

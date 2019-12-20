@@ -31,7 +31,7 @@ export default {
 :root {
   /* Colour Variables Telekom Brand Design */
   --magenta: rgb(226, 0, 116) !important;
-  --white: #FBFBFB !important;
+  --white: #fbfbfb !important;
   --black: rgb(75, 75, 75);
   --superlightgrey: rgb(238, 238, 238);
   --lightgrey: #a4a4a4 !important;
@@ -63,16 +63,18 @@ body {
   margin-top: 0 vh;
   min-height: 80vh;
 }
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition-property: opacity;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
 }
 
 .fade-enter-active {
-  transition-delay: .3s;
+  transition-delay: 0.3s;
 }
 
-.fade-enter, .fade-leave-active {
-  opacity: 0
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
 }
 </style>
