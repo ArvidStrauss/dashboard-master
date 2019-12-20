@@ -47,7 +47,7 @@
           </li>
         </ol>
       </nav>
-      <draggable v-model="dashboard.metrics">
+      <draggable v-model="dashboard.metrics" :move="saveDis">
         <div v-for="(metric, index) in dashboard.metrics" :key="index">
           {{ metric.title }}
           <a class="" id="" v-on:click="removeEntry(index)">
@@ -111,6 +111,9 @@ export default {
         predtime: "5 min",
         position: this.dashboard.metrics.length +1
       });
+    },
+    saveDis: function(){
+      //this.$http.post('http://localhost:8000/SaveJson', this.services); 
     }
   },
   created() {
