@@ -47,9 +47,13 @@
           </li>
         </ol>
       </nav>
-      <draggable v-model="dashboard.metrics" v-if="screenWidthCheck() === true" :move="saveJson()" class="chart__grid">
+      <draggable
+        v-model="dashboard.metrics"
+        v-if="screenWidthCheck() === true"
+        :move="saveJson()"
+        class="chart__grid"
+      >
         <div v-for="(metric, index) in dashboard.metrics" :key="index">
-          
           <!-- TODO: CHART COMPONENT -->
           {{ metric.title }}
           <a class="" id="" v-on:click="removeEntry(index)">
@@ -70,14 +74,10 @@
           >
             <button><i class="fa fa-edit"></i> Edit</button>
           </router-link>
-        
-
         </div>
       </draggable>
       <div v-else>
-         <div v-for="(metric, index) in dashboard.metrics" :key="index">
-          
-
+        <div v-for="(metric, index) in dashboard.metrics" :key="index">
           <!-- TODO: CHART COMPONENT -->
           {{ metric.title }}
           <a class="" id="" v-on:click="removeEntry(index)">
@@ -98,8 +98,6 @@
           >
             <button><i class="fa fa-edit"></i> Edit</button>
           </router-link>
-
-
         </div>
       </div>
     </div>
@@ -144,16 +142,15 @@ export default {
         position: this.dashboard.metrics.length + 1
       });
     },
-    screenWidthCheck: function(){
-      if(window.screen.width > 1000 ){
+    screenWidthCheck: function() {
+      if (window.screen.width > 1000) {
         return true;
-      }
-      else{
+      } else {
         return false;
       }
     },
     saveJson: function() {
-      //this.$http.post('http://localhost:8000/SaveJson', this.services);
+      //this.$http.post("http://localhost:8000/SaveJson", this.services);
     }
   },
   created() {
@@ -194,5 +191,4 @@ export default {
     grid-template-columns: repeat(1, 1fr);
   }
 }
-
 </style>

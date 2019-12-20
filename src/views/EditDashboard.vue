@@ -54,30 +54,52 @@
         <input
           type="text"
           required
+          id="title"
           class="form-control dashboards"
           name=""
           placeholder="Title"
           v-model="dashboards[dashboardID].name"
+          v-bind:style="
+            validateTitle()
+              ? 'border-color:  #ced4da'
+              : 'border-color: var(--red)'
+          "
         />
         <br />
         <p class="text-left">Description</p>
         <textarea
           rows="3"
           required
+          id="desc"
           class="form-control dashboards"
           placeholder="Description"
           v-model="dashboards[dashboardID].description"
+          v-bind:style="
+            validateDesc()
+              ? 'border-color:  #ced4da'
+              : 'border-color: var(--red)'
+          "
         ></textarea>
         <br />
-        <button class="btn btn-lg w-50 btn-primary" type="submit">
-          Speichern
-        </button>
+        <router-link
+          v-if="validateForm() == true"
+          class="saveButton saveButton--cyan mx-auto w-50"
+          :to="'/dashboards/' + serviceName"
+          @click.native="saveJson"
+        >
+          Save
+        </router-link>
+        <div v-else>
+          <p>Please fill in the form</p>
+          <span class="saveButton saveButton--red w-50 mx-auto">Save</span>
+        </div>
       </div>
     </form>
   </section>
 </template>
 
 <script>
+/*eslint no-console: ["error", { allow: ["warn", "log"] }] */
 import json from "@/assets/dashboards.json";
 
 export default {
@@ -98,13 +120,42 @@ export default {
     }
   },
   methods: {
-    radioCheck: function(btn) {
-      if (btn == "Point") {
-        document.getElementById("radioBtnPointChart").checked = true;
+    saveJson: function() {
+      //this.$http.post("http://localhost:8000/SaveJson", this.services);
+    },
+    //FORM VALIDATIONS
+    validateTitle: function() {
+      let validated = true;
+      let title = this.dashboards[this.dashboardID].name;
+
+      if (title == null || title == "") {
+        validated = false;
       }
-      if (btn == "Line") {
-        document.getElementById("radioBtnLineChart").checked = true;
+      return validated;
+    },
+    validateDesc: function() {
+      let validated = true;
+      let desc = this.dashboards[this.dashboardID].description;
+
+      if (desc == null || desc == "") {
+        validated = false;
       }
+
+      return validated;
+    },
+    validateForm: function() {
+      let validated = true;
+      let title = this.dashboards[this.dashboardID].name;
+      let desc = this.dashboards[this.dashboardID].description;
+
+      if (title == null || title == "") {
+        validated = false;
+      }
+      if (desc == null || desc == "") {
+        validated = false;
+      }
+
+      return validated;
     }
   },
   mounted() {

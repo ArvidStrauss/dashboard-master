@@ -55,6 +55,11 @@
           name=""
           placeholder="Title"
           v-model="dashboards[dashboards.length - 1].name"
+          v-bind:style="
+            validateTitle()
+              ? 'border-color:  #ced4da'
+              : 'border-color: var(--red)'
+          "
         />
         <br />
         <p class="text-left">Description</p>
@@ -64,11 +69,25 @@
           class="form-control dashboards"
           placeholder="Description"
           v-model="dashboards[dashboards.length - 1].description"
+          v-bind:style="
+            validateDesc()
+              ? 'border-color:  #ced4da'
+              : 'border-color: var(--red)'
+          "
         ></textarea>
         <br />
-        <button class="btn btn-lg w-50 btn-primary" type="submit">
-          Speichern
-        </button>
+        <router-link
+          v-if="validateForm() == true"
+          class="saveButton saveButton--cyan mx-auto w-50"
+          :to="'/dashboards/' + serviceName"
+          @click.native="saveJson"
+        >
+          Save
+        </router-link>
+        <div v-else>
+          <p>Please fill in the form</p>
+          <span class="saveButton saveButton--red w-50 mx-auto">Save</span>
+        </div>
       </div>
     </form>
   </section>
@@ -94,13 +113,42 @@ export default {
     }
   },
   methods: {
-    radioCheck: function(btn) {
-      if (btn == "Point") {
-        document.getElementById("radioBtnPointChart").checked = true;
+    saveJson: function() {
+      //this.$http.post("http://localhost:8000/SaveJson", this.services);
+    },
+    //FORM VALIDATIONS
+    validateTitle: function() {
+      let validated = true;
+      let title = this.dashboards[this.dashboards.length - 1].name;
+
+      if (title == null || title == "") {
+        validated = false;
       }
-      if (btn == "Line") {
-        document.getElementById("radioBtnLineChart").checked = true;
+      return validated;
+    },
+    validateDesc: function() {
+      let validated = true;
+      let desc = this.dashboards[this.dashboards.length - 1].description;
+
+      if (desc == null || desc == "") {
+        validated = false;
       }
+
+      return validated;
+    },
+    validateForm: function() {
+      let validated = true;
+      let title = this.dashboards[this.dashboards.length - 1].name;
+      let desc = this.dashboards[this.dashboards.length - 1].description;
+
+      if (title == null || title == "") {
+        validated = false;
+      }
+      if (desc == null || desc == "") {
+        validated = false;
+      }
+
+      return validated;
     }
   },
   mounted() {
