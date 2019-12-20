@@ -75,12 +75,12 @@
 </template>
 
 <script>
-import draggable from 'vuedraggable';
+import draggable from "vuedraggable";
 import json from "@/assets/dashboards.json";
 export default {
   name: "Dashboards",
   components: {
-    draggable,
+    draggable
   },
   data: function() {
     return {
@@ -109,11 +109,11 @@ export default {
         model: "1",
         metric: "1",
         predtime: "5 min",
-        position: this.dashboard.metrics.length +1
+        position: this.dashboard.metrics.length + 1
       });
     },
-    saveDis: function(){
-      //this.$http.post('http://localhost:8000/SaveJson', this.services); 
+    saveDis: function() {
+      //this.$http.post('http://localhost:8000/SaveJson', this.services);
     }
   },
   created() {
