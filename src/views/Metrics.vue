@@ -49,6 +49,8 @@
       </nav>
       <draggable v-model="dashboard.metrics" v-if="screenWidthCheck() === true" :move="saveJson()" class="chart__grid">
         <div v-for="(metric, index) in dashboard.metrics" :key="index">
+          
+          <!-- TODO: CHART COMPONENT -->
           {{ metric.title }}
           <a class="" id="" v-on:click="removeEntry(index)">
             <button class="button--right">
@@ -68,10 +70,15 @@
           >
             <button><i class="fa fa-edit"></i> Edit</button>
           </router-link>
+        
+
         </div>
       </draggable>
       <div v-else>
          <div v-for="(metric, index) in dashboard.metrics" :key="index">
+          
+
+          <!-- TODO: CHART COMPONENT -->
           {{ metric.title }}
           <a class="" id="" v-on:click="removeEntry(index)">
             <button class="button--right">
@@ -91,6 +98,8 @@
           >
             <button><i class="fa fa-edit"></i> Edit</button>
           </router-link>
+
+
         </div>
       </div>
     </div>
