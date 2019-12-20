@@ -1,10 +1,14 @@
 <template>
   <div class="top-nav-bar">
     <div class="search-box">
-      <img src="@/assets/img/T_Logo_3c_p.png" alt="Plant-Shop-Logo" class="logo" />
+      <img
+        src="@/assets/img/T_Logo_3c_p.png"
+        alt="Plant-Shop-Logo"
+        class="logo"
+      />
       <router-link class="" :to="'/'">
         <h1 class="text-center">Dashboard ML</h1>
-      </router-link> 
+      </router-link>
     </div>
   </div>
 </template>
@@ -89,7 +93,7 @@ export default {
 }
 
 @media only screen and (max-width: 1030px) {
-  .top-nav-bar .search-box img.logo{
+  .top-nav-bar .search-box img.logo {
     width: 40px;
   }
   .top-nav-bar {
