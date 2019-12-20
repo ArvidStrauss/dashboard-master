@@ -47,35 +47,41 @@
           </li>
         </ol>
       </nav>
-      <div v-for="(metric, index) in dashboard.metrics" :key="index">
-        {{ metric.title }}
-        <a class="" id="" v-on:click="removeEntry(index)">
-          <button class="button--right">
-            <i class="fa fa-trash"></i> Delete
-          </button>
-        </a>
-        <router-link
-          class=""
-          :to="
-            '/metrics/' +
-              serviceName +
-              '/' +
-              dashboardName +
-              '/edit/' +
-              metric.title
-          "
-        >
-          <button><i class="fa fa-edit"></i> Edit</button>
-        </router-link>
-      </div>
+      <draggable v-model="dashboard.metrics">
+        <div v-for="(metric, index) in dashboard.metrics" :key="index">
+          {{ metric.title }}
+          <a class="" id="" v-on:click="removeEntry(index)">
+            <button class="button--right">
+              <i class="fa fa-trash"></i> Delete
+            </button>
+          </a>
+          <router-link
+            class=""
+            :to="
+              '/metrics/' +
+                serviceName +
+                '/' +
+                dashboardName +
+                '/edit/' +
+                metric.title
+            "
+          >
+            <button><i class="fa fa-edit"></i> Edit</button>
+          </router-link>
+        </div>
+      </draggable>
     </div>
   </div>
 </template>
 
 <script>
+import draggable from 'vuedraggable';
 import json from "@/assets/dashboards.json";
 export default {
   name: "Dashboards",
+  components: {
+    draggable,
+  },
   data: function() {
     return {
       services: null,
