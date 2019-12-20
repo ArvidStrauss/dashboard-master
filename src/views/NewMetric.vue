@@ -63,6 +63,11 @@
           placeholder="Title"
           class="form-control dashboards"
           v-model="dashboard.metrics[dashboard.metrics.length - 1].title"
+          v-bind:style="
+            validateTitle()
+              ? 'border-color:  #ced4da'
+              : 'border-color: var(--red)'
+          "
         />
         <br />
         <p class="text-left">Description</p>
@@ -72,22 +77,39 @@
           class="form-control dashboards"
           placeholder="Description"
           v-model="dashboard.metrics[dashboard.metrics.length - 1].description"
+          v-bind:style="
+            validateDesc()
+              ? 'border-color:  #ced4da'
+              : 'border-color: var(--red)'
+          "
         ></textarea>
         <hr />
         <br />
         <router-link
+          v-if="validateForm() == true"
           class="card routerLink breadcrumb__link pt-2 pl-4"
           :to="'/metrics/' + serviceName + '/' + dashboardName + '/selectMoNew'"
         >
           <p class="text-left">choose Model</p>
         </router-link>
+        <div v-else>
+          <p class="card pt-2 pl-4 pb-2 text-left">
+            Fill in form to choose Model
+          </p>
+        </div>
         <br />
         <router-link
+          v-if="validateForm() == true"
           class="card routerLink breadcrumb__link pt-2 pl-4"
           :to="'/metrics/' + serviceName + '/' + dashboardName + '/selectMeNew'"
         >
           <p class="text-left">choose Metric</p>
         </router-link>
+        <div v-else>
+          <p class="card pt-2 pl-4 pb-2 text-left">
+            Fill in form to choose Metric
+          </p>
+        </div>
         <br />
         <hr />
         <p class="text-left">Prediction Time</p>
@@ -99,9 +121,18 @@
           <option selected>5 min</option>
         </select>
         <br />
-        <button class="btn btn-lg w-50 btn-primary" type="submit">
-          Speichern
-        </button>
+        <router-link
+          v-if="validateForm() == true"
+          class="saveButton saveButton--cyan mx-auto w-50"
+          :to="'/metrics/' + serviceName + '/' + dashboardName"
+          @click.native="saveJson"
+        >
+          Save
+        </router-link>
+        <div v-else>
+          <p>Please fill in the form</p>
+          <span class="saveButton saveButton--red w-50 mx-auto">Save</span>
+        </div>
       </div>
     </form>
   </section>
@@ -132,13 +163,47 @@ export default {
     }
   },
   methods: {
-    radioCheck: function(btn) {
-      if (btn == "Point") {
-        document.getElementById("radioBtnPointChart").checked = true;
+    saveJson: function() {
+      //this.$http.post("http://localhost:8000/SaveJson", this.services);
+    },
+
+    //FORM VALIDATIONS
+    validateTitle: function() {
+      let validated = true;
+      let title = this.dashboard.metrics[this.dashboard.metrics.length - 1]
+        .title;
+
+      if (title == null || title == "") {
+        validated = false;
       }
-      if (btn == "Line") {
-        document.getElementById("radioBtnLineChart").checked = true;
+      return validated;
+    },
+    validateDesc: function() {
+      let validated = true;
+      let desc = this.dashboard.metrics[this.dashboard.metrics.length - 1]
+        .description;
+
+      if (desc == null || desc == "") {
+        validated = false;
       }
+
+      return validated;
+    },
+    validateForm: function() {
+      let validated = true;
+      let title = this.dashboard.metrics[this.dashboard.metrics.length - 1]
+        .title;
+      let desc = this.dashboard.metrics[this.dashboard.metrics.length - 1]
+        .description;
+
+      if (title == null || title == "") {
+        validated = false;
+      }
+      if (desc == null || desc == "") {
+        validated = false;
+      }
+
+      return validated;
     }
   },
   mounted() {
