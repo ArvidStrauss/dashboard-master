@@ -1,20 +1,20 @@
 [
   {
     "name": "Siemens",
-    "desc": "Lorem",
+    "desc": "All Siemens Dashboards",
     "image": "../siemens_logo.png",
-    "alt": "Siemens"
+    "alt": "Siemens-Logo"
   },
   {
     "name": "Telekom",
-    "desc": "Lorem",
+    "desc": "All Telekom Dashboards",
     "image": "../telekom_logo.png",
-    "alt": "Telekom"
+    "alt": "Telekom-Logo"
   },
   {
     "name": "Barmer",
-    "desc": "Lorem Polorem",
+    "desc": "All Barmer Dashboards",
     "image": "../barmer_logo.png",
-    "alt": "Siemens"
+    "alt": "Barmer-Logo"
   }
 ]
