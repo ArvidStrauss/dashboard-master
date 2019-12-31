@@ -6,17 +6,21 @@
         alt="Plant-Shop-Logo"
         class="logo"
       />
-      {{ $t("header.message") }}
       <router-link class="" :to="'/'">
         <h1 class="text-center">Dashboard ML</h1>
       </router-link>
+      <LanguageSwitcher />
     </div>
   </div>
 </template>
 
 <script>
+import LanguageSwitcher from "@/components/LanguageSwitcher.vue";
 export default {
-  name: "Header"
+  name: "Header",
+  components: {
+    LanguageSwitcher
+  }
 };
 </script>
 
