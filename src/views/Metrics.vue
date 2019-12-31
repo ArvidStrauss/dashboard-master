@@ -182,8 +182,8 @@ export default {
   grid-column-gap: 1em;
 }
 
-.grid__item {
-}
+/* .grid__item {
+} */
 
 /*Tablet & Phone*/
 @media only screen and (max-width: 1000px) {
