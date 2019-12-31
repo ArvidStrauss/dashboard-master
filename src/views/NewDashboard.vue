@@ -1,13 +1,11 @@
 <template>
-  <section
-    v-if="dashboards"
-    class="mt-4 form--width mx-auto border--magenta px-2"
-  >
+  <section v-if="dashboards" class="mt-4 form--width mx-auto border--magenta px-2">
     <div>
       <router-link
         class="pull-right breadcrumb__link mr-2"
-        :to="'/dashboards/' + serviceName"
-        ><i class="fa fa-times" style="font-size: 25pt"></i>
+        :to="`/${$i18n.locale}/dashboards/` + serviceName"
+      >
+        <i class="fa fa-times" style="font-size: 25pt"></i>
       </router-link>
       <br />
     </div>
@@ -15,7 +13,7 @@
     <div>
       <h2 class="dashboards mb-3">add new Dashboard to {{ serviceName }}</h2>
     </div>
-    <nav class="">
+    <nav class>
       <ol class="breadcrumb bg-white">
         <li
           class="breadcrumb-item"
@@ -23,11 +21,7 @@
           @mouseleave="imageToggle = true"
         >
           <router-link class="breadcrumb__link" :to="'/'">
-            <img
-              src="@/assets/img/home.png"
-              class="breadcrumb__img"
-              v-if="imageToggle == true"
-            />
+            <img src="@/assets/img/home.png" class="breadcrumb__img" v-if="imageToggle == true" />
             <img
               src="@/assets/img/home--magenta.png"
               class="breadcrumb__img"
@@ -37,11 +31,9 @@
         </li>
         <li class="breadcrumb-item">
           <router-link
-            class=" breadcrumb__link"
-            :to="'/dashboards/' + serviceName"
-          >
-            {{ serviceName }}</router-link
-          >
+            class="breadcrumb__link"
+            :to="`/${$i18n.locale}/dashboards/` + serviceName"
+          >{{ serviceName }}</router-link>
         </li>
       </ol>
     </nav>
@@ -52,7 +44,7 @@
           type="text"
           required
           class="form-control dashboards"
-          name=""
+          name
           placeholder="Title"
           v-model="dashboards[dashboards.length - 1].name"
           v-bind:style="
@@ -81,9 +73,7 @@
           class="saveButton saveButton--cyan mx-auto w-50"
           :to="'/dashboards/' + serviceName"
           @click.native="saveJson"
-        >
-          Save
-        </router-link>
+        >Save</router-link>
         <div v-else>
           <p>Please fill in the form</p>
           <span class="saveButton saveButton--red w-50 mx-auto">Save</span>

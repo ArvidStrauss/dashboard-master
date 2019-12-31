@@ -1,13 +1,11 @@
 <template>
-  <section
-    v-if="dashboards"
-    class="mt-4 form--width mx-auto border--magenta px-2"
-  >
+  <section v-if="dashboards" class="mt-4 form--width mx-auto border--magenta px-2">
     <div>
       <router-link
         class="pull-right breadcrumb__link mr-2"
-        :to="'/metrics/' + serviceName + '/' + dashboardName"
-        ><i class="fa fa-times" style="font-size: 25pt"></i>
+        :to="`/${$i18n.locale}/metrics/` + serviceName + '/' + dashboardName"
+      >
+        <i class="fa fa-times" style="font-size: 25pt"></i>
       </router-link>
       <br />
     </div>
@@ -15,7 +13,7 @@
     <div>
       <h2 class="dashboards mb-3">add new Dashboard to {{ serviceName }}</h2>
     </div>
-    <nav class="">
+    <nav class>
       <ol class="breadcrumb bg-white">
         <li
           class="breadcrumb-item"
@@ -23,11 +21,7 @@
           @mouseleave="imageToggle = true"
         >
           <router-link class="breadcrumb__link" :to="'/'">
-            <img
-              src="@/assets/img/home.png"
-              class="breadcrumb__img"
-              v-if="imageToggle == true"
-            />
+            <img src="@/assets/img/home.png" class="breadcrumb__img" v-if="imageToggle == true" />
             <img
               src="@/assets/img/home--magenta.png"
               class="breadcrumb__img"
@@ -36,20 +30,13 @@
           </router-link>
         </li>
         <li class="breadcrumb-item">
-          <router-link
-            class=" breadcrumb__link"
-            :to="'/dashboards/' + serviceName"
-          >
-            {{ serviceName }}</router-link
-          >
+          <router-link class="breadcrumb__link" :to="'/dashboards/' + serviceName">{{ serviceName }}</router-link>
         </li>
         <li class="breadcrumb-item">
           <router-link
-            class=" breadcrumb__link"
+            class="breadcrumb__link"
             :to="'/metrics/' + serviceName + '/' + dashboardName"
-          >
-            {{ dashboardName }}</router-link
-          >
+          >{{ dashboardName }}</router-link>
         </li>
       </ol>
     </nav>
@@ -59,7 +46,7 @@
         <input
           type="text"
           required
-          name=""
+          name
           placeholder="Title"
           class="form-control dashboards"
           v-model="dashboard.metrics[dashboard.metrics.length - 1].title"
@@ -93,9 +80,7 @@
           <p class="text-left">choose Model</p>
         </router-link>
         <div v-else>
-          <p class="card pt-2 pl-4 pb-2 text-left">
-            Fill in form to choose Model
-          </p>
+          <p class="card pt-2 pl-4 pb-2 text-left">Fill in form to choose Model</p>
         </div>
         <br />
         <router-link
@@ -106,9 +91,7 @@
           <p class="text-left">choose Metric</p>
         </router-link>
         <div v-else>
-          <p class="card pt-2 pl-4 pb-2 text-left">
-            Fill in form to choose Metric
-          </p>
+          <p class="card pt-2 pl-4 pb-2 text-left">Fill in form to choose Metric</p>
         </div>
         <br />
         <hr />
@@ -126,9 +109,7 @@
           class="saveButton saveButton--cyan mx-auto w-50"
           :to="'/metrics/' + serviceName + '/' + dashboardName"
           @click.native="saveJson"
-        >
-          Save
-        </router-link>
+        >Save</router-link>
         <div v-else>
           <p>Please fill in the form</p>
           <span class="saveButton saveButton--red w-50 mx-auto">Save</span>

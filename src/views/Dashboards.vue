@@ -5,7 +5,7 @@
     <div class="w-100 pr-4">
       <router-link
         class="routerLink pull-right"
-        :to="'/dashboards/' + serviceName + '/new'"
+        :to="`/${$i18n.locale}/dashboards/` + serviceName + '/new'"
       >
         <button class="normalButton cursor--add">
           <i class="fa fa-plus"></i> New Dashboard
@@ -21,21 +21,16 @@
             @mouseover="imageToggle = false"
             @mouseleave="imageToggle = true"
           >
-            <router-link class="breadcrumb__link" :to="'/'"
-              ><img
-                src="@/assets/img/home.png"
-                class="breadcrumb__img"
-                v-if="imageToggle == true"
-              /><img
+            <router-link class="breadcrumb__link" :to="'/'">
+              <img src="@/assets/img/home.png" class="breadcrumb__img" v-if="imageToggle == true" />
+              <img
                 src="@/assets/img/home--magenta.png"
                 class="breadcrumb__img"
                 v-if="imageToggle == false"
               />
             </router-link>
           </li>
-          <li class="breadcrumb-item active">
-            {{ serviceName }}
-          </li>
+          <li class="breadcrumb-item active">{{ serviceName }}</li>
         </ol>
       </nav>
       <div v-for="(dashboard, index) in sortedChoice" :key="index">
@@ -52,26 +47,28 @@
               <div class="card__buttons">
                 <div class="card__buttons--item">
                   <router-link
-                    class=""
-                    :to="'/metrics/' + serviceName + '/' + dashboard.name"
+                    class
+                    :to="`/${$i18n.locale}/dashboards/` + serviceName + '/' + dashboard.name"
                   >
-                    <button class="">
+                    <button class>
                       <i class="fa fa-step-forward"></i> Open
                     </button>
                   </router-link>
                 </div>
                 <div class="card__buttons--item">
                   <router-link
-                    class=""
+                    class
                     :to="
-                      '/dashboards/' + serviceName + '/edit/' + dashboard.name
+                      `/${$i18n.locale}/dashboards/` + serviceName + '/edit/' + dashboard.name
                     "
                   >
-                    <button><i class="fa fa-edit"></i> Edit</button>
+                    <button>
+                      <i class="fa fa-edit"></i> Edit
+                    </button>
                   </router-link>
                 </div>
                 <div class="card__buttons--item">
-                  <a class="" id="" v-on:click="removeEntry(dashboard.name)">
+                  <a class id v-on:click="removeEntry(dashboard.name)">
                     <button class="button--right">
                       <i class="fa fa-trash"></i> Delete
                     </button>

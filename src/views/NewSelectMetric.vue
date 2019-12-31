@@ -3,18 +3,16 @@
     <div>
       <router-link
         class="pull-right breadcrumb__link mr-2"
-        :to="'/metrics/' + serviceName + '/' + dashboardName + '/new'"
-        ><i class="fa fa-arrow-left" style="font-size: 25pt"></i>
+        :to="`/${$i18n.locale}/metrics/` + serviceName + '/' + dashboardName + '/new'"
+      >
+        <i class="fa fa-arrow-left" style="font-size: 25pt"></i>
       </router-link>
       <br />
     </div>
     <h2 class="text-center mb-3">Select a metric for {{ metricName }}</h2>
     <br />
     <div v-for="(metri, index) in metrica" :key="index">
-      <div
-        class="border rounded border--magenta-hover mb-2"
-        v-on:click="editMetric(metri.name)"
-      >
+      <div class="border rounded border--magenta-hover mb-2" v-on:click="editMetric(metri.name)">
         <p>{{ metri.name }}</p>
       </div>
     </div>
