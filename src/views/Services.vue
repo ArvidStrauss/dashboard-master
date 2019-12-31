@@ -49,7 +49,7 @@
             <p class="card-text">{{ service.desc }}</p>
             <router-link
               class="fancyButton"
-              :to="'/dashboards/' + service.name"
+              :to="'/' + $i18n.locale + '/dashboards/' + service.name"
             >
               Open
               <i class="fa fa-step-forward"></i>
@@ -121,8 +121,8 @@ img {
   grid-column-gap: 1em;
 }
 
-.grid__item {
-}
+/* .grid__item {
+} */
 
 /*Tablet*/
 /* TODO: 1000-1024px-- margin verhält sich komisch, Breiten noch anpassen */

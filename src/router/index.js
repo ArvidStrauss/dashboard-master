@@ -11,13 +11,14 @@ import SelectMetric from "../views/SelectMetric.vue";
 import SelectModel from "../views/SelectModel.vue";
 import NewSelectMetric from "../views/NewSelectMetric.vue";
 import NewSelectModel from "../views/NewSelectModel.vue";
+import i18n from "@/i18n";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    redirect: "/en"
+    redirect: `/${i18n.locale}`
   },
   {
     path: "/:lang",
