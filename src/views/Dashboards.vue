@@ -53,7 +53,14 @@
                 <div class="card__buttons--item">
                   <router-link
                     class=""
-                    :to="'/metrics/' + serviceName + '/' + dashboard.name"
+                    :to="
+                      '/' +
+                        $i18n.locale +
+                        '/metrics/' +
+                        serviceName +
+                        '/' +
+                        dashboard.name
+                    "
                   >
                     <button class="">
                       <i class="fa fa-step-forward"></i> Open
