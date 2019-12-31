@@ -4,21 +4,23 @@
       <div class="footer-left">
         <img src="@/assets/img/T_Logo_3c_p.png" />
         <h3>
-          {{ $t('footer.aboutDashboard') }}
-          <span>{{ $t('footer.dashboard') }}</span>
+          About
+          <span>Dash-Board ML</span>
         </h3>
 
         <p class="footer-links">
-          <a href="#">{{ $t('footer.home') }}</a>
+          <a href="#">Home</a>
           |
-          <a href="#">{{ $t('footer.blog') }}</a>
+          <a href="#">Blog</a>
           |
-          <a href="#">{{ $t('footer.about') }}</a>
+          <a href="#">About</a>
           |
-          <a href="#">{{ $t('footer.contact') }}</a>
+          <a href="#">Contact</a>
         </p>
 
-        <p class="footer-company-name">© 2019 T-Systems Multi-Media-Solutions.</p>
+        <p class="footer-company-name">
+          © 2019 T-Systems Multi-Media-Solutions.
+        </p>
       </div>
 
       <div class="footer-center">
@@ -37,7 +39,9 @@
         <div>
           <i class="fa fa-envelope"></i>
           <p>
-            <a href="mailto:arvid.strauss@t-systems.com">arvid.strauss@t-systems.com</a>
+            <a href="mailto:arvid.strauss@t-systems.com"
+              >arvid.strauss@t-systems.com</a
+            >
           </p>
         </div>
       </div>

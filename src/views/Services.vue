@@ -2,17 +2,21 @@
   <div v-if="services" class="services">
     <div v-if="panel == 0" class="w-100 pr-4">
       <transition name="fade">
-        <button class="float-right normalButton mt-2" v-on:click="showPanel()">Show Info</button>
+        <button class="float-right normalButton mt-2" v-on:click="showPanel()">
+          Show Info
+        </button>
       </transition>
     </div>
     <div v-if="panel == 1" class="w-100 pr-4">
       <transition name="fade">
-        <button class="float-right normalButton mt-2" v-on:click="hidePanel()">Close Info</button>
+        <button class="float-right normalButton mt-2" v-on:click="hidePanel()">
+          Close Info
+        </button>
       </transition>
     </div>
     <transition name="fade">
       <div v-if="panel == 1" id="panel" class="bg-primary text-white w-100">
-        <h1 class>Info</h1>
+        <h1 class="">Info</h1>
         <p class="w-75 mx-auto">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -30,7 +34,7 @@
     <h3>Services</h3>
     <br />
     <br />
-    <div class="w-75 mx-auto service__grid">
+    <div class=" w-75 mx-auto service__grid">
       <div v-for="(service, index) in services" :key="index">
         <!--Die Service Card -->
         <div class="card border--grey" style="width: 18rem;">
@@ -41,9 +45,12 @@
           />
           <!--zum Test hardcodiert-->
           <div class="card-body">
-            <h3 class="card-title">{{ service.name }}</h3>
+            <h3 class="card-title ">{{ service.name }}</h3>
             <p class="card-text">{{ service.desc }}</p>
-            <router-link class="fancyButton" :to="`/${$i18n.locale}/dashboards/` + service.name">
+            <router-link
+              class="fancyButton"
+              :to="'/dashboards/' + service.name"
+            >
               Open
               <i class="fa fa-step-forward"></i>
             </router-link>
@@ -114,8 +121,8 @@ img {
   grid-column-gap: 1em;
 }
 
-/* .grid__item {
-} */
+.grid__item {
+}
 
 /*Tablet*/
 /* TODO: 1000-1024px-- margin verhält sich komisch, Breiten noch anpassen */

@@ -1,11 +1,3 @@
 {
-  "message": "Good morning i18n !!",
-  "footer": {
-    "aboutDashboard": "About",
-    "dashboard": "Dashboard ML",
-    "home": "Home",
-    "blog": "Blog",
-    "about": "About",
-    "contact": "Contact"
-  }
+  "message": "hello i18n !!"
 }
