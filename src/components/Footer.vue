@@ -4,7 +4,7 @@
       <div class="footer-left">
         <img src="@/assets/img/T_Logo_3c_p.png" />
         <h3>
-          About
+          {{ $t("footer.aboutDashboard") }}
           <span>Dash-Board ML</span>
         </h3>
 

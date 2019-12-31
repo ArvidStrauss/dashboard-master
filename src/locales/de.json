@@ -1,3 +1,8 @@
 {
-  "message": "hello i18n !!"
+  "footer": {
+    "aboutDashboard": "Über"
+  },
+  "header": {
+    "message": "Guten Tag i18n !!"
+  }
 }

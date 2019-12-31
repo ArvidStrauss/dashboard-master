@@ -16,6 +16,10 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: "/",
+    redirect: "/en"
+  },
+  {
     path: "/:lang",
     component: {
       render(c) {
