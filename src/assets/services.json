@@ -1,20 +1,20 @@
 [
-	{
-		"name": "Siemens",
-		"desc": "Lorem",
-		"image": "../Barmer_Logo.png",
-		"alt": "Siemens"
-	},
-	{
-		"name": "Telekom",
-		"desc": "Lorem",
-		"image": "../T_Logo_3c_n_bg.png",
-		"alt": "Telekom"
-	},
-	{
-		"name": "Barmer",
-		"desc": "Lorem Polorem",
-		"image": "../Barmer_Logo.png",
-		"alt": "Siemens"
-	}
+  {
+    "name": "Siemens",
+    "desc": "Lorem",
+    "image": "../siemens_logo.png",
+    "alt": "Siemens"
+  },
+  {
+    "name": "Telekom",
+    "desc": "Lorem",
+    "image": "../telekom_logo.png",
+    "alt": "Telekom"
+  },
+  {
+    "name": "Barmer",
+    "desc": "Lorem Polorem",
+    "image": "../barmer_logo.png",
+    "alt": "Siemens"
+  }
 ]
