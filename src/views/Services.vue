@@ -26,7 +26,6 @@
     <br v-if="panel == 0" />
     <br />
     <h3>Services</h3>
-    <Line />
     <br />
     <br />
     <div class=" w-75 mx-auto service__grid">
@@ -58,7 +57,6 @@
 
 <script>
 import json from "@/assets/services.json";
-import Line from "@/components/Line.vue";
 
 export default {
   name: "Services",
@@ -67,9 +65,6 @@ export default {
       services: null,
       panel: 1
     };
-  },
-  components: {
-    Line
   },
   computed: {},
   methods: {

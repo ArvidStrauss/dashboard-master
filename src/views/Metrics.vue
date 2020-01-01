@@ -55,6 +55,8 @@
       >
         <div v-for="(metric, index) in dashboard.metrics" :key="index">
           <!-- TODO: CHART COMPONENT -->
+          <Chart :chart-data="datacollection"></Chart>
+          <button @click="fillData()">Fill Data</button>
           {{ metric.title }}
           <a class="" id="" v-on:click="removeEntry(index)">
             <button class="button--right">
@@ -79,6 +81,8 @@
       <div v-else>
         <div v-for="(metric, index) in dashboard.metrics" :key="index">
           <!-- TODO: CHART COMPONENT -->
+          <Chart :chart-data="datacollection"></Chart>
+          <button @click="fillData()">Fill Data</button>
           {{ metric.title }}
           <a class="" id="" v-on:click="removeEntry(index)">
             <button class="button--right">
@@ -107,10 +111,14 @@
 <script>
 import draggable from "vuedraggable";
 import json from "@/assets/dashboards.json";
+import lookback from "@/assets/lookback.json";
+import Chart from "@/components/Chart.vue";
+
 export default {
   name: "Dashboards",
   components: {
-    draggable
+    draggable,
+    Chart
   },
   data: function() {
     return {
@@ -151,10 +159,39 @@ export default {
     },
     saveJson: function() {
       //this.$http.post("http://localhost:8000/SaveJson", this.services);
+    },
+    fillData() {
+      this.datacollection = {
+        labels: this.chartLabels,
+        datasets: [
+          {
+            label: "Data One",
+            backgroundColor: this.chartColor,
+            data: this.chartData
+          }
+        ]
+      };
     }
   },
   created() {
     this.services = json;
+    this.lookback = lookback;
+    this.chartLabels = new Array();
+    this.chartData = new Array();
+    this.chartColor = new Array();
+
+    lookback.count.lookback.forEach(element => {
+      this.chartLabels.push(element[0]);
+      this.chartData.push(element[1]);
+      this.chartColor.push("rgb(226, 0, 116)");
+    });
+    lookback.count.prediction.forEach(element => {
+      this.chartLabels.push(element[0]);
+      this.chartData.push(element[1]);
+      this.chartColor.push("#1bada2");
+    });
+
+    this.fillData();
   },
   mounted() {
     /*const baseURI = 'http://172.17.0.2:8000/GetServices'
