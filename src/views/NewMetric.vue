@@ -15,7 +15,9 @@
     </div>
     <br />
     <div>
-      <h2 class="dashboards mb-3">add new Dashboard to {{ serviceName }}</h2>
+      <h2 class="dashboards mb-3">
+        {{ $t("newDashboard.add") }} {{ serviceName }}
+      </h2>
     </div>
     <nav class="">
       <ol class="breadcrumb bg-white">
@@ -64,7 +66,7 @@
     </nav>
     <form>
       <div class="container form-group pb-4">
-        <p class="text-left">Title</p>
+        <p class="text-left">{{ $t("newDashboard.title") }}</p>
         <input
           type="text"
           required
@@ -79,7 +81,7 @@
           "
         />
         <br />
-        <p class="text-left">Description</p>
+        <p class="text-left">{{ $t("newDashboard.desc") }}</p>
         <textarea
           rows="3"
           required
@@ -154,10 +156,10 @@
           "
           @click.native="saveJson"
         >
-          Save
+          {{ $t("newDashboard.save") }}
         </router-link>
         <div v-else>
-          <p>Please fill in the form</p>
+          <p>{{ $t("newDashboard.please") }}</p>
           <span class="saveButton saveButton--red w-50 mx-auto">Save</span>
         </div>
       </div>

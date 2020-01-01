@@ -8,7 +8,7 @@
         :to="'/' + $i18n.locale + '/dashboards/' + serviceName + '/new'"
       >
         <button class="normalButton cursor--add">
-          <i class="fa fa-plus"></i> New Dashboard
+          <i class="fa fa-plus"></i> {{ $t("menu.newDashboard") }}
         </button>
       </router-link>
     </div>
@@ -63,7 +63,7 @@
                     "
                   >
                     <button class="">
-                      <i class="fa fa-step-forward"></i> Open
+                      <i class="fa fa-step-forward"></i> {{ $t("menu.open") }}
                     </button>
                   </router-link>
                 </div>
@@ -79,13 +79,15 @@
                         dashboard.name
                     "
                   >
-                    <button><i class="fa fa-edit"></i> Edit</button>
+                    <button>
+                      <i class="fa fa-edit"></i> {{ $t("menu.edit") }}
+                    </button>
                   </router-link>
                 </div>
                 <div class="card__buttons--item">
                   <a class="" id="" v-on:click="removeEntry(dashboard.name)">
                     <button class="button--right">
-                      <i class="fa fa-trash"></i> Delete
+                      <i class="fa fa-trash"></i> {{ $t("menu.delete") }}
                     </button>
                   </a>
                 </div>

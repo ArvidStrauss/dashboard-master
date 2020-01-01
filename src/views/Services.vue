@@ -18,7 +18,7 @@
       <div v-if="panel == 1" id="panel" class="bg-primary text-white w-100">
         <h1 class="">Info</h1>
         <p class="w-75 mx-auto">
-          This is Machine-Learning Dashboard
+          {{ $t("info") }}
         </p>
         <br />
       </div>
