@@ -5,7 +5,15 @@
     <div class="w-100 pr-4">
       <router-link
         class="routerLink pull-right"
-        :to="'/metrics/' + serviceName + '/' + dashboardName + '/new'"
+        :to="
+          '/' +
+            $i18n.locale +
+            '/metrics/' +
+            serviceName +
+            '/' +
+            dashboardName +
+            '/new'
+        "
       >
         <button class="normalButton cursor--add" @click="newMetric()">
           <i class="fa fa-plus"></i> New Diagram
@@ -37,7 +45,7 @@
           <li class="breadcrumb-item">
             <router-link
               class=" breadcrumb__link"
-              :to="'/dashboards/' + serviceName"
+              :to="'/' + $i18n.locale + '/dashboards/' + serviceName"
             >
               {{ serviceName }}</router-link
             >
@@ -66,7 +74,9 @@
           <router-link
             class=""
             :to="
-              '/metrics/' +
+              '/' +
+                $i18n.locale +
+                '/metrics/' +
                 serviceName +
                 '/' +
                 dashboardName +
@@ -92,7 +102,9 @@
           <router-link
             class=""
             :to="
-              '/metrics/' +
+              '/' +
+                $i18n.locale +
+                '/metrics/' +
                 serviceName +
                 '/' +
                 dashboardName +

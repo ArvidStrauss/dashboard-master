@@ -6,7 +6,7 @@
     <div>
       <router-link
         class="pull-right breadcrumb__link mr-2"
-        :to="'/dashboards/' + serviceName"
+        :to="'/' + $i18n.locale + '/dashboards/' + serviceName"
         ><i class="fa fa-times" style="font-size: 25pt"></i>
       </router-link>
       <br />
@@ -38,7 +38,7 @@
         <li class="breadcrumb-item">
           <router-link
             class=" breadcrumb__link"
-            :to="'/dashboards/' + serviceName"
+            :to="'/' + $i18n.locale + '/dashboards/' + serviceName"
           >
             {{ serviceName }}</router-link
           >
@@ -79,7 +79,7 @@
         <router-link
           v-if="validateForm() == true"
           class="saveButton saveButton--cyan mx-auto w-50"
-          :to="'/dashboards/' + serviceName"
+          :to="'/' + $i18n.locale + '/dashboards/' + serviceName"
           @click.native="saveJson"
         >
           Save

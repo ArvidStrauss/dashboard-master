@@ -5,7 +5,7 @@
     <div class="w-100 pr-4">
       <router-link
         class="routerLink pull-right"
-        :to="'/dashboards/' + serviceName + '/new'"
+        :to="'/' + $i18n.locale + '/dashboards/' + serviceName + '/new'"
       >
         <button class="normalButton cursor--add">
           <i class="fa fa-plus"></i> New Dashboard
@@ -71,7 +71,12 @@
                   <router-link
                     class=""
                     :to="
-                      '/dashboards/' + serviceName + '/edit/' + dashboard.name
+                      '/' +
+                        $i18n.locale +
+                        '/dashboards/' +
+                        serviceName +
+                        '/edit/' +
+                        dashboard.name
                     "
                   >
                     <button><i class="fa fa-edit"></i> Edit</button>

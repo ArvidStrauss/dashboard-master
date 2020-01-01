@@ -4,7 +4,9 @@
       <router-link
         class="pull-right breadcrumb__link mr-2"
         :to="
-          '/metrics/' +
+          '/' +
+            $i18n.locale +
+            '/metrics/' +
             serviceName +
             '/' +
             dashboardName +
