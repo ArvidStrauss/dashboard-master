@@ -177,8 +177,10 @@ export default {
         labels: this.chartLabels,
         datasets: [
           {
-            label: "Data One",
-            backgroundColor: this.chartColor,
+            label: "Count",
+            pointBackgroundColor: this.chartColor,
+            pointRadius: 5,
+            pointHoverRadius: 20,
             data: this.chartData
           }
         ]
