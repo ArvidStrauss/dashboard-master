@@ -3,7 +3,15 @@
     <div>
       <router-link
         class="pull-right breadcrumb__link mr-2"
-        :to="'/metrics/' + serviceName + '/' + dashboardName + '/new'"
+        :to="
+          '/' +
+            $i18n.locale +
+            '/metrics/' +
+            serviceName +
+            '/' +
+            dashboardName +
+            '/new'
+        "
         ><i class="fa fa-arrow-left" style="font-size: 25pt"></i>
       </router-link>
       <br />

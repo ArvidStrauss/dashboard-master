@@ -5,7 +5,15 @@
     <div class="w-100 pr-4">
       <router-link
         class="routerLink pull-right"
-        :to="'/metrics/' + serviceName + '/' + dashboardName + '/new'"
+        :to="
+          '/' +
+            $i18n.locale +
+            '/metrics/' +
+            serviceName +
+            '/' +
+            dashboardName +
+            '/new'
+        "
       >
         <button class="normalButton cursor--add" @click="newMetric()">
           <i class="fa fa-plus"></i> New Diagram
@@ -37,7 +45,7 @@
           <li class="breadcrumb-item">
             <router-link
               class=" breadcrumb__link"
-              :to="'/dashboards/' + serviceName"
+              :to="'/' + $i18n.locale + '/dashboards/' + serviceName"
             >
               {{ serviceName }}</router-link
             >
@@ -55,6 +63,8 @@
       >
         <div v-for="(metric, index) in dashboard.metrics" :key="index">
           <!-- TODO: CHART COMPONENT -->
+          <Chart :chart-data="datacollection"></Chart>
+          <button @click="fillData()">Fill Data</button>
           {{ metric.title }}
           <a class="" id="" v-on:click="removeEntry(index)">
             <button class="button--right">
@@ -64,7 +74,9 @@
           <router-link
             class=""
             :to="
-              '/metrics/' +
+              '/' +
+                $i18n.locale +
+                '/metrics/' +
                 serviceName +
                 '/' +
                 dashboardName +
@@ -79,6 +91,8 @@
       <div v-else>
         <div v-for="(metric, index) in dashboard.metrics" :key="index">
           <!-- TODO: CHART COMPONENT -->
+          <Chart :chart-data="datacollection"></Chart>
+          <button @click="fillData()">Fill Data</button>
           {{ metric.title }}
           <a class="" id="" v-on:click="removeEntry(index)">
             <button class="button--right">
@@ -88,7 +102,9 @@
           <router-link
             class=""
             :to="
-              '/metrics/' +
+              '/' +
+                $i18n.locale +
+                '/metrics/' +
                 serviceName +
                 '/' +
                 dashboardName +
@@ -107,10 +123,14 @@
 <script>
 import draggable from "vuedraggable";
 import json from "@/assets/dashboards.json";
+import lookback from "@/assets/lookback.json";
+import Chart from "@/components/Chart.vue";
+
 export default {
   name: "Dashboards",
   components: {
-    draggable
+    draggable,
+    Chart
   },
   data: function() {
     return {
@@ -151,10 +171,41 @@ export default {
     },
     saveJson: function() {
       //this.$http.post("http://localhost:8000/SaveJson", this.services);
+    },
+    fillData() {
+      this.datacollection = {
+        labels: this.chartLabels,
+        datasets: [
+          {
+            label: "Count",
+            pointBackgroundColor: this.chartColor,
+            pointRadius: 5,
+            pointHoverRadius: 20,
+            data: this.chartData
+          }
+        ]
+      };
     }
   },
   created() {
     this.services = json;
+    this.lookback = lookback;
+    this.chartLabels = new Array();
+    this.chartData = new Array();
+    this.chartColor = new Array();
+
+    lookback.count.lookback.forEach(element => {
+      this.chartLabels.push(element[0]);
+      this.chartData.push(element[1]);
+      this.chartColor.push("rgb(226, 0, 116)");
+    });
+    lookback.count.prediction.forEach(element => {
+      this.chartLabels.push(element[0]);
+      this.chartData.push(element[1]);
+      this.chartColor.push("#1bada2");
+    });
+
+    this.fillData();
   },
   mounted() {
     /*const baseURI = 'http://172.17.0.2:8000/GetServices'
@@ -182,8 +233,8 @@ export default {
   grid-column-gap: 1em;
 }
 
-.grid__item {
-}
+/* .grid__item {
+} */
 
 /*Tablet & Phone*/
 @media only screen and (max-width: 1000px) {

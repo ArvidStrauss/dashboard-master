@@ -1,0 +1,9 @@
+{
+  "info": "Das ist das ML-Dashboard",
+  "footer": {
+    "aboutDashboard": "Über"
+  },
+  "header": {
+    "message": "Guten Tag i18n !!"
+  }
+}

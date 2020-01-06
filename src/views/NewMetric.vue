@@ -6,14 +6,18 @@
     <div>
       <router-link
         class="pull-right breadcrumb__link mr-2"
-        :to="'/metrics/' + serviceName + '/' + dashboardName"
+        :to="
+          '/' + $i18n.locale + '/metrics/' + serviceName + '/' + dashboardName
+        "
         ><i class="fa fa-times" style="font-size: 25pt"></i>
       </router-link>
       <br />
     </div>
     <br />
     <div>
-      <h2 class="dashboards mb-3">add new Dashboard to {{ serviceName }}</h2>
+      <h2 class="dashboards mb-3">
+        {{ $t("newDashboard.add") }} {{ serviceName }}
+      </h2>
     </div>
     <nav class="">
       <ol class="breadcrumb bg-white">
@@ -38,7 +42,7 @@
         <li class="breadcrumb-item">
           <router-link
             class=" breadcrumb__link"
-            :to="'/dashboards/' + serviceName"
+            :to="'/' + $i18n.locale + '/dashboards/' + serviceName"
           >
             {{ serviceName }}</router-link
           >
@@ -46,7 +50,14 @@
         <li class="breadcrumb-item">
           <router-link
             class=" breadcrumb__link"
-            :to="'/metrics/' + serviceName + '/' + dashboardName"
+            :to="
+              '/' +
+                $i18n.locale +
+                '/metrics/' +
+                serviceName +
+                '/' +
+                dashboardName
+            "
           >
             {{ dashboardName }}</router-link
           >
@@ -55,7 +66,7 @@
     </nav>
     <form>
       <div class="container form-group pb-4">
-        <p class="text-left">Title</p>
+        <p class="text-left">{{ $t("newDashboard.title") }}</p>
         <input
           type="text"
           required
@@ -70,7 +81,7 @@
           "
         />
         <br />
-        <p class="text-left">Description</p>
+        <p class="text-left">{{ $t("newDashboard.desc") }}</p>
         <textarea
           rows="3"
           required
@@ -88,7 +99,15 @@
         <router-link
           v-if="validateForm() == true"
           class="card routerLink breadcrumb__link pt-2 pl-4"
-          :to="'/metrics/' + serviceName + '/' + dashboardName + '/selectMoNew'"
+          :to="
+            '/' +
+              $i18n.locale +
+              '/metrics/' +
+              serviceName +
+              '/' +
+              dashboardName +
+              '/selectMoNew'
+          "
         >
           <p class="text-left">choose Model</p>
         </router-link>
@@ -101,7 +120,15 @@
         <router-link
           v-if="validateForm() == true"
           class="card routerLink breadcrumb__link pt-2 pl-4"
-          :to="'/metrics/' + serviceName + '/' + dashboardName + '/selectMeNew'"
+          :to="
+            '/' +
+              $i18n.locale +
+              '/metrics/' +
+              serviceName +
+              '/' +
+              dashboardName +
+              '/selectMeNew'
+          "
         >
           <p class="text-left">choose Metric</p>
         </router-link>
@@ -124,13 +151,15 @@
         <router-link
           v-if="validateForm() == true"
           class="saveButton saveButton--cyan mx-auto w-50"
-          :to="'/metrics/' + serviceName + '/' + dashboardName"
+          :to="
+            '/' + $i18n.locale + '/metrics/' + serviceName + '/' + dashboardName
+          "
           @click.native="saveJson"
         >
-          Save
+          {{ $t("newDashboard.save") }}
         </router-link>
         <div v-else>
-          <p>Please fill in the form</p>
+          <p>{{ $t("newDashboard.please") }}</p>
           <span class="saveButton saveButton--red w-50 mx-auto">Save</span>
         </div>
       </div>

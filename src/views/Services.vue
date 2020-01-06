@@ -18,13 +18,7 @@
       <div v-if="panel == 1" id="panel" class="bg-primary text-white w-100">
         <h1 class="">Info</h1>
         <p class="w-75 mx-auto">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+          {{ $t("info") }}
         </p>
         <br />
       </div>
@@ -49,7 +43,7 @@
             <p class="card-text">{{ service.desc }}</p>
             <router-link
               class="fancyButton"
-              :to="'/dashboards/' + service.name"
+              :to="'/' + $i18n.locale + '/dashboards/' + service.name"
             >
               Open
               <i class="fa fa-step-forward"></i>
@@ -63,6 +57,7 @@
 
 <script>
 import json from "@/assets/services.json";
+
 export default {
   name: "Services",
   data: function() {
@@ -121,8 +116,8 @@ img {
   grid-column-gap: 1em;
 }
 
-.grid__item {
-}
+/* .grid__item {
+} */
 
 /*Tablet*/
 /* TODO: 1000-1024px-- margin verhält sich komisch, Breiten noch anpassen */

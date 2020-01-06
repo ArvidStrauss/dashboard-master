@@ -1,0 +1,22 @@
+{
+  "info": "this is ml dashboard",
+  "footer": {
+    "aboutDashboard": "About"
+  },
+  "header": {
+    "message": "Good Morning i18n !!"
+  },
+  "menu": {
+    "newDashboard": "New Dashboard",
+    "open": "Open",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "newDashboard": {
+    "add": "add new Dashboard to ",
+    "title": "Title",
+    "desc": "description",
+    "please": "Please fill in the form",
+    "save": "Save"
+  }
+}
