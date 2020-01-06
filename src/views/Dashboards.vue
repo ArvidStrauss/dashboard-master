@@ -8,7 +8,8 @@
         :to="'/' + $i18n.locale + '/dashboards/' + serviceName + '/new'"
       >
         <button class="normalButton cursor--add">
-          <i class="fa fa-plus"></i> {{ $t("menu.newDashboard") }}
+          <i class="fa fa-plus"></i>
+          {{ $t("menu.newDashboard") }}
         </button>
       </router-link>
     </div>
@@ -21,21 +22,16 @@
             @mouseover="imageToggle = false"
             @mouseleave="imageToggle = true"
           >
-            <router-link class="breadcrumb__link" :to="'/'"
-              ><img
-                src="@/assets/img/home.png"
-                class="breadcrumb__img"
-                v-if="imageToggle == true"
-              /><img
+            <router-link class="breadcrumb__link" :to="'/'">
+              <img src="@/assets/img/home.png" class="breadcrumb__img" v-if="imageToggle == true" />
+              <img
                 src="@/assets/img/home--magenta.png"
                 class="breadcrumb__img"
                 v-if="imageToggle == false"
               />
             </router-link>
           </li>
-          <li class="breadcrumb-item active">
-            {{ serviceName }}
-          </li>
+          <li class="breadcrumb-item active">{{ serviceName }}</li>
         </ol>
       </nav>
       <div v-for="(dashboard, index) in sortedChoice" :key="index">
@@ -52,7 +48,7 @@
               <div class="card__buttons">
                 <div class="card__buttons--item">
                   <router-link
-                    class=""
+                    class
                     :to="
                       '/' +
                         $i18n.locale +
@@ -62,14 +58,15 @@
                         dashboard.name
                     "
                   >
-                    <button class="">
-                      <i class="fa fa-step-forward"></i> {{ $t("menu.open") }}
+                    <button class>
+                      <i class="fa fa-step-forward"></i>
+                      {{ $t("menu.open") }}
                     </button>
                   </router-link>
                 </div>
                 <div class="card__buttons--item">
                   <router-link
-                    class=""
+                    class
                     :to="
                       '/' +
                         $i18n.locale +
@@ -80,14 +77,16 @@
                     "
                   >
                     <button>
-                      <i class="fa fa-edit"></i> {{ $t("menu.edit") }}
+                      <i class="fa fa-edit"></i>
+                      {{ $t("menu.edit") }}
                     </button>
                   </router-link>
                 </div>
                 <div class="card__buttons--item">
-                  <a class="" id="" v-on:click="removeEntry(dashboard.name)">
+                  <a class id v-on:click="removeEntry(dashboard.name)">
                     <button class="button--right">
-                      <i class="fa fa-trash"></i> {{ $t("menu.delete") }}
+                      <i class="fa fa-trash"></i>
+                      {{ $t("menu.delete") }}
                     </button>
                   </a>
                 </div>

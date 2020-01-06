@@ -22,7 +22,7 @@
     </div>
     <br />
     <div class="w-75 mx-auto">
-      <nav class="">
+      <nav class>
         <ol class="breadcrumb bg-white">
           <li
             class="breadcrumb-item"
@@ -30,11 +30,7 @@
             @mouseleave="imageToggle = true"
           >
             <router-link class="breadcrumb__link" :to="'/'">
-              <img
-                src="@/assets/img/home.png"
-                class="breadcrumb__img"
-                v-if="imageToggle == true"
-              />
+              <img src="@/assets/img/home.png" class="breadcrumb__img" v-if="imageToggle == true" />
               <img
                 src="@/assets/img/home--magenta.png"
                 class="breadcrumb__img"
@@ -44,15 +40,11 @@
           </li>
           <li class="breadcrumb-item">
             <router-link
-              class=" breadcrumb__link"
+              class="breadcrumb__link"
               :to="'/' + $i18n.locale + '/dashboards/' + serviceName"
-            >
-              {{ serviceName }}</router-link
-            >
+            >{{ serviceName }}</router-link>
           </li>
-          <li class="breadcrumb-item active">
-            {{ dashboardName }}
-          </li>
+          <li class="breadcrumb-item active">{{ dashboardName }}</li>
         </ol>
       </nav>
       <draggable
@@ -66,13 +58,13 @@
           <Chart :chart-data="datacollection"></Chart>
           <button @click="fillData()">Fill Data</button>
           {{ metric.title }}
-          <a class="" id="" v-on:click="removeEntry(index)">
+          <a class id v-on:click="removeEntry(index)">
             <button class="button--right">
               <i class="fa fa-trash"></i> Delete
             </button>
           </a>
           <router-link
-            class=""
+            class
             :to="
               '/' +
                 $i18n.locale +
@@ -84,7 +76,9 @@
                 metric.title
             "
           >
-            <button><i class="fa fa-edit"></i> Edit</button>
+            <button>
+              <i class="fa fa-edit"></i> Edit
+            </button>
           </router-link>
         </div>
       </draggable>
@@ -94,13 +88,13 @@
           <Chart :chart-data="datacollection"></Chart>
           <button @click="fillData()">Fill Data</button>
           {{ metric.title }}
-          <a class="" id="" v-on:click="removeEntry(index)">
+          <a class id v-on:click="removeEntry(index)">
             <button class="button--right">
               <i class="fa fa-trash"></i> Delete
             </button>
           </a>
           <router-link
-            class=""
+            class
             :to="
               '/' +
                 $i18n.locale +
@@ -112,7 +106,9 @@
                 metric.title
             "
           >
-            <button><i class="fa fa-edit"></i> Edit</button>
+            <button>
+              <i class="fa fa-edit"></i> Edit
+            </button>
           </router-link>
         </div>
       </div>
