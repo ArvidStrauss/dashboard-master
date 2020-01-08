@@ -175,7 +175,8 @@ export default {
   data: function() {
     return {
       dashboards: null,
-      imageToggle: true
+      imageToggle: true,
+      viablePredTime: []
     };
   },
   computed: {
@@ -193,7 +194,7 @@ export default {
   },
   methods: {
     saveJson: function() {
-      //this.$http.post("http://localhost:8000/SaveJson", this.services);
+      //this.$http.post("http://localhost:8080/SaveJson", this.services);
     },
 
     //FORM VALIDATIONS
@@ -237,6 +238,14 @@ export default {
   },
   mounted() {
     this.dashboards = json;
+    /*this.$http.get('http://localhost:8080/LoadJson')
+    .then(response => (this.dashboards=response.data))
+    .catch(error => console.log(error))
+    
+    this.$http.get('http://localhost:8000/GetPredTime?service=Testservice&model=Model_0')
+    .then(response => (this.viablePredTime=response.data))
+    .catch(error => console.log(error))
+    */
   }
 };
 </script>

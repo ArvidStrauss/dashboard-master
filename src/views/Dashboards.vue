@@ -23,7 +23,11 @@
             @mouseleave="imageToggle = true"
           >
             <router-link class="breadcrumb__link" :to="'/'">
-              <img src="@/assets/img/home.png" class="breadcrumb__img" v-if="imageToggle == true" />
+              <img
+                src="@/assets/img/home.png"
+                class="breadcrumb__img"
+                v-if="imageToggle == true"
+              />
               <img
                 src="@/assets/img/home--magenta.png"
                 class="breadcrumb__img"
@@ -146,11 +150,10 @@ export default {
     this.dashboards = json;
   },
   mounted() {
-    /*this.$http.get('http://localhost:8000/ml_req?service=Testservice&model=model_2&lookbkack=5')
-  .then(response => (console.log(response.data)))
-  .catch(error => console.log(error))
-*/
-    //this.$http.post('http://localhost:8000/SaveJson', this.dashboards);
+    /*this.$http.get('http://localhost:8080/LoadJson')
+    .then(response => (this.dashboards=response.data))
+    .catch(error => console.log(error))
+  */
   }
 };
 </script>

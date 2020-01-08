@@ -8,8 +8,7 @@ module.exports = {
     }
   },
   devServer: {
-  	//URL VOM BACKENDSERVER EINTRAGEN
-    proxy: 'http://172.17.0.2:8000',
+    //URL VOM BACKENDSERVER EINTRAGEN
+    proxy: "http://172.17.0.2:8000"
   }
-
 };

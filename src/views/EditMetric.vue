@@ -1,5 +1,8 @@
 <template>
-  <section v-if="dashboards" class="mt-4 form--width mx-auto border--magenta px-2">
+  <section
+    v-if="dashboards"
+    class="mt-4 form--width mx-auto border--magenta px-2"
+  >
     <div>
       <router-link
         class="pull-right breadcrumb__link mr-2"
@@ -23,7 +26,11 @@
           @mouseleave="imageToggle = true"
         >
           <router-link class="breadcrumb__link" :to="'/'">
-            <img src="@/assets/img/home.png" class="breadcrumb__img" v-if="imageToggle == true" />
+            <img
+              src="@/assets/img/home.png"
+              class="breadcrumb__img"
+              v-if="imageToggle == true"
+            />
             <img
               src="@/assets/img/home--magenta.png"
               class="breadcrumb__img"
@@ -35,7 +42,8 @@
           <router-link
             class="breadcrumb__link"
             :to="'/' + $i18n.locale + '/dashboards/' + serviceName"
-          >{{ serviceName }}</router-link>
+            >{{ serviceName }}</router-link
+          >
         </li>
         <li class="breadcrumb-item active">{{ metricName }}</li>
       </ol>
@@ -89,7 +97,9 @@
           <p class="text-left">choose Model</p>
         </router-link>
         <div v-else>
-          <p class="card pt-2 pl-4 pb-2 text-left">Fill in form to choose Model</p>
+          <p class="card pt-2 pl-4 pb-2 text-left">
+            Fill in form to choose Model
+          </p>
         </div>
         <br />
         <router-link
@@ -109,7 +119,9 @@
           <p class="text-left">choose Metric</p>
         </router-link>
         <div v-else>
-          <p class="card pt-2 pl-4 pb-2 text-left">Fill in form to choose Metric</p>
+          <p class="card pt-2 pl-4 pb-2 text-left">
+            Fill in form to choose Metric
+          </p>
         </div>
         <br />
         <hr />
@@ -129,7 +141,8 @@
             '/' + $i18n.locale + '/metrics/' + serviceName + '/' + dashboardName
           "
           @click.native="saveJson"
-        >Save</router-link>
+          >Save</router-link
+        >
         <div v-else>
           <p>Please fill in the form</p>
           <span class="saveButton saveButton--red w-50 mx-auto">Save</span>
@@ -149,7 +162,8 @@ export default {
       dashboards: null,
       imageToggle: true,
       dashboardID: -1,
-      metricID: -1
+      metricID: -1,
+      viablePredTime: []
     };
   },
   computed: {
@@ -165,7 +179,7 @@ export default {
   },
   methods: {
     saveJson: function() {
-      //this.$http.post("http://localhost:8000/SaveJson", this.services);
+      //this.$http.post("http://localhost:8080/SaveJson", this.services);
     },
 
     //FORM VALIDATIONS
@@ -209,6 +223,15 @@ export default {
   },
   mounted() {
     this.dashboards = json;
+
+    /*this.$http.get('http://localhost:8080/LoadJson')
+    .then(response => (this.dashboards=response.data))
+    .catch(error => console.log(error))
+    
+    this.$http.get('http://localhost:8000/GetPredTime?service=Testservice&model=Model_0')
+    .then(response => (this.viablePredTime=response.data))
+    .catch(error => console.log(error))
+    */
 
     this.dashboardID = this.dashboards
       .map(function(e) {

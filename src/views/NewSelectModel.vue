@@ -19,8 +19,11 @@
     </div>
     <h2 class="text-center mb-3">Select a model for {{ metricName }}</h2>
     <br />
-    <div v-for="(metri, index) in metrica" :key="index">
-      <div class="border rounded border--magenta-hover mb-2" v-on:click="editMetric(metri.name)">
+    <div v-for="(metri, index) in viableModels" :key="index">
+      <div
+        class="border rounded border--magenta-hover mb-2"
+        v-on:click="editMetric(metri.name)"
+      >
         <p>{{ metri.name }}</p>
       </div>
     </div>
@@ -38,7 +41,7 @@ export default {
       imageToggle: true,
       dashboardID: -1,
       metricID: -1,
-      metrica: [{ name: "hi" }, { name: "bye" }]
+      viableModels: []
     };
   },
   computed: {
@@ -70,6 +73,14 @@ export default {
   },
   mounted() {
     this.dashboards = json;
+    /*this.$http.get('http://localhost:8080/LoadJson')
+    .then(response => (this.dashboards=response.data))
+    .catch(error => console.log(error))
+    
+    *this.$http.get('http://localhost:8000/GetModels?service=Testservice')
+    .then(response => (this.viableModels=response.data))
+    .catch(error => console.log(error))
+    */
     this.dashboardID = this.dashboards
       .map(function(e) {
         return e.name;

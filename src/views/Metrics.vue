@@ -15,7 +15,10 @@
             '/new'
         "
       >
-        <button class="normalButton pull-right cursor--add" @click="newMetric()">
+        <button
+          class="normalButton pull-right cursor--add"
+          @click="newMetric()"
+        >
           <i class="fa fa-plus"></i> New Diagram
         </button>
       </router-link>
@@ -84,12 +87,13 @@
                 "
               >
                 <i class="fa fa-edit"></i> Edit
-            </router-link>
-            <button class="normalChartButton" @click="fillData()">Fill Data</button>  
-          </div>
+              </router-link>
+              <button class="normalChartButton" @click="fillData()">
+                Fill Data
+              </button>
+            </div>
           </div>
           {{ metric.title }}
-          
         </div>
       </draggable>
       <div v-else>
@@ -97,27 +101,29 @@
           <!-- TODO: CHART COMPONENT -->
           <Chart :chart-data="datacollection"></Chart>
           <div class="chart__flex mx-auto">
-              <a class id v-on:click="removeEntry(index)">
-                <button class="normalChartButton button--right">
-                  <i class="fa fa-trash"></i> Delete
-                </button>
-              </a>
-              <router-link
-                class="normalChartButton"
-                :to="
+            <a class id v-on:click="removeEntry(index)">
+              <button class="normalChartButton button--right">
+                <i class="fa fa-trash"></i> Delete
+              </button>
+            </a>
+            <router-link
+              class="normalChartButton"
+              :to="
+                '/' +
+                  $i18n.locale +
+                  '/metrics/' +
+                  serviceName +
                   '/' +
-                    $i18n.locale +
-                    '/metrics/' +
-                    serviceName +
-                    '/' +
-                    dashboardName +
-                    '/edit/' +
-                    metric.title
-                "
-              >
-                <i class="fa fa-edit"></i> Edit
+                  dashboardName +
+                  '/edit/' +
+                  metric.title
+              "
+            >
+              <i class="fa fa-edit"></i> Edit
             </router-link>
-            <button class="normalChartButton" @click="fillData()">Fill Data</button>  
+            <button class="normalChartButton" @click="fillData()">
+              Fill Data
+            </button>
           </div>
         </div>
       </div>
@@ -195,7 +201,7 @@ export default {
   },
   created() {
     this.services = json;
-    this.lookback = lookback;
+    this.lookback = lookback; // muss durch chartData[index] ersetzt werden
     this.chartLabels = new Array();
     this.chartData = new Array();
     this.chartColor = new Array();
@@ -214,13 +220,10 @@ export default {
     this.fillData();
   },
   mounted() {
-    /*const baseURI = 'http://172.17.0.2:8000/GetServices'
-      this.$http.get(baseURI)
-      .then((result) => {
-        this.services = result.data
-      });
-
-
+    /*this.$http.get('http://localhost:8080/LoadJson')
+    .then(response => (this.dashboards=response.data))
+    .catch(error => console.log(error))
+    
       this.dashboard.metrics.forEach(element => {
         const baseURI = 'http://localhost:8000/ml_req?service=' +this.serviceName +'&model=' +element.model +'&lookbkack=5'
         this.$http.get(baseURI)
@@ -247,12 +250,12 @@ export default {
   grid-column-gap: 1em;
 }
 
-.chartButtons__grid{
+.chartButtons__grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-row-gap: 1em;
 }
-.chart__flex{
+.chart__flex {
   display: flex;
   flex-direction: column;
 }
@@ -264,11 +267,11 @@ export default {
   .chart__grid {
     grid-template-columns: repeat(1, 1fr);
   }
-  .chartButtons__grid{
+  .chartButtons__grid {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
   }
-  .chart__flex{
+  .chart__flex {
     flex-direction: row;
     margin-left: auto;
     margin-right: auto;

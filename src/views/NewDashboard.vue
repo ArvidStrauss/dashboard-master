@@ -116,7 +116,7 @@ export default {
   },
   methods: {
     saveJson: function() {
-      //this.$http.post("http://localhost:8000/SaveJson", this.services);
+      //this.$http.post("http://localhost:8080/SaveJson", this.services);
     },
     //FORM VALIDATIONS
     validateTitle: function() {
@@ -155,6 +155,11 @@ export default {
   },
   mounted() {
     this.dashboards = json;
+
+    /*this.$http.get('http://localhost:8080/LoadJson')
+    .then(response => (this.dashboards=response.data))
+    .catch(error => console.log(error))
+    */
 
     this.dashboards.push({
       name: "",
