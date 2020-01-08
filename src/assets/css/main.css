@@ -44,10 +44,25 @@ a{
 	outline: none;
 }
 
+.normalChartButton{
+	display: block;
+	padding: 6px;
+	margin-top: 4px;
+	background-color: var(--darkgrey);
+	color: white;
+	border-radius: 2px;
+	border: none;
+	outline: none;
+}
+
 .normalButton:hover{
 	padding: 7px;
 }
 
+.normalChartButton:hover{
+	text-decoration: underline;
+	color: white;
+}
 .normalButton:focus{
 	outline: none;
 }
@@ -122,4 +137,10 @@ a{
 .breadcrumb__img{
 	height: 20px;
 	width: 20px;
+}
+
+@media only screen and (max-width: 1000px) {
+	.normalChartButton{
+		margin-left: 4px;
+	}
 }

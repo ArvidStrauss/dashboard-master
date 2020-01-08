@@ -4,7 +4,7 @@
     <br />
     <div class="w-100 pr-4">
       <router-link
-        class="routerLink pull-right"
+        class="routerLink pull-right float-right"
         :to="
           '/' +
             $i18n.locale +
@@ -15,7 +15,7 @@
             '/new'
         "
       >
-        <button class="normalButton cursor--add" @click="newMetric()">
+        <button class="normalButton pull-right cursor--add" @click="newMetric()">
           <i class="fa fa-plus"></i> New Diagram
         </button>
       </router-link>
@@ -30,7 +30,11 @@
             @mouseleave="imageToggle = true"
           >
             <router-link class="breadcrumb__link" :to="'/'">
-              <img src="@/assets/img/home.png" class="breadcrumb__img" v-if="imageToggle == true" />
+              <img
+                src="@/assets/img/home.png"
+                class="breadcrumb__img"
+                v-if="imageToggle == true"
+              />
               <img
                 src="@/assets/img/home--magenta.png"
                 class="breadcrumb__img"
@@ -42,7 +46,8 @@
             <router-link
               class="breadcrumb__link"
               :to="'/' + $i18n.locale + '/dashboards/' + serviceName"
-            >{{ serviceName }}</router-link>
+              >{{ serviceName }}</router-link
+            >
           </li>
           <li class="breadcrumb-item active">{{ dashboardName }}</li>
         </ol>
@@ -54,62 +59,66 @@
         class="chart__grid"
       >
         <div v-for="(metric, index) in dashboard.metrics" :key="index">
-          <!-- TODO: CHART COMPONENT -->
-          <Chart :chart-data="datacollection"></Chart>
-          <button @click="fillData()">Fill Data</button>
+          <!-- <Chart :chart-data="chartdata[index]"></Chart> -->
+          <div class="chartButtons__grid">
+            <div>
+              <Chart :chart-data="datacollection"></Chart>
+            </div>
+            <div class="chart__flex">
+              <a class id v-on:click="removeEntry(index)">
+                <button class="normalChartButton button--right">
+                  <i class="fa fa-trash"></i> Delete
+                </button>
+              </a>
+              <router-link
+                class="normalChartButton"
+                :to="
+                  '/' +
+                    $i18n.locale +
+                    '/metrics/' +
+                    serviceName +
+                    '/' +
+                    dashboardName +
+                    '/edit/' +
+                    metric.title
+                "
+              >
+                <i class="fa fa-edit"></i> Edit
+            </router-link>
+            <button class="normalChartButton" @click="fillData()">Fill Data</button>  
+          </div>
+          </div>
           {{ metric.title }}
-          <a class id v-on:click="removeEntry(index)">
-            <button class="button--right">
-              <i class="fa fa-trash"></i> Delete
-            </button>
-          </a>
-          <router-link
-            class
-            :to="
-              '/' +
-                $i18n.locale +
-                '/metrics/' +
-                serviceName +
-                '/' +
-                dashboardName +
-                '/edit/' +
-                metric.title
-            "
-          >
-            <button>
-              <i class="fa fa-edit"></i> Edit
-            </button>
-          </router-link>
+          
         </div>
       </draggable>
       <div v-else>
         <div v-for="(metric, index) in dashboard.metrics" :key="index">
           <!-- TODO: CHART COMPONENT -->
           <Chart :chart-data="datacollection"></Chart>
-          <button @click="fillData()">Fill Data</button>
-          {{ metric.title }}
-          <a class id v-on:click="removeEntry(index)">
-            <button class="button--right">
-              <i class="fa fa-trash"></i> Delete
-            </button>
-          </a>
-          <router-link
-            class
-            :to="
-              '/' +
-                $i18n.locale +
-                '/metrics/' +
-                serviceName +
-                '/' +
-                dashboardName +
-                '/edit/' +
-                metric.title
-            "
-          >
-            <button>
-              <i class="fa fa-edit"></i> Edit
-            </button>
-          </router-link>
+          <div class="chart__flex mx-auto">
+              <a class id v-on:click="removeEntry(index)">
+                <button class="normalChartButton button--right">
+                  <i class="fa fa-trash"></i> Delete
+                </button>
+              </a>
+              <router-link
+                class="normalChartButton"
+                :to="
+                  '/' +
+                    $i18n.locale +
+                    '/metrics/' +
+                    serviceName +
+                    '/' +
+                    dashboardName +
+                    '/edit/' +
+                    metric.title
+                "
+              >
+                <i class="fa fa-edit"></i> Edit
+            </router-link>
+            <button class="normalChartButton" @click="fillData()">Fill Data</button>  
+          </div>
         </div>
       </div>
     </div>
@@ -131,7 +140,8 @@ export default {
   data: function() {
     return {
       services: null,
-      imageToggle: true
+      imageToggle: true,
+      chartdata: []
     };
   },
   computed: {
@@ -209,6 +219,14 @@ export default {
       .then((result) => {
         this.services = result.data
       });
+
+
+      this.dashboard.metrics.forEach(element => {
+        const baseURI = 'http://localhost:8000/ml_req?service=' +this.serviceName +'&model=' +element.model +'&lookbkack=5'
+        this.$http.get(baseURI)
+        .then((result) => {
+          this.chartdata.push(result.data);
+      })
     */
   }
 };
@@ -229,6 +247,15 @@ export default {
   grid-column-gap: 1em;
 }
 
+.chartButtons__grid{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-row-gap: 1em;
+}
+.chart__flex{
+  display: flex;
+  flex-direction: column;
+}
 /* .grid__item {
 } */
 
@@ -236,6 +263,15 @@ export default {
 @media only screen and (max-width: 1000px) {
   .chart__grid {
     grid-template-columns: repeat(1, 1fr);
+  }
+  .chartButtons__grid{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .chart__flex{
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 </style>
