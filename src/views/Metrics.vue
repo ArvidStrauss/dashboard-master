@@ -176,7 +176,7 @@ export default {
       }
     },
     saveJson: function() {
-      //this.$http.post("http://localhost:8000/SaveJson", this.services);
+      this.$http.post("http://localhost:8080/SaveJson", this.services);
     },
     fillData() {
       this.datacollection = {

@@ -57,7 +57,7 @@
 
 <script>
 import json from "@/assets/services.json";
-
+/*eslint no-console: ["error", { allow: ["warn", "log"] }] */
 export default {
   name: "Services",
   data: function() {
@@ -84,6 +84,11 @@ export default {
   },
   mounted() {
     this.services = json;
+    const baseURI = 'http://localhost:8080/GetServices'
+      this.$http.get(baseURI)
+      .then((result) => {
+        console.log(result.data);
+      });
   }
 };
 </script>
