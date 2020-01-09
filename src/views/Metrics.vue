@@ -1,5 +1,5 @@
 <template>
-  <div v-if="services" class="container mt-4">
+  <div v-if="dashboards" class="container mt-4">
     <h3>{{ dashboardName }}</h3>
     <br />
     <div class="w-100 pr-4">
@@ -133,6 +133,7 @@
 </template>
 
 <script>
+/*eslint no-console: ["error", { allow: ["warn", "log"] }] */
 import draggable from "vuedraggable";
 import json from "@/assets/dashboards.json";
 import lookback from "@/assets/lookback.json";
@@ -146,7 +147,7 @@ export default {
   },
   data: function() {
     return {
-      services: null,
+      dashboards: null,
       imageToggle: true,
       chartdata: []
     };
@@ -159,7 +160,9 @@ export default {
       return this.$route.params.dashboard;
     },
     dashboard: function() {
-      return this.services.find(element => element.name == this.dashboardName);
+      return this.dashboards.find(
+        element => element.name == this.dashboardName
+      );
     }
   },
   methods: {
@@ -183,7 +186,7 @@ export default {
       }
     },
     saveJson: function() {
-      this.$http.post("http://localhost:8080/SaveJson", this.services);
+      this.$http.post("http://localhost:8080/SaveJson", this.dashboards);
     },
     fillData() {
       this.datacollection = {
@@ -201,7 +204,7 @@ export default {
     }
   },
   created() {
-    this.services = json;
+    this.dashboards = json;
     this.lookback = lookback; // muss durch chartData[index] ersetzt werden
     this.chartLabels = new Array();
     this.chartData = new Array();
@@ -221,17 +224,22 @@ export default {
     this.fillData();
   },
   mounted() {
-    /*this.$http.get('http://localhost:8080/LoadJson')
-    .then(response => (this.dashboards=response.data))
-    .catch(error => console.log(error))
-    
-      this.dashboard.metrics.forEach(element => {
-        const baseURI = 'http://localhost:8000/ml_req?service=' +this.serviceName +'&model=' +element.model +'&lookbkack=5'
-        this.$http.get(baseURI)
-        .then((result) => {
-          this.chartdata.push(result.data);
-      })
-    */
+    this.$http
+      .get("http://localhost:8080/LoadJson")
+      .then(response => (this.dashboards = response.data))
+      .catch(error => console.log(error));
+
+    this.dashboard.metrics.forEach(element => {
+      const baseURI =
+        "http://localhost:8000/ml_req?service=" +
+        this.serviceName +
+        "&model=" +
+        element.model +
+        "&lookback=5";
+      this.$http.get(baseURI).then(result => {
+        this.chartdata.push(result.data);
+      });
+    });
   }
 };
 </script>

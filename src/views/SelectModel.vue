@@ -32,7 +32,8 @@
 </template>
 
 <script>
-import json from "@/assets/dashboards.json";
+/*eslint no-console: ["error", { allow: ["warn", "log"] }] */
+//import json from "@/assets/dashboards.json";
 
 export default {
   name: "EditDashboards",
@@ -72,16 +73,17 @@ export default {
     }
   },
   mounted() {
-    this.dashboards = json;
-    /*this.$http.get('http://localhost:8080/LoadJson')
-    .then(response => (this.dashboards=response.data))
-    .catch(error => console.log(error))
-    */
+    //this.dashboards = json;
+    this.$http
+      .get("http://localhost:8080/LoadJson")
+      .then(response => (this.dashboards = response.data))
+      .catch(error => console.log(error));
 
-    /*this.$http.get('http://localhost:8000/GetModels?service=Testservice')
-    .then(response => (this.viableModels=response.data))
-    .catch(error => console.log(error))
-    */
+    this.$http
+      .get("http://localhost:8000/GetModels?service=" + this.serviceName)
+      .then(response => (this.viableModels = response.data))
+      .catch(error => console.log(error));
+
     this.dashboardID = this.dashboards
       .map(function(e) {
         return e.name;

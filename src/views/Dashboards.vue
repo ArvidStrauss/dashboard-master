@@ -104,7 +104,8 @@
 </template>
 
 <script>
-import json from "@/assets/dashboards.json";
+//import json from "@/assets/dashboards.json";
+/*eslint no-console: ["error", { allow: ["warn", "log"] }] */
 export default {
   name: "Dashboards",
   data: function() {
@@ -147,13 +148,13 @@ export default {
     }
   },
   created() {
-    this.dashboards = json;
+    //this.dashboards = json;
   },
   mounted() {
-    /*this.$http.get('http://localhost:8080/LoadJson')
-    .then(response => (this.dashboards=response.data))
-    .catch(error => console.log(error))
-  */
+    this.$http
+      .get("http://localhost:8080/LoadJson")
+      .then(response => (this.dashboards = response.data))
+      .catch(error => console.log(error));
   }
 };
 </script>

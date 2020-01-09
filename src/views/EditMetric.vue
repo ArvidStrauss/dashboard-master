@@ -153,7 +153,8 @@
 </template>
 
 <script>
-import json from "@/assets/dashboards.json";
+/*eslint no-console: ["error", { allow: ["warn", "log"] }] */
+//import json from "@/assets/dashboards.json";
 
 export default {
   name: "EditDashboards",
@@ -179,7 +180,7 @@ export default {
   },
   methods: {
     saveJson: function() {
-      //this.$http.post("http://localhost:8080/SaveJson", this.services);
+      this.$http.post("http://localhost:8080/SaveJson", this.services);
     },
 
     //FORM VALIDATIONS
@@ -195,8 +196,7 @@ export default {
     },
     validateDesc: function() {
       let validated = true;
-      let desc = this.dashboards[this.dashboardID].metrics[this.metricID]
-        .desc;
+      let desc = this.dashboards[this.dashboardID].metrics[this.metricID].desc;
 
       if (desc == null || desc == "") {
         validated = false;
@@ -208,8 +208,7 @@ export default {
       let validated = true;
       let title = this.dashboards[this.dashboardID].metrics[this.metricID]
         .title;
-      let desc = this.dashboards[this.dashboardID].metrics[this.metricID]
-        .desc;
+      let desc = this.dashboards[this.dashboardID].metrics[this.metricID].desc;
 
       if (title == null || title == "") {
         validated = false;
@@ -222,16 +221,22 @@ export default {
     }
   },
   mounted() {
-    this.dashboards = json;
+    //this.dashboards = json;
 
-    /*this.$http.get('http://localhost:8080/LoadJson')
-    .then(response => (this.dashboards=response.data))
-    .catch(error => console.log(error))
-    
-    this.$http.get('http://localhost:8000/GetPredTime?service=Testservice&model=Model_0')
-    .then(response => (this.viablePredTime=response.data))
-    .catch(error => console.log(error))
-    */
+    this.$http
+      .get("http://localhost:8080/LoadJson")
+      .then(response => (this.dashboards = response.data))
+      .catch(error => console.log(error));
+
+    this.$http
+      .get(
+        "http://localhost:8000/GetPredTime?service=" +
+          this.serviceName +
+          "&model=" +
+          this.dashboards[this.dashboardID].metrics[this.metricID].model
+      )
+      .then(response => (this.viablePredTime = response.data))
+      .catch(error => console.log(error));
 
     this.dashboardID = this.dashboards
       .map(function(e) {
