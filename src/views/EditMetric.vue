@@ -71,7 +71,7 @@
           required
           class="form-control dashboards"
           placeholder="Description"
-          v-model="dashboards[dashboardID].metrics[metricID].description"
+          v-model="dashboards[dashboardID].metrics[metricID].desc"
           v-bind:style="
             validateDesc()
               ? 'border-color:  #ced4da'
@@ -196,7 +196,7 @@ export default {
     validateDesc: function() {
       let validated = true;
       let desc = this.dashboards[this.dashboardID].metrics[this.metricID]
-        .description;
+        .desc;
 
       if (desc == null || desc == "") {
         validated = false;
@@ -209,7 +209,7 @@ export default {
       let title = this.dashboards[this.dashboardID].metrics[this.metricID]
         .title;
       let desc = this.dashboards[this.dashboardID].metrics[this.metricID]
-        .description;
+        .desc;
 
       if (title == null || title == "") {
         validated = false;

@@ -6,12 +6,14 @@
     "metrics": [
       {
         "title": "anomalies",
+        "desc": "filler description",
         "model": "1",
         "metric": "2",
         "predtime": "5"
       },
       {
         "title": "mittlere quadrat. abweichung",
+        "desc": "filler description",
         "model": "1",
         "metric": "2",
         "predtime": "5"
@@ -25,12 +27,14 @@
     "metrics": [
       {
         "title": "next 5 minutes",
+        "desc": "filler description",
         "model": "1",
         "metric": "2",
         "predtime": "5"
       },
       {
         "title": "next 10 minutes",
+        "desc": "filler description",
         "model": "1",
         "metric": "2",
         "predtime": "5"
@@ -44,12 +48,14 @@
     "metrics": [
       {
         "title": "next 5 minutes",
+        "desc": "filler description",
         "model": "1",
         "metric": "2",
         "predtime": "5"
       },
       {
         "title": "next 10 years",
+        "desc": "filler description",
         "model": "1",
         "metric": "2",
         "predtime": "5"
@@ -63,12 +69,14 @@
     "metrics": [
       {
         "title": "anomalies",
+        "desc": "filler description",
         "model": "1",
         "metric": "2",
         "predtime": "5"
       },
       {
         "title": "next 10 minutes",
+        "desc": "filler description",
         "model": "1",
         "metric": "2",
         "predtime": "5"

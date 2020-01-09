@@ -63,6 +63,7 @@
       >
         <div v-for="(metric, index) in dashboard.metrics" :key="index">
           <!-- <Chart :chart-data="chartdata[index]"></Chart> -->
+          {{ metric.title }}
           <div class="chartButtons__grid">
             <div>
               <Chart :chart-data="datacollection"></Chart>
@@ -93,7 +94,7 @@
               </button>
             </div>
           </div>
-          {{ metric.title }}
+          {{ metric.desc }}
         </div>
       </draggable>
       <div v-else>
