@@ -110,7 +110,7 @@ export default {
   name: "Dashboards",
   data: function() {
     return {
-      dashboards: null,
+      dashboards: [],
       imageToggle: true,
       sorting: -1
     };
@@ -147,14 +147,18 @@ export default {
       }
     }
   },
-  created() {
-    //this.dashboards = json;
+  created(){
+    // ?!?!?!??!?!
+    let t = this;
+    fetch("http://localhost:8080/LoadJson").then(response => {
+        return response.json();
+      }).then(data => {
+        t.dashboards = data.dashboards[0];
+      }).catch(err => {
+        console.log(err);
+      });
   },
   mounted() {
-    this.$http
-      .get("http://localhost:8080/LoadJson")
-      .then(response => (this.dashboards = response.data))
-      .catch(error => console.log(error));
   }
 };
 </script>

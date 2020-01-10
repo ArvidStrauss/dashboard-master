@@ -83,14 +83,13 @@ export default {
     }
   },
   mounted() {
+    this.services = json;
+    /*
     const baseURI = "http://localhost:8080/GetServices";
     this.$http.get(baseURI).then(result => {
       this.services = result.data;
     });
-
-    if (this.services === "") {
-      this.services = json;
-    }
+    */
   }
 };
 </script>

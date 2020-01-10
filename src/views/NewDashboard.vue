@@ -103,7 +103,7 @@ export default {
   name: "EditDashboards",
   data: function() {
     return {
-      dashboards: null,
+      dashboards: [],
       imageToggle: true
     };
   },
@@ -117,7 +117,7 @@ export default {
   },
   methods: {
     saveJson: function() {
-      //this.$http.post("http://localhost:8080/SaveJson", this.services);
+      this.$http.post("http://localhost:8080/SaveJson", this.dashboards);
     },
     //FORM VALIDATIONS
     validateTitle: function() {
@@ -154,20 +154,18 @@ export default {
       return validated;
     }
   },
+  created(){
+    const t = this;
+    fetch("http://localhost:8080/LoadJson").then(response => {
+        return response.json();
+      }).then(data => {
+        t.dashboards.push(data.dashboards[0]),
+      }).catch(err => {
+        console.log(err);
+      });
+  },
   mounted() {
     //this.dashboards = json;
-
-    this.$http
-      .get("http://localhost:8080/LoadJson")
-      .then(response => (this.dashboards = response.data))
-      .catch(error => console.log(error));
-
-    this.dashboards.push({
-      name: "",
-      description: "",
-      service: this.serviceName,
-      metrics: []
-    });
   }
 };
 </script>

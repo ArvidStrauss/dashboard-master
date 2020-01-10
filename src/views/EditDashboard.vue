@@ -48,7 +48,7 @@
         </li>
       </ol>
     </nav>
-    <form>
+    <form v-if="dashboards">
       <div class="container form-group pb-4">
         <p class="text-left">Title</p>
         <input
@@ -106,7 +106,7 @@ export default {
   name: "EditDashboards",
   data: function() {
     return {
-      dashboards: null,
+      dashboards: [],
       dashboardID: -1,
       imageToggle: true
     };
@@ -118,10 +118,14 @@ export default {
     dashboardName: function() {
       return this.$route.params.dashboard;
     }
+
   },
   methods: {
     saveJson: function() {
-      //this.$http.post("http://localhost:8080/SaveJson", this.services);
+      let jsonFile = {dashboards: []};
+      jsonFile.dashboards.push(this.dashboards);
+      console.log(jsonFile);
+      this.$http.post("http://localhost:8080/SaveJson", jsonFile);
     },
     //FORM VALIDATIONS
     validateTitle: function() {
@@ -156,21 +160,46 @@ export default {
       }
 
       return validated;
+    },
+    fetchDashboard: function() {
+      //?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!
+      //?!?!?!?!?!?!?!?!?!?!HÄÄ
+      const t = this;
+      return fetch("http://localhost:8080/LoadJson").then(response => {
+        return response.json();
+      }).then(data => {
+        //console.log(JSON.parse(JSON.stringify(data.dashboards))[0]);
+        t.dashboards = JSON.parse(JSON.stringify(data.dashboards))[0];
+        t.dashboardID = t.dashboards
+        .map(function(e) {
+          return e.name;
+        })
+        .indexOf(t.$route.params.dashboard);
+      }).catch(err => {
+        console.log(err);
+      });
+    /*
+      this.$http
+      .get("http://localhost:8080/LoadJson")
+      .then(response => (t.dashboards = response.data))
+      .catch(error => console.log(error));
+    */
     }
   },
+  created(){
+    // ?!?!?!??!?!
+    this.fetchDashboard();
+  },
   mounted() {
+    console.log("-----");
+    console.log(this.dashboards);
     //this.dashboards = json;
 
-    this.$http
+    /*this.$http
       .get("http://localhost:8080/LoadJson")
       .then(response => (this.dashboards = response.data))
       .catch(error => console.log(error));
-
-    this.dashboardID = this.dashboards
-      .map(function(e) {
-        return e.name;
-      })
-      .indexOf(this.$route.params.dashboard);
+    */
   }
 };
 </script>
