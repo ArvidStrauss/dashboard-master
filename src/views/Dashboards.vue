@@ -145,18 +145,28 @@ export default {
       if (i != null) {
         this.$delete(this.dashboards, i);
       }
+    },
+    hi: function(){
+      console.log("HI");
+    },
+    loadJson: function(){
+      let t = this;
+      fetch("http://localhost:8080/LoadJson").then(response => {
+          return response.json();
+        }).then(data => {
+          t.dashboards = data.dashboards;
+        }).catch(err => {
+          console.log(err);
+        });
     }
   },
   created(){
     // ?!?!?!??!?!
-    let t = this;
-    fetch("http://localhost:8080/LoadJson").then(response => {
-        return response.json();
-      }).then(data => {
-        t.dashboards = data.dashboards[0];
-      }).catch(err => {
-        console.log(err);
-      });
+    this.loadJson();
+  },
+  watch: {
+    // call again the method if the route changes
+    $route: 'hi()'
   },
   mounted() {
   }

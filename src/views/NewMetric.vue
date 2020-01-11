@@ -108,6 +108,7 @@
               dashboardName +
               '/selectMoNew'
           "
+          @click.native="saveJson"
         >
           <p class="text-left">choose Model</p>
         </router-link>
@@ -129,6 +130,7 @@
               dashboardName +
               '/selectMeNew'
           "
+          @click.native="saveJson"
         >
           <p class="text-left">choose Metric</p>
         </router-link>
@@ -139,13 +141,13 @@
         </div>
         <br />
         <hr />
-        <p class="text-left">Prediction Time</p>
+        <p class="text-left">Prediction Time in minutes</p>
         <select
           class="form-control"
           v-model="dashboard.metrics[dashboard.metrics.length - 1].predtime"
           requiered
         >
-          <option selected>5 min</option>
+          <option selected>{{ viablePredTime }} </option>
         </select>
         <br />
         <router-link
@@ -195,7 +197,11 @@ export default {
   },
   methods: {
     saveJson: function() {
-      this.$http.post("http://localhost:8080/SaveJson", this.services);
+      let jsonFile = {dashboards: []};
+      this.dashboards.forEach(element => {
+        jsonFile.dashboards.push(element);
+      })
+      this.$http.post("http://localhost:8080/SaveJson", jsonFile);
     },
 
     //FORM VALIDATIONS
@@ -237,22 +243,29 @@ export default {
       return validated;
     }
   },
-  mounted() {
-    //this.dashboards = json;
-    this.$http
-      .get("http://localhost:8080/LoadJson")
-      .then(response => (this.dashboards = response.data))
-      .catch(error => console.log(error));
+  created(){
+    const t = this;
+    fetch("http://localhost:8080/LoadJson").then(response => {
+        return response.json();
+      }).then(data => {
+        t.dashboards = JSON.parse(JSON.stringify(data.dashboards));
+      }).catch(err => {
+        console.log(err);
+      });
 
     this.$http
       .get(
-        "http://localhost:8000/GetPredTime?service=" +
+        /*"http://localhost:8000/GetPredTime?service=" +
           this.serviceName +
           "&model=" +
-          this.dashboards[this.dashboardID].metrics[this.metricID].model
+          this.dashboards[this.dashboardID].metrics[this.metricID].model*/
+          "http://localhost:8000/GetPredTime?service=Testservice&model=model_0"
       )
-      .then(response => (this.viablePredTime = response.data))
+      .then(response => (t.viablePredTime = response.data.Pred_time))
       .catch(error => console.log(error));
+  },
+  mounted() {
+    //this.dashboards = json;
   }
 };
 </script>

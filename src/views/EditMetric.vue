@@ -93,6 +93,7 @@
               '/selectMo/' +
               dashboards[dashboardID].metrics[metricID].title
           "
+          @click.native="saveJson"
         >
           <p class="text-left">choose Model</p>
         </router-link>
@@ -115,6 +116,7 @@
               '/selectMe/' +
               dashboards[dashboardID].metrics[metricID].title
           "
+          @click.native="saveJson"
         >
           <p class="text-left">choose Metric</p>
         </router-link>
@@ -125,13 +127,13 @@
         </div>
         <br />
         <hr />
-        <p class="text-left">Prediction Time</p>
+        <p class="text-left">Prediction Time in minutes</p>
         <select
           class="form-control"
           required
           v-model="dashboards[dashboardID].metrics[metricID].predtime"
         >
-          <option>5 min</option>
+          <option v-for="(time, index) in viablePredTime" :key="index">{{ time }}</option>
         </select>
         <br />
         <router-link
@@ -180,7 +182,11 @@ export default {
   },
   methods: {
     saveJson: function() {
-      this.$http.post("http://localhost:8080/SaveJson", this.services);
+      let jsonFile = {dashboards: []};
+      this.dashboards.forEach(element => {
+        jsonFile.dashboards.push(element);
+      })
+      this.$http.post("http://localhost:8080/SaveJson", this.jsonFile);
     },
 
     //FORM VALIDATIONS
@@ -220,34 +226,39 @@ export default {
       return validated;
     }
   },
-  mounted() {
-    //this.dashboards = json;
-
-    this.$http
-      .get("http://localhost:8080/LoadJson")
-      .then(response => (this.dashboards = response.data))
-      .catch(error => console.log(error));
+  created(){
+    const t = this;
+    fetch("http://localhost:8080/LoadJson").then(response => {
+        return response.json();
+      }).then(data => {
+        t.dashboards = JSON.parse(JSON.stringify(data.dashboards));
+        t.dashboardID = t.dashboards
+        .map(function(e) {
+          return e.name;
+        })
+        .indexOf(t.$route.params.dashboard);
+      t.metricID = t.dashboards[t.dashboardID].metrics
+        .map(function(e) {
+          return e.title;
+        })
+        .indexOf(t.$route.params.metric);
+      }).catch(err => {
+        console.log(err);
+      });
 
     this.$http
       .get(
-        "http://localhost:8000/GetPredTime?service=" +
+        /*"http://localhost:8000/GetPredTime?service=" +
           this.serviceName +
           "&model=" +
-          this.dashboards[this.dashboardID].metrics[this.metricID].model
+          this.dashboards[this.dashboardID].metrics[this.metricID].model*/
+          "http://localhost:8000/GetPredTime?service=Testservice&model=model_0"
       )
-      .then(response => (this.viablePredTime = response.data))
+      .then(response => (t.viablePredTime = response.data.Pred_time))
       .catch(error => console.log(error));
-
-    this.dashboardID = this.dashboards
-      .map(function(e) {
-        return e.name;
-      })
-      .indexOf(this.$route.params.dashboard);
-    this.metricID = this.dashboards[this.dashboardID].metrics
-      .map(function(e) {
-        return e.title;
-      })
-      .indexOf(this.$route.params.metric);
+  },
+  mounted() {
+    //this.dashboards = json;
   }
 };
 </script>

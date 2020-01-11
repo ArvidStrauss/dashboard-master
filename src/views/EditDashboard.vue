@@ -123,8 +123,9 @@ export default {
   methods: {
     saveJson: function() {
       let jsonFile = {dashboards: []};
-      jsonFile.dashboards.push(this.dashboards);
-      console.log(jsonFile);
+      this.dashboards.forEach(element => {
+        jsonFile.dashboards.push(element);
+      })
       this.$http.post("http://localhost:8080/SaveJson", jsonFile);
     },
     //FORM VALIDATIONS
@@ -160,16 +161,16 @@ export default {
       }
 
       return validated;
-    },
-    fetchDashboard: function() {
-      //?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!
-      //?!?!?!?!?!?!?!?!?!?!HÄÄ
-      const t = this;
+    }
+  },
+  created(){
+    // ?!?!?!??!?!
+    const t = this;
       return fetch("http://localhost:8080/LoadJson").then(response => {
         return response.json();
       }).then(data => {
         //console.log(JSON.parse(JSON.stringify(data.dashboards))[0]);
-        t.dashboards = JSON.parse(JSON.stringify(data.dashboards))[0];
+        t.dashboards = JSON.parse(JSON.stringify(data.dashboards));
         t.dashboardID = t.dashboards
         .map(function(e) {
           return e.name;
@@ -178,28 +179,8 @@ export default {
       }).catch(err => {
         console.log(err);
       });
-    /*
-      this.$http
-      .get("http://localhost:8080/LoadJson")
-      .then(response => (t.dashboards = response.data))
-      .catch(error => console.log(error));
-    */
-    }
-  },
-  created(){
-    // ?!?!?!??!?!
-    this.fetchDashboard();
   },
   mounted() {
-    console.log("-----");
-    console.log(this.dashboards);
-    //this.dashboards = json;
-
-    /*this.$http
-      .get("http://localhost:8080/LoadJson")
-      .then(response => (this.dashboards = response.data))
-      .catch(error => console.log(error));
-    */
   }
 };
 </script>

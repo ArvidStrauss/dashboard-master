@@ -97,7 +97,7 @@
 
 <script>
 /*eslint no-console: ["error", { allow: ["warn", "log"] }] */
-//import json from "@/assets/dashboards.json";
+import json from "@/assets/dashboards.json";
 
 export default {
   name: "EditDashboards",
@@ -117,7 +117,11 @@ export default {
   },
   methods: {
     saveJson: function() {
-      this.$http.post("http://localhost:8080/SaveJson", this.dashboards);
+      let jsonFile = {dashboards: []};
+      this.dashboards.forEach(element => {
+        jsonFile.dashboards.push(element);
+      })
+      this.$http.post("http://localhost:8080/SaveJson", jsonFile);
     },
     //FORM VALIDATIONS
     validateTitle: function() {
@@ -155,17 +159,28 @@ export default {
     }
   },
   created(){
+    this.dashboards = json;
     const t = this;
     fetch("http://localhost:8080/LoadJson").then(response => {
         return response.json();
       }).then(data => {
-        t.dashboards.push(data.dashboards[0]),
+        t.dashboards = JSON.parse(JSON.stringify(data.dashboards));
+        t.dashboards.push({
+        name: "",
+        description: "",
+        service: t.serviceName,
+        metrics: [
+          {
+            name: ""
+          }
+        ]
+        })
       }).catch(err => {
         console.log(err);
       });
+    
   },
   mounted() {
-    //this.dashboards = json;
   }
 };
 </script>

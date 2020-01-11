@@ -22,9 +22,9 @@
     <div v-for="(metri, index) in viableModels" :key="index">
       <div
         class="border rounded border--magenta-hover mb-2"
-        v-on:click="editMetric(metri.name)"
+        v-on:click="editMetric(metri)" @click.native="saveJson"
       >
-        <p>{{ metri.name }}</p>
+        <p>{{ metri }}</p>
       </div>
     </div>
   </section>
@@ -70,24 +70,34 @@ export default {
         this.dashboards[this.dashboardID].metrics.length - 1
       ].model = m;
       this.$router.push(url);
+    },
+    saveJson: function() {
+      let jsonFile = {dashboards: []};
+      jsonFile.dashboards.push(this.dashboards);
+      this.$http.post("http://localhost:8080/SaveJson", jsonFile);
     }
+  },
+  created(){
+    const t = this;
+    fetch("http://localhost:8080/LoadJson").then(response => {
+        return response.json();
+      }).then(data => {
+        t.dashboards = JSON.parse(JSON.stringify(data.dashboards))[0];
+        t.dashboardID = t.dashboards
+        .map(function(e) {
+          return e.name;
+        })
+        .indexOf(t.$route.params.dashboard);
+      }).catch(err => {
+        console.log(err);
+      });
+    this.$http
+        .get("http://localhost:8000/GetModels?service=Testservice" /*+ this.serviceName*/)
+        .then(response => (t.viableModels = response.data.models))
+        .catch(error => console.log(error));
   },
   mounted() {
     //this.dashboards = json;
-    this.$http
-      .get("http://localhost:8080/LoadJson")
-      .then(response => (this.dashboards = response.data))
-      .catch(error => console.log(error)) *
-      this.$http
-        .get("http://localhost:8000/GetModels?service=" + this.serviceName)
-        .then(response => (this.viableModels = response.data))
-        .catch(error => console.log(error));
-
-    this.dashboardID = this.dashboards
-      .map(function(e) {
-        return e.name;
-      })
-      .indexOf(this.$route.params.dashboard);
   }
 };
 </script>

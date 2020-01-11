@@ -55,9 +55,12 @@
           <li class="breadcrumb-item active">{{ dashboardName }}</li>
         </ol>
       </nav>
+      <h3 v-if="bigbrainloaded=== false">
+        loading Charts....
+      </h3>
       <draggable
         v-model="dashboard.metrics"
-        v-if="screenWidthCheck() === true"
+        v-if="screenWidthCheck() === true && bigbrainloaded === true"
         :move="saveJson()"
         class="chart__grid"
       >
@@ -66,7 +69,7 @@
           {{ metric.title }}
           <div class="chartButtons__grid">
             <div>
-              <Chart :chart-data="datacollection"></Chart>
+              <Chart :chart-data="datacollection[index]"></Chart>
             </div>
             <div class="chart__flex">
               <a class id v-on:click="removeEntry(index)">
@@ -98,33 +101,35 @@
         </div>
       </draggable>
       <div v-else>
-        <div v-for="(metric, index) in dashboard.metrics" :key="index">
-          <!-- TODO: CHART COMPONENT -->
-          <Chart :chart-data="datacollection"></Chart>
-          <div class="chart__flex mx-auto">
-            <a class id v-on:click="removeEntry(index)">
-              <button class="normalChartButton button--right">
-                <i class="fa fa-trash"></i> Delete
-              </button>
-            </a>
-            <router-link
-              class="normalChartButton"
-              :to="
-                '/' +
-                  $i18n.locale +
-                  '/metrics/' +
-                  serviceName +
+        <div v-if="bigbrainloaded === true">
+          <div v-for="(metric, index) in dashboard.metrics" :key="index">
+            <!-- TODO: CHART COMPONENT -->
+            <Chart :chart-data="datacollection[index]"></Chart>
+            <div class="chart__flex mx-auto">
+              <a class id v-on:click="removeEntry(index); saveJson()">
+                <button class="normalChartButton button--right">
+                  <i class="fa fa-trash"></i> Delete
+                </button>
+              </a>
+              <router-link
+                class="normalChartButton"
+                :to="
                   '/' +
-                  dashboardName +
-                  '/edit/' +
-                  metric.title
-              "
-            >
-              <i class="fa fa-edit"></i> Edit
-            </router-link>
-            <button class="normalChartButton" @click="fillData()">
-              Fill Data
-            </button>
+                    $i18n.locale +
+                    '/metrics/' +
+                    serviceName +
+                    '/' +
+                    dashboardName +
+                    '/edit/' +
+                    metric.title
+                "
+              >
+                <i class="fa fa-edit"></i> Edit
+              </router-link>
+              <button class="normalChartButton" @click="fillData()">
+                Fill Data
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -135,8 +140,8 @@
 <script>
 /*eslint no-console: ["error", { allow: ["warn", "log"] }] */
 import draggable from "vuedraggable";
-import json from "@/assets/dashboards.json";
-import lookback from "@/assets/lookback.json";
+//import json from "@/assets/dashboards.json";
+//import lookback from "@/assets/lookback.json";
 import Chart from "@/components/Chart.vue";
 
 export default {
@@ -149,7 +154,9 @@ export default {
     return {
       dashboards: null,
       imageToggle: true,
-      chartdata: []
+      jsonData: [],
+      datacollection: [],
+      bigbrainloaded: false
     };
   },
   computed: {
@@ -186,60 +193,106 @@ export default {
       }
     },
     saveJson: function() {
-      this.$http.post("http://localhost:8080/SaveJson", this.dashboards);
+      let jsonFile = {dashboards: []};
+      this.dashboards.forEach(element => {
+        jsonFile.dashboards.push(element);
+      })
+      this.$http.post("http://localhost:8080/SaveJson", this.jsonFile)
+      .then(function (response) {
+        console.log(response);
+      }).catch(function (error) {
+        console.log(error);
+      });
     },
-    fillData() {
-      this.datacollection = {
-        labels: this.chartLabels,
-        datasets: [
-          {
-            label: "Count",
-            pointBackgroundColor: this.chartColor,
-            pointRadius: 5,
-            pointHoverRadius: 20,
-            data: this.chartData
-          }
-        ]
-      };
+    fillData(chart, index) {
+      //processes the json Data from the get request to chart arrays
+        let chartMetric = "404"; //this.dashboard.metrics[index].metric
+        
+        let chartLabels = [];
+        let chartData = [];
+        let chartColor = [];  
+        let cLabel = [];
+        let cData = [];
+        let cColor = [];
+
+        chart[chartMetric].lookback.forEach(lkbk => {
+          cLabel.push(lkbk[0]);
+          cData.push(lkbk[1]);
+          cColor.push("rgb(226,0,116)");
+        })
+
+        chart[chartMetric].prediction.forEach(lkbk => {
+          cLabel.push(lkbk[0]);
+          cData.push(lkbk[1]);
+          cColor.push("#1bada2");
+        })
+
+        chartLabels.push(cLabel);
+        chartData.push(cData);
+        chartColor.push(cColor);
+
+      //throw everything into temp array
+        let temp = [];
+
+        chartData.forEach((elem, i) => {
+          temp = {
+            labels: chartLabels[i],
+            datasets: [
+              {
+                label: this.dashboard.metrics[index].metric,
+                pointBackgroundColor: chartColor[i],
+                pointRadius: 5,
+                pointHoverRadius: 20,
+                data: elem
+              }
+            ]
+          };
+      })
+
+      //pushes temp to datacollection for chart component
+      this.datacollection.push(temp);
+      this.bigbrainloaded = true;
+    },
+    loadChartData: function(){
+      //loads lookback and prediction data for charts
+      this.dashboard.metrics.forEach((element, index) => {
+        const baseURI =
+          "http://localhost:8080/ml_req?service=Testservice&model=model_" +element.model +"&lookback=5";
+        this.$http.get(baseURI).then(result => {
+
+          this.jsonData.push(result.data);
+          this.fillData(this.jsonData[0], index);
+          this.jsonData = [];
+        });
+      });
+    },
+    loadDashboardData: function(){
+      //load Dashboards json
+      const t = this;
+      return fetch("http://localhost:8080/LoadJson").then(response => {
+        return response.json();
+      }).then(data => {
+        t.dashboards = JSON.parse(JSON.stringify(data.dashboards));
+        
+        t.loadChartData();
+      }).catch(err => {
+        console.log(err);
+      });
+    },
+    reload: function(){
+      setTimeout(function() {
+        setInterval(function() {
+          this.loadChartData();
+        }, 30000);
+      }, 30000);
     }
   },
   created() {
-    this.dashboards = json;
-    this.lookback = lookback; // muss durch chartData[index] ersetzt werden
-    this.chartLabels = new Array();
-    this.chartData = new Array();
-    this.chartColor = new Array();
-
-    lookback.count.lookback.forEach(element => {
-      this.chartLabels.push(element[0]);
-      this.chartData.push(element[1]);
-      this.chartColor.push("rgb(226, 0, 116)");
-    });
-    lookback.count.prediction.forEach(element => {
-      this.chartLabels.push(element[0]);
-      this.chartData.push(element[1]);
-      this.chartColor.push("#1bada2");
-    });
-
-    this.fillData();
+      this.loadDashboardData();
+      this.reload();
+      
   },
   mounted() {
-    this.$http
-      .get("http://localhost:8080/LoadJson")
-      .then(response => (this.dashboards = response.data))
-      .catch(error => console.log(error));
-
-    this.dashboard.metrics.forEach(element => {
-      const baseURI =
-        "http://localhost:8000/ml_req?service=" +
-        this.serviceName +
-        "&model=" +
-        element.model +
-        "&lookback=5";
-      this.$http.get(baseURI).then(result => {
-        this.chartdata.push(result.data);
-      });
-    });
   }
 };
 </script>
