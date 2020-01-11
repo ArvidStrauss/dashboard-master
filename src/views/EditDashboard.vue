@@ -118,14 +118,13 @@ export default {
     dashboardName: function() {
       return this.$route.params.dashboard;
     }
-
   },
   methods: {
     saveJson: function() {
-      let jsonFile = {dashboards: []};
+      let jsonFile = { dashboards: [] };
       this.dashboards.forEach(element => {
         jsonFile.dashboards.push(element);
-      })
+      });
       this.$http.post("http://localhost:8080/SaveJson", jsonFile);
     },
     //FORM VALIDATIONS
@@ -163,25 +162,27 @@ export default {
       return validated;
     }
   },
-  created(){
+  created() {
     // ?!?!?!??!?!
     const t = this;
-      return fetch("http://localhost:8080/LoadJson").then(response => {
+    return fetch("http://localhost:8080/LoadJson")
+      .then(response => {
         return response.json();
-      }).then(data => {
+      })
+      .then(data => {
         //console.log(JSON.parse(JSON.stringify(data.dashboards))[0]);
         t.dashboards = JSON.parse(JSON.stringify(data.dashboards));
         t.dashboardID = t.dashboards
-        .map(function(e) {
-          return e.name;
-        })
-        .indexOf(t.$route.params.dashboard);
-      }).catch(err => {
+          .map(function(e) {
+            return e.name;
+          })
+          .indexOf(t.$route.params.dashboard);
+      })
+      .catch(err => {
         console.log(err);
       });
   },
-  mounted() {
-  }
+  mounted() {}
 };
 </script>
 

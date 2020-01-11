@@ -117,10 +117,10 @@ export default {
   },
   methods: {
     saveJson: function() {
-      let jsonFile = {dashboards: []};
+      let jsonFile = { dashboards: [] };
       this.dashboards.forEach(element => {
         jsonFile.dashboards.push(element);
-      })
+      });
       this.$http.post("http://localhost:8080/SaveJson", jsonFile);
     },
     //FORM VALIDATIONS
@@ -158,30 +158,31 @@ export default {
       return validated;
     }
   },
-  created(){
+  created() {
     this.dashboards = json;
     const t = this;
-    fetch("http://localhost:8080/LoadJson").then(response => {
+    fetch("http://localhost:8080/LoadJson")
+      .then(response => {
         return response.json();
-      }).then(data => {
+      })
+      .then(data => {
         t.dashboards = JSON.parse(JSON.stringify(data.dashboards));
         t.dashboards.push({
-        name: "",
-        description: "",
-        service: t.serviceName,
-        metrics: [
-          {
-            name: ""
-          }
-        ]
-        })
-      }).catch(err => {
+          name: "",
+          description: "",
+          service: t.serviceName,
+          metrics: [
+            {
+              name: ""
+            }
+          ]
+        });
+      })
+      .catch(err => {
         console.log(err);
       });
-    
   },
-  mounted() {
-  }
+  mounted() {}
 };
 </script>
 

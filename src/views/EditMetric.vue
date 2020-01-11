@@ -133,7 +133,9 @@
           required
           v-model="dashboards[dashboardID].metrics[metricID].predtime"
         >
-          <option v-for="(time, index) in viablePredTime" :key="index">{{ time }}</option>
+          <option v-for="(time, index) in viablePredTime" :key="index">{{
+            time
+          }}</option>
         </select>
         <br />
         <router-link
@@ -182,10 +184,10 @@ export default {
   },
   methods: {
     saveJson: function() {
-      let jsonFile = {dashboards: []};
+      let jsonFile = { dashboards: [] };
       this.dashboards.forEach(element => {
         jsonFile.dashboards.push(element);
-      })
+      });
       this.$http.post("http://localhost:8080/SaveJson", this.jsonFile);
     },
 
@@ -226,23 +228,26 @@ export default {
       return validated;
     }
   },
-  created(){
+  created() {
     const t = this;
-    fetch("http://localhost:8080/LoadJson").then(response => {
+    fetch("http://localhost:8080/LoadJson")
+      .then(response => {
         return response.json();
-      }).then(data => {
+      })
+      .then(data => {
         t.dashboards = JSON.parse(JSON.stringify(data.dashboards));
         t.dashboardID = t.dashboards
-        .map(function(e) {
-          return e.name;
-        })
-        .indexOf(t.$route.params.dashboard);
-      t.metricID = t.dashboards[t.dashboardID].metrics
-        .map(function(e) {
-          return e.title;
-        })
-        .indexOf(t.$route.params.metric);
-      }).catch(err => {
+          .map(function(e) {
+            return e.name;
+          })
+          .indexOf(t.$route.params.dashboard);
+        t.metricID = t.dashboards[t.dashboardID].metrics
+          .map(function(e) {
+            return e.title;
+          })
+          .indexOf(t.$route.params.metric);
+      })
+      .catch(err => {
         console.log(err);
       });
 
@@ -252,7 +257,7 @@ export default {
           this.serviceName +
           "&model=" +
           this.dashboards[this.dashboardID].metrics[this.metricID].model*/
-          "http://localhost:8000/GetPredTime?service=Testservice&model=model_0"
+        "http://localhost:8000/GetPredTime?service=Testservice&model=model_0"
       )
       .then(response => (t.viablePredTime = response.data.Pred_time))
       .catch(error => console.log(error));

@@ -23,9 +23,9 @@
     <div v-for="(metri, index) in viableModels" :key="index">
       <div
         class="border rounded border--magenta-hover mb-2"
-        v-on:click="editMetric(metri.name)"
+        v-on:click="editMetric(metri)"
       >
-        <p>{{ metri.name }}</p>
+        <p>{{ metri }}</p>
       </div>
     </div>
   </section>
@@ -59,6 +59,12 @@ export default {
   },
   methods: {
     editMetric: function(m) {
+      let jsonFile = { dashboards: [] };
+      this.dashboards.forEach(element => {
+        jsonFile.dashboards.push(element);
+      });
+      this.$http.post("http://localhost:8080/SaveJson", jsonFile);
+
       let url =
         "/" +
         this.$i18n.locale +
@@ -74,26 +80,34 @@ export default {
   },
   mounted() {
     //this.dashboards = json;
-    this.$http
-      .get("http://localhost:8080/LoadJson")
-      .then(response => (this.dashboards = response.data))
-      .catch(error => console.log(error));
-
-    this.$http
-      .get("http://localhost:8000/GetModels?service=" + this.serviceName)
-      .then(response => (this.viableModels = response.data))
-      .catch(error => console.log(error));
-
-    this.dashboardID = this.dashboards
-      .map(function(e) {
-        return e.name;
+    const t = this;
+    fetch("http://localhost:8080/LoadJson")
+      .then(response => {
+        return response.json();
       })
-      .indexOf(this.$route.params.dashboard);
-    this.metricID = this.dashboards[this.dashboardID].metrics
-      .map(function(e) {
-        return e.title;
+      .then(data => {
+        t.dashboards = JSON.parse(JSON.stringify(data.dashboards));
+        t.dashboardID = t.dashboards
+          .map(function(e) {
+            return e.name;
+          })
+          .indexOf(t.$route.params.dashboard);
+
+        t.metricID = t.dashboards[t.dashboardID].metrics
+          .map(function(e) {
+            return e.title;
+          })
+          .indexOf(t.$route.params.metric);
       })
-      .indexOf(this.$route.params.metric);
+      .catch(err => {
+        console.log(err);
+      });
+    this.$http
+      .get(
+        "http://localhost:8000/GetModels?service=Testservice" /*+ this.serviceName*/
+      )
+      .then(response => (t.viableModels = response.data.models))
+      .catch(error => console.log(error));
   }
 };
 </script>

@@ -22,7 +22,7 @@
     <div v-for="(metri, index) in viableModels" :key="index">
       <div
         class="border rounded border--magenta-hover mb-2"
-        v-on:click="editMetric(metri)" @click.native="saveJson"
+        v-on:click="editMetric(metri)"
       >
         <p>{{ metri }}</p>
       </div>
@@ -58,6 +58,12 @@ export default {
   },
   methods: {
     editMetric: function(m) {
+      let jsonFile = { dashboards: [] };
+      this.dashboards.forEach(element => {
+        jsonFile.dashboards.push(element);
+      });
+      this.$http.post("http://localhost:8080/SaveJson", jsonFile);
+
       let url =
         "/" +
         this.$i18n.locale +
@@ -70,31 +76,31 @@ export default {
         this.dashboards[this.dashboardID].metrics.length - 1
       ].model = m;
       this.$router.push(url);
-    },
-    saveJson: function() {
-      let jsonFile = {dashboards: []};
-      jsonFile.dashboards.push(this.dashboards);
-      this.$http.post("http://localhost:8080/SaveJson", jsonFile);
     }
   },
-  created(){
+  created() {
     const t = this;
-    fetch("http://localhost:8080/LoadJson").then(response => {
+    fetch("http://localhost:8080/LoadJson")
+      .then(response => {
         return response.json();
-      }).then(data => {
-        t.dashboards = JSON.parse(JSON.stringify(data.dashboards))[0];
+      })
+      .then(data => {
+        t.dashboards = JSON.parse(JSON.stringify(data.dashboards));
         t.dashboardID = t.dashboards
-        .map(function(e) {
-          return e.name;
-        })
-        .indexOf(t.$route.params.dashboard);
-      }).catch(err => {
+          .map(function(e) {
+            return e.name;
+          })
+          .indexOf(t.$route.params.dashboard);
+      })
+      .catch(err => {
         console.log(err);
       });
     this.$http
-        .get("http://localhost:8000/GetModels?service=Testservice" /*+ this.serviceName*/)
-        .then(response => (t.viableModels = response.data.models))
-        .catch(error => console.log(error));
+      .get(
+        "http://localhost:8000/GetModels?service=Testservice" /*+ this.serviceName*/
+      )
+      .then(response => (t.viableModels = response.data.models))
+      .catch(error => console.log(error));
   },
   mounted() {
     //this.dashboards = json;

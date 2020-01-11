@@ -22,9 +22,9 @@
     <div v-for="(metri, index) in viableMetrics" :key="index">
       <div
         class="border rounded border--magenta-hover mb-2"
-        v-on:click="editMetric(metri.name)"
+        v-on:click="editMetric(metri)"
       >
-        <p>{{ metri.name }}</p>
+        <p>{{ metri }}</p>
       </div>
     </div>
   </section>
@@ -58,6 +58,12 @@ export default {
   },
   methods: {
     editMetric: function(m) {
+      let jsonFile = { dashboards: [] };
+      this.dashboards.forEach(element => {
+        jsonFile.dashboards.push(element);
+      });
+      this.$http.post("http://localhost:8080/SaveJson", jsonFile);
+
       let url =
         "/" +
         this.$i18n.locale +
@@ -74,26 +80,31 @@ export default {
   },
   mounted() {
     //this.dashboards = json;
-    this.$http
-      .get("http://localhost:8080/LoadJson")
-      .then(response => (this.dashboards = response.data))
-      .catch(error => console.log(error));
-
+    const t = this;
+    fetch("http://localhost:8080/LoadJson")
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        t.dashboards = JSON.parse(JSON.stringify(data.dashboards));
+        t.dashboardID = t.dashboards
+          .map(function(e) {
+            return e.name;
+          })
+          .indexOf(t.$route.params.dashboard);
+      })
+      .catch(err => {
+        console.log(err);
+      });
     this.$http
       .get(
-        "http://localhost:8000/GetMetrics?service=" +
-          this.serviceName +
+        "http://localhost:8000/GetMetrics?service=Testservice&model=model_0"
+        /*+this.serviceName +
           "&model=" +
-          this.dashboards[this.dashboardID].metrics[this.metricID].model
+          this.dashboards[this.dashboardID].metrics[this.metricID].model */
       )
-      .then(response => (this.viableMetrics = response.data))
+      .then(response => (this.viableMetrics = response.data.metrics))
       .catch(error => console.log(error));
-
-    this.dashboardID = this.dashboards
-      .map(function(e) {
-        return e.name;
-      })
-      .indexOf(this.$route.params.dashboard);
   }
 };
 </script>

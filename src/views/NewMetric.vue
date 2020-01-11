@@ -197,10 +197,10 @@ export default {
   },
   methods: {
     saveJson: function() {
-      let jsonFile = {dashboards: []};
+      let jsonFile = { dashboards: [] };
       this.dashboards.forEach(element => {
         jsonFile.dashboards.push(element);
-      })
+      });
       this.$http.post("http://localhost:8080/SaveJson", jsonFile);
     },
 
@@ -243,13 +243,16 @@ export default {
       return validated;
     }
   },
-  created(){
+  created() {
     const t = this;
-    fetch("http://localhost:8080/LoadJson").then(response => {
+    fetch("http://localhost:8080/LoadJson")
+      .then(response => {
         return response.json();
-      }).then(data => {
+      })
+      .then(data => {
         t.dashboards = JSON.parse(JSON.stringify(data.dashboards));
-      }).catch(err => {
+      })
+      .catch(err => {
         console.log(err);
       });
 
@@ -259,7 +262,7 @@ export default {
           this.serviceName +
           "&model=" +
           this.dashboards[this.dashboardID].metrics[this.metricID].model*/
-          "http://localhost:8000/GetPredTime?service=Testservice&model=model_0"
+        "http://localhost:8000/GetPredTime?service=Testservice&model=model_0"
       )
       .then(response => (t.viablePredTime = response.data.Pred_time))
       .catch(error => console.log(error));

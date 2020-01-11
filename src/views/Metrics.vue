@@ -55,7 +55,7 @@
           <li class="breadcrumb-item active">{{ dashboardName }}</li>
         </ol>
       </nav>
-      <h3 v-if="bigbrainloaded=== false">
+      <h3 v-if="bigbrainloaded === false">
         loading Charts....
       </h3>
       <draggable
@@ -92,9 +92,6 @@
               >
                 <i class="fa fa-edit"></i> Edit
               </router-link>
-              <button class="normalChartButton" @click="fillData()">
-                Fill Data
-              </button>
             </div>
           </div>
           {{ metric.desc }}
@@ -106,7 +103,14 @@
             <!-- TODO: CHART COMPONENT -->
             <Chart :chart-data="datacollection[index]"></Chart>
             <div class="chart__flex mx-auto">
-              <a class id v-on:click="removeEntry(index); saveJson()">
+              <a
+                class
+                id
+                v-on:click="
+                  removeEntry(index);
+                  saveJson();
+                "
+              >
                 <button class="normalChartButton button--right">
                   <i class="fa fa-trash"></i> Delete
                 </button>
@@ -126,9 +130,6 @@
               >
                 <i class="fa fa-edit"></i> Edit
               </router-link>
-              <button class="normalChartButton" @click="fillData()">
-                Fill Data
-              </button>
             </div>
           </div>
         </div>
@@ -156,7 +157,8 @@ export default {
       imageToggle: true,
       jsonData: [],
       datacollection: [],
-      bigbrainloaded: false
+      bigbrainloaded: false,
+      timer: ""
     };
   },
   computed: {
@@ -193,106 +195,108 @@ export default {
       }
     },
     saveJson: function() {
-      let jsonFile = {dashboards: []};
+      let jsonFile = { dashboards: [] };
       this.dashboards.forEach(element => {
         jsonFile.dashboards.push(element);
-      })
-      this.$http.post("http://localhost:8080/SaveJson", this.jsonFile)
-      .then(function (response) {
-        console.log(response);
-      }).catch(function (error) {
-        console.log(error);
       });
+      this.$http
+        .post("http://localhost:8080/SaveJson", this.jsonFile)
+        .then(function(response) {
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     },
     fillData(chart, index) {
       //processes the json Data from the get request to chart arrays
-        let chartMetric = "404"; //this.dashboard.metrics[index].metric
-        
-        let chartLabels = [];
-        let chartData = [];
-        let chartColor = [];  
-        let cLabel = [];
-        let cData = [];
-        let cColor = [];
+      let chartMetric = this.dashboard.metrics[index].metric;
 
-        chart[chartMetric].lookback.forEach(lkbk => {
-          cLabel.push(lkbk[0]);
-          cData.push(lkbk[1]);
-          cColor.push("rgb(226,0,116)");
-        })
+      let chartLabels = [];
+      let chartData = [];
+      let chartColor = [];
+      let cLabel = [];
+      let cData = [];
+      let cColor = [];
 
-        chart[chartMetric].prediction.forEach(lkbk => {
-          cLabel.push(lkbk[0]);
-          cData.push(lkbk[1]);
-          cColor.push("#1bada2");
-        })
+      chart[chartMetric].lookback.forEach(lkbk => {
+        cLabel.push(lkbk[0]);
+        cData.push(lkbk[1]);
+        cColor.push("rgb(226,0,116)");
+      });
 
-        chartLabels.push(cLabel);
-        chartData.push(cData);
-        chartColor.push(cColor);
+      chart[chartMetric].prediction.forEach(lkbk => {
+        cLabel.push(lkbk[0]);
+        cData.push(lkbk[1]);
+        cColor.push("#1bada2");
+      });
+
+      chartLabels.push(cLabel);
+      chartData.push(cData);
+      chartColor.push(cColor);
 
       //throw everything into temp array
-        let temp = [];
+      let temp = [];
 
-        chartData.forEach((elem, i) => {
-          temp = {
-            labels: chartLabels[i],
-            datasets: [
-              {
-                label: this.dashboard.metrics[index].metric,
-                pointBackgroundColor: chartColor[i],
-                pointRadius: 5,
-                pointHoverRadius: 20,
-                data: elem
-              }
-            ]
-          };
-      })
+      chartData.forEach((elem, i) => {
+        temp = {
+          labels: chartLabels[i],
+          datasets: [
+            {
+              label: this.dashboard.metrics[index].metric,
+              pointBackgroundColor: chartColor[i],
+              pointRadius: 5,
+              pointHoverRadius: 20,
+              data: elem
+            }
+          ]
+        };
+      });
 
       //pushes temp to datacollection for chart component
       this.datacollection.push(temp);
       this.bigbrainloaded = true;
     },
-    loadChartData: function(){
+    loadChartData: function() {
       //loads lookback and prediction data for charts
       this.dashboard.metrics.forEach((element, index) => {
         const baseURI =
-          "http://localhost:8080/ml_req?service=Testservice&model=model_" +element.model +"&lookback=5";
+          "http://localhost:8080/ml_req?service=Testservice&model=" +
+          element.model +
+          "&lookback=5";
         this.$http.get(baseURI).then(result => {
-
           this.jsonData.push(result.data);
           this.fillData(this.jsonData[0], index);
           this.jsonData = [];
         });
       });
     },
-    loadDashboardData: function(){
+    loadDashboardData: function() {
       //load Dashboards json
       const t = this;
-      return fetch("http://localhost:8080/LoadJson").then(response => {
-        return response.json();
-      }).then(data => {
-        t.dashboards = JSON.parse(JSON.stringify(data.dashboards));
-        
-        t.loadChartData();
-      }).catch(err => {
-        console.log(err);
-      });
+      return fetch("http://localhost:8080/LoadJson")
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          t.dashboards = JSON.parse(JSON.stringify(data.dashboards));
+
+          t.loadChartData();
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
-    reload: function(){
-      setTimeout(function() {
-        setInterval(function() {
-          this.loadChartData();
-        }, 30000);
-      }, 30000);
+    clearAutoUpdate: function() {
+      clearInterval(this.timer);
     }
   },
   created() {
-      this.loadDashboardData();
-      this.reload();
-      
+    this.loadDashboardData();
+    //this.timer = setInterval(this.loadDashboardData(), 10000);
   },
-  mounted() {
+  beforeDestroy() {
+    this.clearAutoUpdate();
   }
 };
 </script>
