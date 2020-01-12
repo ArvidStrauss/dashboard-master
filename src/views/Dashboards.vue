@@ -40,9 +40,9 @@
       </nav>
       <h3 v-if="bigbrainloaded === false">
         Loading dashboards....
-        <br>
-        <br>
-        <br>
+        <br />
+        <br />
+        <br />
         Please wait.
       </h3>
       <div v-if="bigbrainloaded === true">
@@ -105,7 +105,7 @@
                     </div>
                   </div>
                   <div class="card__buttons--item" v-else>
-                    <a href="#" >
+                    <a href="#">
                       <button class="button--right bg-danger text-white">
                         <i class="fa fa-trash"></i>
                         {{ $t("menu.delete") }}
@@ -154,10 +154,9 @@ export default {
         .slice(0)
         .sort((a, b) => (a.name < b.name ? this.sorting : -this.sorting));
     },
-    dashboardsLength: function(){
+    dashboardsLength: function() {
       return this.sortedChoice.length;
     }
-
   },
   methods: {
     removeEntry: function(name) {
@@ -198,8 +197,10 @@ export default {
           t.bigbrainloaded = true;
         })
         .catch(err => {
-          console.log("ERROR: can't load /loadJson, the JSON file at the server is corrupted. Please contact the admin to reset the file.")
-          this.resetJson();//developement / reset to default version
+          console.log(
+            "ERROR: can't load /loadJson, the JSON file at the server is corrupted. Please contact the admin to reset the file."
+          );
+          this.resetJson(); //developement / reset to default version
           console.log(err);
         });
     }

@@ -58,27 +58,28 @@ export default {
   },
   methods: {
     editMetric: function(m) {
-      this.dashboards[this.dashboardID].metrics[this.dashboards[this.dashboardID].metrics.length - 1
+      this.dashboards[this.dashboardID].metrics[
+        this.dashboards[this.dashboardID].metrics.length - 1
       ].metric = m;
       let jsonFile = { dashboards: [] };
       this.dashboards.forEach(element => {
         jsonFile.dashboards.push(element);
       });
-      let t=this;
-      this.$http.post("http://localhost:8080/SaveJson", jsonFile).then(()=>{
+      let t = this;
+      this.$http.post("http://localhost:8080/SaveJson", jsonFile).then(() => {
         let url =
-        '/' +
-                    t.$i18n.locale +
-                    '/metrics/' +
-                    t.serviceName +
-                    '/' +
-                    t.dashboardName +
-                    '/edit/' +
-                    t.dashboards[t.dashboardID].metrics[t.dashboards[t.dashboardID].metrics.length-1].title;
+          "/" +
+          t.$i18n.locale +
+          "/metrics/" +
+          t.serviceName +
+          "/" +
+          t.dashboardName +
+          "/edit/" +
+          t.dashboards[t.dashboardID].metrics[
+            t.dashboards[t.dashboardID].metrics.length - 1
+          ].title;
         t.$router.push(url);
       });
-
-      
     }
   },
   mounted() {

@@ -65,7 +65,7 @@ export default {
         jsonFile.dashboards.push(element);
       });
       let t = this;
-      this.$http.post("http://localhost:8080/SaveJson", jsonFile).then(()=>{
+      this.$http.post("http://localhost:8080/SaveJson", jsonFile).then(() => {
         let url =
           "/" +
           t.$i18n.locale +
@@ -77,8 +77,6 @@ export default {
           t.dashboards[t.dashboardID].metrics[t.metricID].title;
         t.$router.push(url);
       });
-
-      
     }
   },
   mounted() {

@@ -96,7 +96,8 @@
         ></textarea>
         <hr />
         <br />
-        <a href="#"
+        <a
+          href="#"
           v-if="validateForm() == true"
           class="card routerLink breadcrumb__link pt-2 pl-4"
           v-on:click="saveJson(1)"
@@ -109,7 +110,8 @@
           </p>
         </div>
         <br />
-        <a href="#"
+        <a
+          href="#"
           v-if="validateForm() == true"
           class="card routerLink breadcrumb__link pt-2 pl-4"
           v-on:click="saveJson(2)"
@@ -123,12 +125,20 @@
         </div>
         <br />
         <hr />
-        <p class="text-left">Prediction Time for model {{ dashboards[dashboardID].metrics[dashboards[dashboardID].metrics.length-1].model }} : 
+        <p class="text-left">
+          Prediction Time for model
+          {{
+            dashboards[dashboardID].metrics[
+              dashboards[dashboardID].metrics.length - 1
+            ].model
+          }}
+          :
 
           <b>{{ viablePredTime }} minutes </b>.
         </p>
         <br />
-        <a href="#"
+        <a
+          href="#"
           v-if="validateForm() == true"
           class="saveButton saveButton--cyan mx-auto w-50"
           v-on:click="saveJson(3)"
@@ -173,22 +183,42 @@ export default {
   methods: {
     saveJson: function(urlNr) {
       let url;
-      if(urlNr === 1){
-        url = '/' +this.$i18n.locale +'/metrics/' + this.serviceName +'/' + this.dashboardName +'/selectMoNew';
+      if (urlNr === 1) {
+        url =
+          "/" +
+          this.$i18n.locale +
+          "/metrics/" +
+          this.serviceName +
+          "/" +
+          this.dashboardName +
+          "/selectMoNew";
       }
-      if(urlNr === 2){
-        url = '/' +this.$i18n.locale +'/metrics/' +this.serviceName +'/' +this.dashboardName +'/selectMeNew';
+      if (urlNr === 2) {
+        url =
+          "/" +
+          this.$i18n.locale +
+          "/metrics/" +
+          this.serviceName +
+          "/" +
+          this.dashboardName +
+          "/selectMeNew";
       }
-      if(urlNr === 3){
-        url = '/' + this.$i18n.locale + '/metrics/' + this.serviceName + '/' + this.dashboardName;
+      if (urlNr === 3) {
+        url =
+          "/" +
+          this.$i18n.locale +
+          "/metrics/" +
+          this.serviceName +
+          "/" +
+          this.dashboardName;
       }
       let jsonFile = { dashboards: [] };
       this.dashboards.forEach(element => {
         jsonFile.dashboards.push(element);
       });
       let t = this;
-      this.$http.post("http://localhost:8080/SaveJson", jsonFile).then(()=> {
-        t.$router.push(url);        
+      this.$http.post("http://localhost:8080/SaveJson", jsonFile).then(() => {
+        t.$router.push(url);
       });
     },
 
@@ -205,8 +235,7 @@ export default {
     },
     validateDesc: function() {
       let validated = true;
-      let desc = this.dashboard.metrics[this.dashboard.metrics.length - 1]
-        .desc;
+      let desc = this.dashboard.metrics[this.dashboard.metrics.length - 1].desc;
 
       if (desc == null || desc == "") {
         validated = false;
@@ -218,8 +247,7 @@ export default {
       let validated = true;
       let title = this.dashboard.metrics[this.dashboard.metrics.length - 1]
         .title;
-      let desc = this.dashboard.metrics[this.dashboard.metrics.length - 1]
-        .desc;
+      let desc = this.dashboard.metrics[this.dashboard.metrics.length - 1].desc;
 
       if (title == null || title == "") {
         validated = false;
@@ -239,7 +267,7 @@ export default {
       })
       .then(data => {
         t.dashboards = JSON.parse(JSON.stringify(data.dashboards));
-        
+
         t.dashboardID = t.dashboards
           .map(function(e) {
             return e.name;
@@ -247,21 +275,21 @@ export default {
           .indexOf(t.$route.params.dashboard);
 
         t.$http
-        .get("http://localhost:8000/GetPredTime?service=Testservice&model=model_0" 
-        )
-        .then(response => {
-          t.viablePredTime = response.data.Pred_time;
+          .get(
+            "http://localhost:8000/GetPredTime?service=Testservice&model=model_0"
+          )
+          .then(response => {
+            t.viablePredTime = response.data.Pred_time;
 
-          t.dashboards[t.dashboardID].metrics.push({
-            title: "",
-            desc: "",
-            model: "model_0", //default model
-            metric: "100", //default metric
-            predtime: t.viablePredTime
-          })       
-
-        })
-        .catch(error => console.log(error));
+            t.dashboards[t.dashboardID].metrics.push({
+              title: "",
+              desc: "",
+              model: "model_0", //default model
+              metric: "100", //default metric
+              predtime: t.viablePredTime
+            });
+          })
+          .catch(error => console.log(error));
       })
       .catch(err => {
         console.log(err);

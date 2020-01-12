@@ -81,7 +81,8 @@
           "
         ></textarea>
         <br />
-        <a href="#"
+        <a
+          href="#"
           v-if="validateForm() == true"
           class="saveButton saveButton--cyan mx-auto w-50"
           v-on:click="saveJson"
@@ -125,8 +126,8 @@ export default {
         jsonFile.dashboards.push(element);
       });
       let t = this;
-      this.$http.post("http://localhost:8080/SaveJson", jsonFile).then(()=> {
-        t.$router.push('/' + t.$i18n.locale + '/dashboards/' + t.serviceName);        
+      this.$http.post("http://localhost:8080/SaveJson", jsonFile).then(() => {
+        t.$router.push("/" + t.$i18n.locale + "/dashboards/" + t.serviceName);
       });
     },
     //FORM VALIDATIONS

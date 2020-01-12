@@ -15,9 +15,7 @@
             '/new'
         "
       >
-        <button
-          class="normalButton pull-right cursor--add"
-        >
+        <button class="normalButton pull-right cursor--add">
           <i class="fa fa-plus"></i> New Diagram
         </button>
       </router-link>
@@ -56,9 +54,9 @@
       </nav>
       <h3 v-if="bigbrainloaded === false">
         loading Charts....
-        <br>
-        <br>
-        <br>
+        <br />
+        <br />
+        <br />
         Please wait
       </h3>
       <draggable
@@ -69,9 +67,11 @@
       >
         <div v-for="(metric, index) in dashboard.metrics" :key="index">
           <div class="border pr-2">
-            <br>
-            <p><b>{{ metric.title }}</b></p>
-            <p>Predicted time: {{ metric.predtime }} minutes</p> 
+            <br />
+            <p>
+              <b>{{ metric.title }}</b>
+            </p>
+            <p>Predicted time: {{ metric.predtime }} minutes</p>
             <div class="chartButtons__grid">
               <div>
                 <Chart :chart-data="datacollection[index]"></Chart>
@@ -107,9 +107,9 @@
                 </router-link>
               </div>
             </div>
-            <hr>
+            <hr />
             <div>{{ metric.desc }}</div>
-            <br>
+            <br />
           </div>
         </div>
       </draggable>
@@ -118,9 +118,11 @@
           <div v-for="(metric, index) in dashboard.metrics" :key="index">
             <!-- TODO: CHART COMPONENT -->
             <div class="border">
-              <br>
-              <p><b>{{ metric.title }}</b></p>
-              <p>Predicted time: {{ metric.predtime }} minutes</p> 
+              <br />
+              <p>
+                <b>{{ metric.title }}</b>
+              </p>
+              <p>Predicted time: {{ metric.predtime }} minutes</p>
               <Chart :chart-data="datacollection[index]"></Chart>
               <div class="chart__flex mx-auto">
                 <div v-if="dashboardsLength > 1">
@@ -138,7 +140,11 @@
                     </button>
                   </a>
                 </div>
-                <span v-else href="#" class="normalChartButton button--right bg-danger">
+                <span
+                  v-else
+                  href="#"
+                  class="normalChartButton button--right bg-danger"
+                >
                   <i class="fa fa-trash"></i>
                   {{ $t("menu.delete") }}
                 </span>
@@ -159,11 +165,11 @@
                   {{ $t("menu.edit") }}
                 </router-link>
               </div>
-              <hr>
+              <hr />
               <div>{{ metric.desc }}</div>
-              <br>
+              <br />
             </div>
-            <br>
+            <br />
           </div>
         </div>
       </div>
@@ -206,7 +212,7 @@ export default {
         element => element.name == this.dashboardName
       );
     },
-    dashboardsLength: function(){
+    dashboardsLength: function() {
       return this.dashboard.metrics.length;
     }
   },
