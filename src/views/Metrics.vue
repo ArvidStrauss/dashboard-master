@@ -183,6 +183,7 @@ import draggable from "vuedraggable";
 //import json from "@/assets/dashboards.json";
 //import lookback from "@/assets/lookback.json";
 import Chart from "@/components/Chart.vue";
+import _ from "lodash";
 
 export default {
   name: "Dashboards",
@@ -328,6 +329,11 @@ export default {
   mounted() {
     this.loadDashboardData();
     //this.timer = setInterval(this.loadDashboardData(), 10000);
+  },
+  watch: {
+    dashboards: _.debounce(function() {
+      this.loadDashboardData();
+    }, 60000)
   },
   beforeDestroy() {
     this.clearAutoUpdate();
