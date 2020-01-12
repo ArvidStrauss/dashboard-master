@@ -205,7 +205,7 @@ export default {
           console.log(response);
         })
         .catch(function(error) {
-          console.log(error);
+          console.log(error.response);
         });
     },
     fillData(chart, index) {
@@ -291,7 +291,7 @@ export default {
       clearInterval(this.timer);
     }
   },
-  created() {
+  mounted() {
     this.loadDashboardData();
     //this.timer = setInterval(this.loadDashboardData(), 10000);
   },

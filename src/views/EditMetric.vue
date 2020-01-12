@@ -138,15 +138,13 @@
           }}</option>
         </select>
         <br />
-        <router-link
+        <a href="#"
           v-if="validateForm() == true"
           class="saveButton saveButton--cyan mx-auto w-50"
-          :to="
-            '/' + $i18n.locale + '/metrics/' + serviceName + '/' + dashboardName
-          "
-          @click.native="saveJson"
-          >Save</router-link
-        >
+          v-on:click="saveJson"
+          >
+          Save
+        </a>
         <div v-else>
           <p>Please fill in the form</p>
           <span class="saveButton saveButton--red w-50 mx-auto">Save</span>
@@ -188,7 +186,10 @@ export default {
       this.dashboards.forEach(element => {
         jsonFile.dashboards.push(element);
       });
-      this.$http.post("http://localhost:8080/SaveJson", this.jsonFile);
+      let t = this;
+      this.$http.post("http://localhost:8080/SaveJson", jsonFile).then(()=> {
+        t.$router.push('/' + t.$i18n.locale + '/metrics/' + t.serviceName + '/' + t.dashboardName);        
+      });
     },
 
     //FORM VALIDATIONS
@@ -229,6 +230,9 @@ export default {
     }
   },
   created() {
+  },
+  mounted() {
+    //this.dashboards = json;
     const t = this;
     fetch("http://localhost:8080/LoadJson")
       .then(response => {
@@ -261,9 +265,6 @@ export default {
       )
       .then(response => (t.viablePredTime = response.data.Pred_time))
       .catch(error => console.log(error));
-  },
-  mounted() {
-    //this.dashboards = json;
   }
 };
 </script>

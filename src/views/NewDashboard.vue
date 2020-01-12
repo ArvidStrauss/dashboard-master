@@ -78,14 +78,13 @@
           "
         ></textarea>
         <br />
-        <router-link
+        <a href="#"
           v-if="validateForm() == true"
           class="saveButton saveButton--cyan mx-auto w-50"
-          :to="'/' + $i18n.locale + '/dashboards/' + serviceName"
-          @click.native="saveJson"
+          v-on:click="saveJson"
         >
           {{ $t("newDashboard.save") }}
-        </router-link>
+        </a>
         <div v-else>
           <p>{{ $t("newDashboard.please") }}</p>
           <span class="saveButton saveButton--red w-50 mx-auto">Save</span>
@@ -97,7 +96,7 @@
 
 <script>
 /*eslint no-console: ["error", { allow: ["warn", "log"] }] */
-import json from "@/assets/dashboards.json";
+//import json from "@/assets/dashboards.json";
 
 export default {
   name: "EditDashboards",
@@ -121,7 +120,10 @@ export default {
       this.dashboards.forEach(element => {
         jsonFile.dashboards.push(element);
       });
-      this.$http.post("http://localhost:8080/SaveJson", jsonFile);
+      let t = this;
+      this.$http.post("http://localhost:8080/SaveJson", jsonFile).then(()=> {
+        t.$router.push('/' + t.$i18n.locale + '/dashboards/' + t.serviceName);        
+      });
     },
     //FORM VALIDATIONS
     validateTitle: function() {
@@ -159,7 +161,7 @@ export default {
     }
   },
   created() {
-    this.dashboards = json;
+    //this.dashboards = json;
     const t = this;
     fetch("http://localhost:8080/LoadJson")
       .then(response => {
@@ -181,6 +183,7 @@ export default {
       .catch(err => {
         console.log(err);
       });
+    
   },
   mounted() {}
 };

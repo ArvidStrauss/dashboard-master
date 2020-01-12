@@ -104,7 +104,8 @@
 </template>
 
 <script>
-//import json from "@/assets/dashboards.json";
+import json from "@/assets/dashboards.json";
+//import _ from 'lodash';
 /*eslint no-console: ["error", { allow: ["warn", "log"] }] */
 export default {
   name: "Dashboards",
@@ -132,10 +133,14 @@ export default {
       return this.currentChoice
         .slice(0)
         .sort((a, b) => (a.name < b.name ? this.sorting : -this.sorting));
+    },
+    reset: function(){
+      return this.$route.params.reset;
     }
   },
   methods: {
     removeEntry: function(name) {
+      //bug - looks like a double reload, because vue shows the edited dashboards first and then watch is called to reload template
       let i = null;
       this.dashboards.forEach((service, index) => {
         if (service.name == name) {
@@ -145,9 +150,21 @@ export default {
       if (i != null) {
         this.$delete(this.dashboards, i);
       }
+      this.saveJson();
     },
-    hi: function() {
-      console.log("HI");
+    saveJson: function() {
+      let jsonFile = { dashboards: [] };
+      this.dashboards.forEach(element => {
+        jsonFile.dashboards.push(element);
+      });
+      this.$http.post("http://localhost:8080/SaveJson", jsonFile);
+    },
+    resetJson: function() {
+      let jsonFile = { dashboards: [] };
+      json.forEach(element => {
+        jsonFile.dashboards.push(element);
+      });
+      this.$http.post("http://localhost:8080/SaveJson", jsonFile);
     },
     loadJson: function() {
       let t = this;
@@ -159,19 +176,23 @@ export default {
           t.dashboards = data.dashboards;
         })
         .catch(err => {
+          console.log("ERROR: can't load /loadJson, the JSON file at the server is corrupted. Please contact the admin to reset the file.")
+          this.resetJson();//developement / reset to default version
           console.log(err);
         });
     }
   },
   created() {
-    // ?!?!?!??!?!
+    //this.loadJson();
+    //let t = this;
+    //this.getJson = _.debounce(function(){t.loadJson();}, 500)
+  },
+  updated() {
+    
+  },
+  mounted() {
     this.loadJson();
-  },
-  watch: {
-    // call again the method if the route changes
-    $route: "hi()"
-  },
-  mounted() {}
+  }
 };
 </script>
 
