@@ -87,7 +87,7 @@
           required
           class="form-control dashboards"
           placeholder="Description"
-          v-model="dashboard.metrics[dashboard.metrics.length - 1].description"
+          v-model="dashboard.metrics[dashboard.metrics.length - 1].desc"
           v-bind:style="
             validateDesc()
               ? 'border-color:  #ced4da'
@@ -96,44 +96,26 @@
         ></textarea>
         <hr />
         <br />
-        <router-link
+        <a href="#"
           v-if="validateForm() == true"
           class="card routerLink breadcrumb__link pt-2 pl-4"
-          :to="
-            '/' +
-              $i18n.locale +
-              '/metrics/' +
-              serviceName +
-              '/' +
-              dashboardName +
-              '/selectMoNew'
-          "
-          @click.native="saveJson"
+          v-on:click="saveJson(1)"
         >
           <p class="text-left">choose Model</p>
-        </router-link>
+        </a>
         <div v-else>
           <p class="card pt-2 pl-4 pb-2 text-left">
             Fill in form to choose Model
           </p>
         </div>
         <br />
-        <router-link
+        <a href="#"
           v-if="validateForm() == true"
           class="card routerLink breadcrumb__link pt-2 pl-4"
-          :to="
-            '/' +
-              $i18n.locale +
-              '/metrics/' +
-              serviceName +
-              '/' +
-              dashboardName +
-              '/selectMeNew'
-          "
-          @click.native="saveJson"
+          v-on:click="saveJson(2)"
         >
           <p class="text-left">choose Metric</p>
-        </router-link>
+        </a>
         <div v-else>
           <p class="card pt-2 pl-4 pb-2 text-left">
             Fill in form to choose Metric
@@ -141,19 +123,15 @@
         </div>
         <br />
         <hr />
-        <p class="text-left">Prediction Time in minutes</p>
-        <select
-          class="form-control"
-          v-model="dashboard.metrics[dashboard.metrics.length - 1].predtime"
-          requiered
-        >
-          <option selected>{{ viablePredTime }} </option>
-        </select>
+        <p class="text-left">Prediction Time for model {{ dashboards[dashboardID].metrics[dashboards[dashboardID].metrics.length-1].model }} : 
+
+          <b>{{ viablePredTime }} minutes </b>.
+        </p>
         <br />
         <a href="#"
           v-if="validateForm() == true"
           class="saveButton saveButton--cyan mx-auto w-50"
-          v-on:click="saveJson"
+          v-on:click="saveJson(3)"
         >
           {{ $t("newDashboard.save") }}
         </a>
@@ -193,14 +171,24 @@ export default {
     }
   },
   methods: {
-    saveJson: function() {
+    saveJson: function(urlNr) {
+      let url;
+      if(urlNr === 1){
+        url = '/' +this.$i18n.locale +'/metrics/' + this.serviceName +'/' + this.dashboardName +'/selectMoNew';
+      }
+      if(urlNr === 2){
+        url = '/' +this.$i18n.locale +'/metrics/' +this.serviceName +'/' +this.dashboardName +'/selectMeNew';
+      }
+      if(urlNr === 3){
+        url = '/' + this.$i18n.locale + '/metrics/' + this.serviceName + '/' + this.dashboardName;
+      }
       let jsonFile = { dashboards: [] };
       this.dashboards.forEach(element => {
         jsonFile.dashboards.push(element);
       });
       let t = this;
       this.$http.post("http://localhost:8080/SaveJson", jsonFile).then(()=> {
-        t.$router.push('/' + t.$i18n.locale + '/metrics/' + t.serviceName + '/' + t.dashboardName);        
+        t.$router.push(url);        
       });
     },
 
@@ -218,7 +206,7 @@ export default {
     validateDesc: function() {
       let validated = true;
       let desc = this.dashboard.metrics[this.dashboard.metrics.length - 1]
-        .description;
+        .desc;
 
       if (desc == null || desc == "") {
         validated = false;
@@ -231,7 +219,7 @@ export default {
       let title = this.dashboard.metrics[this.dashboard.metrics.length - 1]
         .title;
       let desc = this.dashboard.metrics[this.dashboard.metrics.length - 1]
-        .description;
+        .desc;
 
       if (title == null || title == "") {
         validated = false;
@@ -252,21 +240,32 @@ export default {
       .then(data => {
         t.dashboards = JSON.parse(JSON.stringify(data.dashboards));
         
+        t.dashboardID = t.dashboards
+          .map(function(e) {
+            return e.name;
+          })
+          .indexOf(t.$route.params.dashboard);
+
+        t.$http
+        .get("http://localhost:8000/GetPredTime?service=Testservice&model=model_0" 
+        )
+        .then(response => {
+          t.viablePredTime = response.data.Pred_time;
+
+          t.dashboards[t.dashboardID].metrics.push({
+            title: "",
+            desc: "",
+            model: "model_0", //default model
+            metric: "100", //default metric
+            predtime: t.viablePredTime
+          })       
+
+        })
+        .catch(error => console.log(error));
       })
       .catch(err => {
         console.log(err);
       });
-
-    this.$http
-      .get(
-        /*"http://localhost:8000/GetPredTime?service=" +
-          this.serviceName +
-          "&model=" +
-          this.dashboards[this.dashboardID].metrics[this.metricID].model*/
-        "http://localhost:8000/GetPredTime?service=Testservice&model=model_0"
-      )
-      .then(response => (t.viablePredTime = response.data.Pred_time))
-      .catch(error => console.log(error));
   },
   mounted() {
     //this.dashboards = json;

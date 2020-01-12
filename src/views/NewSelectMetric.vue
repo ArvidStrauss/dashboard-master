@@ -67,13 +67,14 @@ export default {
       let t=this;
       this.$http.post("http://localhost:8080/SaveJson", jsonFile).then(()=>{
         let url =
-        "/" +
-        t.$i18n.locale +
-        "/metrics/" +
-        t.serviceName +
-        "/" +
-        t.dashboardName +
-        "/new";
+        '/' +
+                    t.$i18n.locale +
+                    '/metrics/' +
+                    t.serviceName +
+                    '/' +
+                    t.dashboardName +
+                    '/edit/' +
+                    t.dashboards[t.dashboardID].metrics[t.dashboards[t.dashboardID].metrics.length-1].title;
         t.$router.push(url);
       });
 

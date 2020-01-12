@@ -127,16 +127,10 @@
         </div>
         <br />
         <hr />
-        <p class="text-left">Prediction Time in minutes</p>
-        <select
-          class="form-control"
-          required
-          v-model="dashboards[dashboardID].metrics[metricID].predtime"
-        >
-          <option v-for="(time, index) in viablePredTime" :key="index">{{
-            time
-          }}</option>
-        </select>
+        <p class="text-left">Prediction Time for model {{ dashboards[dashboardID].metrics[metricID].model }} : 
+
+          <b>{{ viablePredTime }} minutes </b>.
+        </p>
         <br />
         <a href="#"
           v-if="validateForm() == true"
@@ -250,21 +244,26 @@ export default {
             return e.title;
           })
           .indexOf(t.$route.params.metric);
+
+        t.$http
+        .get(
+          /*"http://localhost:8000/GetPredTime?service=" +
+            this.serviceName +
+            "&model=" +
+            this.dashboards[this.dashboardID].metrics[this.metricID].model*/
+          "http://localhost:8000/GetPredTime?service=Testservice&model=" +t.dashboards[t.dashboardID].metrics[t.metricID].model
+        )
+        .then(response => {
+          t.viablePredTime = response.data.Pred_time;
+          t.dashboards[t.dashboardID].metrics[t.metricID].predtime = t.viablePredTime;
+
+        })
+        .catch(error => console.log(error));
+
       })
       .catch(err => {
         console.log(err);
       });
-
-    this.$http
-      .get(
-        /*"http://localhost:8000/GetPredTime?service=" +
-          this.serviceName +
-          "&model=" +
-          this.dashboards[this.dashboardID].metrics[this.metricID].model*/
-        "http://localhost:8000/GetPredTime?service=Testservice&model=model_0"
-      )
-      .then(response => (t.viablePredTime = response.data.Pred_time))
-      .catch(error => console.log(error));
   }
 };
 </script>

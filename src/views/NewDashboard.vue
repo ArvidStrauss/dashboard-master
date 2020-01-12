@@ -70,7 +70,7 @@
           required
           class="form-control dashboards"
           placeholder="Description"
-          v-model="dashboards[dashboards.length - 1].description"
+          v-model="dashboards[dashboards.length - 1].desc"
           v-bind:style="
             validateDesc()
               ? 'border-color:  #ced4da'
@@ -137,7 +137,7 @@ export default {
     },
     validateDesc: function() {
       let validated = true;
-      let desc = this.dashboards[this.dashboards.length - 1].description;
+      let desc = this.dashboards[this.dashboards.length - 1].desc;
 
       if (desc == null || desc == "") {
         validated = false;
@@ -148,7 +148,7 @@ export default {
     validateForm: function() {
       let validated = true;
       let title = this.dashboards[this.dashboards.length - 1].name;
-      let desc = this.dashboards[this.dashboards.length - 1].description;
+      let desc = this.dashboards[this.dashboards.length - 1].desc;
 
       if (title == null || title == "") {
         validated = false;
@@ -175,7 +175,11 @@ export default {
           service: t.serviceName,
           metrics: [
             {
-              name: ""
+              title: "Auto generated",
+              desc: "filler description",
+              model: "model_0",
+              metric: "100",
+              pred: "5"
             }
           ]
         });

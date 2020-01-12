@@ -38,61 +38,80 @@
           <li class="breadcrumb-item active">{{ serviceName }}</li>
         </ol>
       </nav>
-      <div v-for="(dashboard, index) in sortedChoice" :key="index">
-        <div class="row mb-4">
-          <div class="card__grid">
-            <div class="card__header pt-2 pb-1">
-              <h5 class="text-white">{{ dashboard.name }}</h5>
-            </div>
-            <div class="card__content">
-              <div class="card__description">
-                <article>{{ dashboard.description }}</article>
+      <h3 v-if="bigbrainloaded === false">
+        Loading dashboards....
+        <br>
+        <br>
+        <br>
+        Please wait.
+      </h3>
+      <div v-if="bigbrainloaded === true">
+        <div v-for="(dashboard, index) in sortedChoice" :key="index">
+          <div class="row mb-4">
+            <div class="card__grid">
+              <div class="card__header pt-2 pb-1">
+                <h5 class="text-white">{{ dashboard.name }}</h5>
               </div>
+              <div class="card__content">
+                <div class="card__description">
+                  <article>{{ dashboard.description }}</article>
+                </div>
 
-              <div class="card__buttons">
-                <div class="card__buttons--item">
-                  <router-link
-                    class
-                    :to="
-                      '/' +
-                        $i18n.locale +
-                        '/metrics/' +
-                        serviceName +
+                <div class="card__buttons">
+                  <div class="card__buttons--item">
+                    <router-link
+                      class
+                      :to="
                         '/' +
-                        dashboard.name
-                    "
-                  >
-                    <button class>
-                      <i class="fa fa-step-forward"></i>
-                      {{ $t("menu.open") }}
-                    </button>
-                  </router-link>
-                </div>
-                <div class="card__buttons--item">
-                  <router-link
-                    class
-                    :to="
-                      '/' +
-                        $i18n.locale +
-                        '/dashboards/' +
-                        serviceName +
-                        '/edit/' +
-                        dashboard.name
-                    "
-                  >
-                    <button>
-                      <i class="fa fa-edit"></i>
-                      {{ $t("menu.edit") }}
-                    </button>
-                  </router-link>
-                </div>
-                <div class="card__buttons--item">
-                  <a class id v-on:click="removeEntry(dashboard.name)">
-                    <button class="button--right">
-                      <i class="fa fa-trash"></i>
-                      {{ $t("menu.delete") }}
-                    </button>
-                  </a>
+                          $i18n.locale +
+                          '/metrics/' +
+                          serviceName +
+                          '/' +
+                          dashboard.name
+                      "
+                    >
+                      <button class>
+                        <i class="fa fa-step-forward"></i>
+                        {{ $t("menu.open") }}
+                      </button>
+                    </router-link>
+                  </div>
+                  <div class="card__buttons--item">
+                    <router-link
+                      class
+                      :to="
+                        '/' +
+                          $i18n.locale +
+                          '/dashboards/' +
+                          serviceName +
+                          '/edit/' +
+                          dashboard.name
+                      "
+                    >
+                      <button>
+                        <i class="fa fa-edit"></i>
+                        {{ $t("menu.edit") }}
+                      </button>
+                    </router-link>
+                  </div>
+                  <div v-if="dashboardsLength > 1">
+                    <div class="card__buttons--item">
+                      <a class id v-on:click="removeEntry(dashboard.name)">
+                        <button class="button--right">
+                          <i class="fa fa-trash"></i>
+                          {{ $t("menu.delete") }}
+                        </button>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="card__buttons--item" v-else>
+                    <a href="#" >
+                      <button class="button--right bg-danger text-white">
+                        <i class="fa fa-trash"></i>
+                        {{ $t("menu.delete") }}
+                      </button>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -113,7 +132,8 @@ export default {
     return {
       dashboards: [],
       imageToggle: true,
-      sorting: -1
+      sorting: -1,
+      bigbrainloaded: false
     };
   },
   computed: {
@@ -134,9 +154,10 @@ export default {
         .slice(0)
         .sort((a, b) => (a.name < b.name ? this.sorting : -this.sorting));
     },
-    reset: function(){
-      return this.$route.params.reset;
+    dashboardsLength: function(){
+      return this.sortedChoice.length;
     }
+
   },
   methods: {
     removeEntry: function(name) {
@@ -174,6 +195,7 @@ export default {
         })
         .then(data => {
           t.dashboards = data.dashboards;
+          t.bigbrainloaded = true;
         })
         .catch(err => {
           console.log("ERROR: can't load /loadJson, the JSON file at the server is corrupted. Please contact the admin to reset the file.")
@@ -186,9 +208,6 @@ export default {
     //this.loadJson();
     //let t = this;
     //this.getJson = _.debounce(function(){t.loadJson();}, 500)
-  },
-  updated() {
-    
   },
   mounted() {
     this.loadJson();

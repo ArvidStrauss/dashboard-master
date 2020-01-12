@@ -17,7 +17,6 @@
       >
         <button
           class="normalButton pull-right cursor--add"
-          @click="newMetric()"
         >
           <i class="fa fa-plus"></i> New Diagram
         </button>
@@ -57,6 +56,10 @@
       </nav>
       <h3 v-if="bigbrainloaded === false">
         loading Charts....
+        <br>
+        <br>
+        <br>
+        Please wait
       </h3>
       <draggable
         v-model="dashboard.metrics"
@@ -65,72 +68,102 @@
         class="chart__grid"
       >
         <div v-for="(metric, index) in dashboard.metrics" :key="index">
-          <!-- <Chart :chart-data="chartdata[index]"></Chart> -->
-          {{ metric.title }}
-          <div class="chartButtons__grid">
-            <div>
-              <Chart :chart-data="datacollection[index]"></Chart>
-            </div>
-            <div class="chart__flex">
-              <a class id v-on:click="removeEntry(index)">
-                <button class="normalChartButton button--right">
-                  <i class="fa fa-trash"></i> Delete
-                </button>
-              </a>
-              <router-link
-                class="normalChartButton"
-                :to="
-                  '/' +
-                    $i18n.locale +
-                    '/metrics/' +
-                    serviceName +
+          <div class="border pr-2">
+            <br>
+            <p><b>{{ metric.title }}</b></p>
+            <p>Predicted time: {{ metric.predtime }} minutes</p> 
+            <div class="chartButtons__grid">
+              <div>
+                <Chart :chart-data="datacollection[index]"></Chart>
+              </div>
+              <div class="chart__flex">
+                <div v-if="dashboardsLength > 1">
+                  <a class id v-on:click="removeEntry(index)">
+                    <button class="normalChartButton button--right">
+                      <i class="fa fa-trash"></i>
+                      {{ $t("menu.delete") }}
+                    </button>
+                  </a>
+                </div>
+                <span v-else class="normalChartButton button--right bg-danger">
+                  <i class="fa fa-trash"></i>
+                  {{ $t("menu.delete") }}
+                </span>
+                <router-link
+                  class="normalChartButton"
+                  :to="
                     '/' +
-                    dashboardName +
-                    '/edit/' +
-                    metric.title
-                "
-              >
-                <i class="fa fa-edit"></i> Edit
-              </router-link>
+                      $i18n.locale +
+                      '/metrics/' +
+                      serviceName +
+                      '/' +
+                      dashboardName +
+                      '/edit/' +
+                      metric.title
+                  "
+                >
+                  <i class="fa fa-edit"></i>
+                  {{ $t("menu.edit") }}
+                </router-link>
+              </div>
             </div>
+            <hr>
+            <div>{{ metric.desc }}</div>
+            <br>
           </div>
-          {{ metric.desc }}
         </div>
       </draggable>
       <div v-else>
         <div v-if="bigbrainloaded === true">
           <div v-for="(metric, index) in dashboard.metrics" :key="index">
             <!-- TODO: CHART COMPONENT -->
-            <Chart :chart-data="datacollection[index]"></Chart>
-            <div class="chart__flex mx-auto">
-              <a
-                class
-                id
-                v-on:click="
-                  removeEntry(index);
-                  saveJson();
-                "
-              >
-                <button class="normalChartButton button--right">
-                  <i class="fa fa-trash"></i> Delete
-                </button>
-              </a>
-              <router-link
-                class="normalChartButton"
-                :to="
-                  '/' +
-                    $i18n.locale +
-                    '/metrics/' +
-                    serviceName +
+            <div class="border">
+              <br>
+              <p><b>{{ metric.title }}</b></p>
+              <p>Predicted time: {{ metric.predtime }} minutes</p> 
+              <Chart :chart-data="datacollection[index]"></Chart>
+              <div class="chart__flex mx-auto">
+                <div v-if="dashboardsLength > 1">
+                  <a
+                    class
+                    id
+                    v-on:click="
+                      removeEntry(index);
+                      saveJson();
+                    "
+                  >
+                    <button class="normalChartButton button--right">
+                      <i class="fa fa-trash"></i>
+                      {{ $t("menu.delete") }}
+                    </button>
+                  </a>
+                </div>
+                <span v-else href="#" class="normalChartButton button--right bg-danger">
+                  <i class="fa fa-trash"></i>
+                  {{ $t("menu.delete") }}
+                </span>
+                <router-link
+                  class="normalChartButton"
+                  :to="
                     '/' +
-                    dashboardName +
-                    '/edit/' +
-                    metric.title
-                "
-              >
-                <i class="fa fa-edit"></i> Edit
-              </router-link>
+                      $i18n.locale +
+                      '/metrics/' +
+                      serviceName +
+                      '/' +
+                      dashboardName +
+                      '/edit/' +
+                      metric.title
+                  "
+                >
+                  <i class="fa fa-edit"></i>
+                  {{ $t("menu.edit") }}
+                </router-link>
+              </div>
+              <hr>
+              <div>{{ metric.desc }}</div>
+              <br>
             </div>
+            <br>
           </div>
         </div>
       </div>
@@ -172,20 +205,15 @@ export default {
       return this.dashboards.find(
         element => element.name == this.dashboardName
       );
+    },
+    dashboardsLength: function(){
+      return this.dashboard.metrics.length;
     }
   },
   methods: {
     removeEntry: function(index) {
       this.$delete(this.dashboard.metrics, index);
-    },
-    newMetric: function() {
-      this.dashboard.metrics.push({
-        title: "",
-        model: "1",
-        metric: "1",
-        predtime: "5 min",
-        position: this.dashboard.metrics.length + 1
-      });
+      this.saveJson();
     },
     screenWidthCheck: function() {
       if (window.screen.width > 1000) {
