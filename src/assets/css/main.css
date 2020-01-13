@@ -77,7 +77,7 @@ a{
 	background: linear-gradient(to right, var(--magenta) 50%, white 50%);
 	background-size: 200% 100%;
 	background-position:right bottom;
-	transition:all 1.2s ease;
+	transition:all 0s ease;
 }
 
 .fancyButton:hover{
