@@ -96,7 +96,10 @@
           "
           @click.native="saveJson"
         >
-          <p class="text-left">choose Model</p>
+          <p class="text-left">
+            choose Model ---
+            {{ dashboards[dashboardID].metrics[metricID].model }}
+          </p>
         </router-link>
         <div v-else>
           <p class="card pt-2 pl-4 pb-2 text-left">
@@ -119,7 +122,10 @@
           "
           @click.native="saveJson"
         >
-          <p class="text-left">choose Metric</p>
+          <p class="text-left">
+            choose Metric ---
+            {{ dashboards[dashboardID].metrics[metricID].metric }}
+          </p>
         </router-link>
         <div v-else>
           <p class="card pt-2 pl-4 pb-2 text-left">

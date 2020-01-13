@@ -95,15 +95,13 @@
                       </button>
                     </router-link>
                   </div>
-                  <div v-if="dashboardsLength > 1">
-                    <div class="card__buttons--item">
-                      <a class id v-on:click="removeEntry(dashboard.name)">
-                        <button class="button--right">
-                          <i class="fa fa-trash"></i>
-                          {{ $t("menu.delete") }}
-                        </button>
-                      </a>
-                    </div>
+                  <div v-if="dashboardsLength > 1" class="card__buttons--item">
+                    <a class id v-on:click="removeEntry(dashboard.name)">
+                      <button class="button--right">
+                        <i class="fa fa-trash"></i>
+                        {{ $t("menu.delete") }}
+                      </button>
+                    </a>
                   </div>
                   <div class="card__buttons--item" v-else>
                     <a href="#">
