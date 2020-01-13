@@ -59,6 +59,7 @@
         <br />
         Please wait
       </h3>
+      <!-- DESKTOP VERSION -->
       <draggable
         v-model="dashboard.metrics"
         v-if="screenWidthCheck() === true && bigbrainloaded === true"
@@ -66,6 +67,7 @@
         class="chart__grid"
       >
         <div v-for="(metric, index) in dashboard.metrics" :key="index">
+          <!-- CHART -->
           <div class="border pr-2">
             <br />
             <p>
@@ -113,10 +115,11 @@
           </div>
         </div>
       </draggable>
+      <!-- MOBILE VERSION without draggable component -->
       <div v-else>
         <div v-if="bigbrainloaded === true">
           <div v-for="(metric, index) in dashboard.metrics" :key="index">
-            <!-- TODO: CHART COMPONENT -->
+            <!-- CHART -->
             <div class="border">
               <br />
               <p>
@@ -243,8 +246,8 @@ export default {
           console.log(error.response);
         });
     },
+    //processes the json Data from the get request to build nested datacollection object
     fillData(chart, index) {
-      //processes the json Data from the get request to chart arrays
       let chartMetric = this.dashboard.metrics[index].metric;
 
       let chartLabels = [];
@@ -254,23 +257,26 @@ export default {
       let cData = [];
       let cColor = [];
 
+      //pushes lookback data into temporary arrays
       chart[chartMetric].lookback.forEach(lkbk => {
         cLabel.push(lkbk[0]);
         cData.push(lkbk[1]);
         cColor.push("rgb(226,0,116)");
       });
 
+      //pushes prediction data into temporary arrays
       chart[chartMetric].prediction.forEach(lkbk => {
         cLabel.push(lkbk[0]);
         cData.push(lkbk[1]);
         cColor.push("#1bada2");
       });
 
+      //pushes temporary arrays into collecting arrays
       chartLabels.push(cLabel);
       chartData.push(cData);
       chartColor.push(cColor);
 
-      //throw everything into temp array
+      //formating data
       let temp = [];
 
       chartData.forEach((elem, i) => {
@@ -292,8 +298,8 @@ export default {
       this.datacollection.push(temp);
       this.bigbrainloaded = true;
     },
+    //loads lookback and prediction data for charts
     loadChartData: function() {
-      //loads lookback and prediction data for charts
       this.dashboard.metrics.forEach((element, index) => {
         const baseURI =
           "http://localhost:8080/ml_req?service=Testservice&model=" +
@@ -302,12 +308,13 @@ export default {
         this.$http.get(baseURI).then(result => {
           this.jsonData.push(result.data);
           this.fillData(this.jsonData[0], index);
+          //Reset jsonData for next cycle
           this.jsonData = [];
         });
       });
     },
+    //load Dashboards json
     loadDashboardData: function() {
-      //load Dashboards json
       const t = this;
       return fetch("http://localhost:8080/LoadJson")
         .then(response => {
@@ -321,22 +328,16 @@ export default {
         .catch(err => {
           console.log(err);
         });
-    },
-    clearAutoUpdate: function() {
-      clearInterval(this.timer);
     }
   },
   mounted() {
     this.loadDashboardData();
-    //this.timer = setInterval(this.loadDashboardData(), 10000);
   },
   watch: {
+    //update chartdata every minute
     dashboards: _.debounce(function() {
       this.loadDashboardData();
     }, 60000)
-  },
-  beforeDestroy() {
-    this.clearAutoUpdate();
   }
 };
 </script>

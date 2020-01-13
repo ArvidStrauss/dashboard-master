@@ -58,15 +58,18 @@ export default {
   },
   methods: {
     editMetric: function(m) {
+      //edit chart
       this.dashboards[this.dashboardID].metrics[
         this.dashboards[this.dashboardID].metrics.length - 1
       ].metric = m;
+      //formates dashboards object
       let jsonFile = { dashboards: [] };
       this.dashboards.forEach(element => {
         jsonFile.dashboards.push(element);
       });
       let t = this;
       this.$http.post("http://localhost:8080/SaveJson", jsonFile).then(() => {
+        //reroutes after post
         let url =
           "/" +
           t.$i18n.locale +
@@ -105,7 +108,10 @@ export default {
         "http://localhost:8000/GetMetrics?service=Testservice&model=model_0"
         /*+this.serviceName +
           "&model=" +
-          this.dashboards[this.dashboardID].metrics[this.metricID].model */
+          this.dashboards[this.dashboardID].metrics[this.metricID].model 
+          
+          dynamic url not necessary due to default model_0
+        */
       )
       .then(response => (this.viableMetrics = response.data.metrics))
       .catch(error => console.log(error));

@@ -80,6 +80,7 @@
         ></textarea>
         <hr />
         <br />
+        <!--Model & Metric links -->
         <router-link
           v-if="validateForm() == true"
           class="card routerLink breadcrumb__link pt-2 pl-4"
@@ -196,7 +197,7 @@ export default {
       });
     },
 
-    //FORM VALIDATIONS
+    //FORM INPUT VALIDATIONS
     validateTitle: function() {
       let validated = true;
       let title = this.dashboards[this.dashboardID].metrics[this.metricID]
@@ -217,6 +218,7 @@ export default {
 
       return validated;
     },
+    //COMPLETE FORM VALIDATION FOR SAVE BUTTON
     validateForm: function() {
       let validated = true;
       let title = this.dashboards[this.dashboardID].metrics[this.metricID]
@@ -237,6 +239,7 @@ export default {
   mounted() {
     //this.dashboards = json;
     const t = this;
+    //GET dashboards
     fetch("http://localhost:8080/LoadJson")
       .then(response => {
         return response.json();
@@ -253,13 +256,9 @@ export default {
             return e.title;
           })
           .indexOf(t.$route.params.metric);
-
+        //GET prediction time for chart
         t.$http
           .get(
-            /*"http://localhost:8000/GetPredTime?service=" +
-            this.serviceName +
-            "&model=" +
-            this.dashboards[this.dashboardID].metrics[this.metricID].model*/
             "http://localhost:8000/GetPredTime?service=Testservice&model=" +
               t.dashboards[t.dashboardID].metrics[t.metricID].model
           )

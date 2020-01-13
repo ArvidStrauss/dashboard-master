@@ -47,6 +47,7 @@
       </h3>
       <div v-if="bigbrainloaded === true">
         <div v-for="(dashboard, index) in sortedChoice" :key="index">
+          <!-- Dashboard Card -->
           <div class="row mb-4">
             <div class="card__grid">
               <div class="card__header pt-2 pb-1">
@@ -140,6 +141,7 @@ export default {
     serviceName: function() {
       return this.$route.params.service;
     },
+    //selected Dashboard
     currentChoice: function() {
       let dashboardChoice = [];
       this.dashboards.forEach(dashboard => {
@@ -149,6 +151,7 @@ export default {
       });
       return dashboardChoice;
     },
+    //alphabetically sorted Dashboard
     sortedChoice: function() {
       return this.currentChoice
         .slice(0)
@@ -160,7 +163,6 @@ export default {
   },
   methods: {
     removeEntry: function(name) {
-      //bug - looks like a double reload, because vue shows the edited dashboards first and then watch is called to reload template
       let i = null;
       this.dashboards.forEach((service, index) => {
         if (service.name == name) {
@@ -179,6 +181,7 @@ export default {
       });
       this.$http.post("http://localhost:8080/SaveJson", jsonFile);
     },
+    //sends a Post Request with the default json - Dashboards.json to reset corrupted file at server - for initiazation
     resetJson: function() {
       let jsonFile = { dashboards: [] };
       json.forEach(element => {
@@ -206,9 +209,7 @@ export default {
     }
   },
   created() {
-    //this.loadJson();
-    //let t = this;
-    //this.getJson = _.debounce(function(){t.loadJson();}, 500)
+    //this.dashboards = json;
   },
   mounted() {
     this.loadJson();

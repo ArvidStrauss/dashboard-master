@@ -126,7 +126,7 @@ export default {
         t.$router.push("/" + t.$i18n.locale + "/dashboards/" + t.serviceName);
       });
     },
-    //FORM VALIDATIONS
+    //FORM INPUT VALIDATIONS
     validateTitle: function() {
       let validated = true;
       let title = this.dashboards[this.dashboards.length - 1].name;
@@ -146,6 +146,7 @@ export default {
 
       return validated;
     },
+    //COMPLETE FORM VALIDATION FOR SAVE BUTTON
     validateForm: function() {
       let validated = true;
       let title = this.dashboards[this.dashboards.length - 1].name;
@@ -163,6 +164,8 @@ export default {
   },
   created() {
     //this.dashboards = json;
+  },
+  mounted() {
     const t = this;
     fetch("http://localhost:8080/LoadJson")
       .then(response => {
@@ -170,6 +173,8 @@ export default {
       })
       .then(data => {
         t.dashboards = JSON.parse(JSON.stringify(data.dashboards));
+
+        //set new Dashboard
         t.dashboards.push({
           name: "",
           description: "",
@@ -188,8 +193,7 @@ export default {
       .catch(err => {
         console.log(err);
       });
-  },
-  mounted() {}
+  }
 };
 </script>
 

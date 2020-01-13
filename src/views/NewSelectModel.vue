@@ -58,9 +58,11 @@ export default {
   },
   methods: {
     editMetric: function(m) {
+      //edit chart
       this.dashboards[this.dashboardID].metrics[
         this.dashboards[this.dashboardID].metrics.length - 1
       ].model = m;
+      //formates dashboards object
       let jsonFile = { dashboards: [] };
       this.dashboards.forEach(element => {
         jsonFile.dashboards.push(element);
@@ -68,6 +70,7 @@ export default {
 
       let t = this;
       this.$http.post("http://localhost:8080/SaveJson", jsonFile).then(() => {
+        //reroute after post
         let url =
           "/" +
           t.$i18n.locale +
@@ -86,6 +89,7 @@ export default {
   },
   created() {
     const t = this;
+    //GET dashboards
     fetch("http://localhost:8080/LoadJson")
       .then(response => {
         return response.json();
@@ -97,16 +101,19 @@ export default {
             return e.name;
           })
           .indexOf(t.$route.params.dashboard);
+        //GET models for service
+        t.$http
+          .get(
+            "http://localhost:8000/GetModels?service=Testservice" /*+ this.serviceName
+              static url due to not working /getServices
+            */
+          )
+          .then(response => (t.viableModels = response.data.models))
+          .catch(error => console.log(error));
       })
       .catch(err => {
         console.log(err);
       });
-    this.$http
-      .get(
-        "http://localhost:8000/GetModels?service=Testservice" /*+ this.serviceName*/
-      )
-      .then(response => (t.viableModels = response.data.models))
-      .catch(error => console.log(error));
   },
   mounted() {
     //this.dashboards = json;

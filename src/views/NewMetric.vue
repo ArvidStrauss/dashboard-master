@@ -96,6 +96,7 @@
         ></textarea>
         <hr />
         <br />
+        <!-- Model & Metric links -->
         <a
           href="#"
           v-if="validateForm() == true"
@@ -183,6 +184,7 @@ export default {
   methods: {
     saveJson: function(urlNr) {
       let url;
+      //Switch for url depending on function call origin
       if (urlNr === 1) {
         url =
           "/" +
@@ -222,7 +224,7 @@ export default {
       });
     },
 
-    //FORM VALIDATIONS
+    //FORM INPUT VALIDATIONS
     validateTitle: function() {
       let validated = true;
       let title = this.dashboard.metrics[this.dashboard.metrics.length - 1]
@@ -243,6 +245,7 @@ export default {
 
       return validated;
     },
+    //COMPLETE FORM VALIDATION FOR SAVE BUTTON
     validateForm: function() {
       let validated = true;
       let title = this.dashboard.metrics[this.dashboard.metrics.length - 1]
@@ -259,8 +262,11 @@ export default {
       return validated;
     }
   },
-  created() {
+  created() {},
+  mounted() {
+    //this.dashboards = json;
     const t = this;
+    //GET dashboards
     fetch("http://localhost:8080/LoadJson")
       .then(response => {
         return response.json();
@@ -273,7 +279,7 @@ export default {
             return e.name;
           })
           .indexOf(t.$route.params.dashboard);
-
+        //GET prediction time for chart
         t.$http
           .get(
             "http://localhost:8000/GetPredTime?service=Testservice&model=model_0"
@@ -281,6 +287,7 @@ export default {
           .then(response => {
             t.viablePredTime = response.data.Pred_time;
 
+            //create new chart
             t.dashboards[t.dashboardID].metrics.push({
               title: "",
               desc: "",
@@ -294,9 +301,6 @@ export default {
       .catch(err => {
         console.log(err);
       });
-  },
-  mounted() {
-    //this.dashboards = json;
   }
 };
 </script>
