@@ -63,9 +63,9 @@ export default {
         this.dashboards[this.dashboardID].metrics.length - 1
       ].model = m;
       //formates dashboards object
-      let jsonFile = { dashboards: [] };
+      let jsonFile = { settings: [] };
       this.dashboards.forEach(element => {
-        jsonFile.dashboards.push(element);
+        jsonFile.settings.push(element);
       });
 
       let t = this;
@@ -88,14 +88,14 @@ export default {
     }
   },
   created() {
-    const t = this;
+    let t = this;
     //GET dashboards
     fetch("http://localhost:8080/LoadJson")
       .then(response => {
         return response.json();
       })
       .then(data => {
-        t.dashboards = JSON.parse(JSON.stringify(data.dashboards));
+        t.dashboards = JSON.parse(JSON.stringify(data.settings));
         t.dashboardID = t.dashboards
           .map(function(e) {
             return e.name;
@@ -103,11 +103,7 @@ export default {
           .indexOf(t.$route.params.dashboard);
         //GET models for service
         t.$http
-          .get(
-            "http://localhost:8000/GetModels?service=Testservice" /*+ this.serviceName
-              static url due to not working /getServices
-            */
-          )
+          .get("http://localhost:8000/GetModels?service=" + t.serviceName)
           .then(response => (t.viableModels = response.data.models))
           .catch(error => console.log(error));
       })

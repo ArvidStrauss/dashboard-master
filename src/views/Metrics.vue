@@ -233,9 +233,9 @@ export default {
       }
     },
     saveJson: function() {
-      let jsonFile = { dashboards: [] };
+      let jsonFile = { settings: [] };
       this.dashboards.forEach(element => {
-        jsonFile.dashboards.push(element);
+        jsonFile.settings.push(element);
       });
       this.$http
         .post("http://localhost:8080/SaveJson", this.jsonFile)
@@ -300,28 +300,31 @@ export default {
     },
     //loads lookback and prediction data for charts
     loadChartData: function() {
+      let t = this;
       this.dashboard.metrics.forEach((element, index) => {
         const baseURI =
-          "http://localhost:8080/ml_req?service=Testservice&model=" +
+          "http://localhost:8080/ml_req?service=" +
+          t.serviceName +
+          "&model=" +
           element.model +
           "&lookback=5";
-        this.$http.get(baseURI).then(result => {
-          this.jsonData.push(result.data);
-          this.fillData(this.jsonData[0], index);
+        t.$http.get(baseURI).then(result => {
+          t.jsonData.push(result.data);
+          t.fillData(t.jsonData[0], index);
           //Reset jsonData for next cycle
-          this.jsonData = [];
+          t.jsonData = [];
         });
       });
     },
     //load Dashboards json
     loadDashboardData: function() {
-      const t = this;
+      let t = this;
       return fetch("http://localhost:8080/LoadJson")
         .then(response => {
           return response.json();
         })
         .then(data => {
-          t.dashboards = JSON.parse(JSON.stringify(data.dashboards));
+          t.dashboards = JSON.parse(JSON.stringify(data.settings));
 
           t.loadChartData();
         })

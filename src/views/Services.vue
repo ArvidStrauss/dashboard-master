@@ -34,8 +34,8 @@
         <div class="card border--grey" style="width: 18rem;">
           <img
             class="card-img-top border-bottom border--grey"
-            :src="service.image"
-            :alt="service.name"
+            :src="getImageUrl(service)"
+            :alt="service.alt"
           />
           <!--zum Test hardcodiert-->
           <div class="card-body">
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import json from "@/assets/services.json";
+//import json from "@/assets/services.json";
 /*eslint no-console: ["error", { allow: ["warn", "log"] }] */
 export default {
   name: "Services",
@@ -66,7 +66,6 @@ export default {
       panel: 1
     };
   },
-  computed: {},
   methods: {
     hidePanel: function() {
       this.panel = 0;
@@ -75,6 +74,25 @@ export default {
     showPanel: function() {
       this.panel = 1;
       sessionStorage.setItem("panel", "1");
+    },
+    getImageUrl: function(service) {
+      let url = "http://localhost:8000/GetImg?img=" + service.image;
+      return url;
+    },
+    loadServices: function() {
+      let t = this;
+      return fetch("http://localhost:8080/GetServices")
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          t.services = JSON.parse(JSON.stringify(data.services));
+
+          t.loadChartData();
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
   created() {
@@ -83,13 +101,8 @@ export default {
     }
   },
   mounted() {
-    this.services = json;
-    /*
-    const baseURI = "http://localhost:8080/GetServices";
-    this.$http.get(baseURI).then(result => {
-      this.services = result.data;
-    });
-    */
+    //this.services = json;
+    this.loadServices();
   }
 };
 </script>

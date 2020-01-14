@@ -60,9 +60,9 @@ export default {
   methods: {
     editMetric: function(m) {
       this.dashboards[this.dashboardID].metrics[this.metricID].model = m;
-      let jsonFile = { dashboards: [] };
+      let jsonFile = { settings: [] };
       this.dashboards.forEach(element => {
-        jsonFile.dashboards.push(element);
+        jsonFile.settings.push(element);
       });
       let t = this;
       this.$http.post("http://localhost:8080/SaveJson", jsonFile).then(() => {
@@ -81,13 +81,13 @@ export default {
   },
   mounted() {
     //this.dashboards = json;
-    const t = this;
+    let t = this;
     fetch("http://localhost:8080/LoadJson")
       .then(response => {
         return response.json();
       })
       .then(data => {
-        t.dashboards = JSON.parse(JSON.stringify(data.dashboards));
+        t.dashboards = JSON.parse(JSON.stringify(data.settings));
         t.dashboardID = t.dashboards
           .map(function(e) {
             return e.name;
@@ -99,16 +99,14 @@ export default {
             return e.title;
           })
           .indexOf(t.$route.params.metric);
+        t.$http
+          .get("http://localhost:8000/GetModels?service=" + t.serviceName)
+          .then(response => (t.viableModels = response.data.models))
+          .catch(error => console.log(error));
       })
       .catch(err => {
         console.log(err);
       });
-    this.$http
-      .get(
-        "http://localhost:8000/GetModels?service=Testservice" /*+ this.serviceName*/
-      )
-      .then(response => (t.viableModels = response.data.models))
-      .catch(error => console.log(error));
   }
 };
 </script>

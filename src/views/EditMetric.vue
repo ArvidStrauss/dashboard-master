@@ -186,9 +186,9 @@ export default {
   },
   methods: {
     saveJson: function() {
-      let jsonFile = { dashboards: [] };
+      let jsonFile = { settings: [] };
       this.dashboards.forEach(element => {
-        jsonFile.dashboards.push(element);
+        jsonFile.settings.push(element);
       });
       let t = this;
       this.$http.post("http://localhost:8080/SaveJson", jsonFile).then(() => {
@@ -244,14 +244,14 @@ export default {
   created() {},
   mounted() {
     //this.dashboards = json;
-    const t = this;
+    let t = this;
     //GET dashboards
     fetch("http://localhost:8080/LoadJson")
       .then(response => {
         return response.json();
       })
       .then(data => {
-        t.dashboards = JSON.parse(JSON.stringify(data.dashboards));
+        t.dashboards = JSON.parse(JSON.stringify(data.settings));
         t.dashboardID = t.dashboards
           .map(function(e) {
             return e.name;
@@ -265,7 +265,9 @@ export default {
         //GET prediction time for chart
         t.$http
           .get(
-            "http://localhost:8000/GetPredTime?service=Testservice&model=" +
+            "http://localhost:8000/GetPredTime?service=" +
+              this.serviceName +
+              "&model=" +
               t.dashboards[t.dashboardID].metrics[t.metricID].model
           )
           .then(response => {

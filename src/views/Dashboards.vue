@@ -173,17 +173,17 @@ export default {
       this.saveJson();
     },
     saveJson: function() {
-      let jsonFile = { dashboards: [] };
+      let jsonFile = { settings: [] };
       this.dashboards.forEach(element => {
-        jsonFile.dashboards.push(element);
+        jsonFile.settings.push(element);
       });
       this.$http.post("http://localhost:8080/SaveJson", jsonFile);
     },
     //sends a Post Request with the default json - Dashboards.json to reset corrupted file at server - for initiazation
     resetJson: function() {
-      let jsonFile = { dashboards: [] };
+      let jsonFile = { settings: [] };
       json.forEach(element => {
-        jsonFile.dashboards.push(element);
+        jsonFile.settings.push(element);
       });
       this.$http.post("http://localhost:8080/SaveJson", jsonFile);
     },
@@ -194,7 +194,7 @@ export default {
           return response.json();
         })
         .then(data => {
-          t.dashboards = data.dashboards;
+          t.dashboards = data.settings;
           t.bigbrainloaded = true;
         })
         .catch(err => {

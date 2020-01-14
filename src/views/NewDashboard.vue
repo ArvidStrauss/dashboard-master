@@ -117,9 +117,9 @@ export default {
   },
   methods: {
     saveJson: function() {
-      let jsonFile = { dashboards: [] };
+      let jsonFile = { settings: [] };
       this.dashboards.forEach(element => {
-        jsonFile.dashboards.push(element);
+        jsonFile.settings.push(element);
       });
       let t = this;
       this.$http.post("http://localhost:8080/SaveJson", jsonFile).then(() => {
@@ -138,9 +138,9 @@ export default {
     },
     validateDesc: function() {
       let validated = true;
-      let desc = this.dashboards[this.dashboards.length - 1].desc;
+      let description = this.dashboards[this.dashboards.length - 1].desc;
 
-      if (desc == null || desc == "") {
+      if (description == null || description == "") {
         validated = false;
       }
 
@@ -150,12 +150,12 @@ export default {
     validateForm: function() {
       let validated = true;
       let title = this.dashboards[this.dashboards.length - 1].name;
-      let desc = this.dashboards[this.dashboards.length - 1].desc;
+      let description = this.dashboards[this.dashboards.length - 1].desc;
 
       if (title == null || title == "") {
         validated = false;
       }
-      if (desc == null || desc == "") {
+      if (description == null || description == "") {
         validated = false;
       }
 
@@ -166,13 +166,13 @@ export default {
     //this.dashboards = json;
   },
   mounted() {
-    const t = this;
+    let t = this;
     fetch("http://localhost:8080/LoadJson")
       .then(response => {
         return response.json();
       })
       .then(data => {
-        t.dashboards = JSON.parse(JSON.stringify(data.dashboards));
+        t.dashboards = JSON.parse(JSON.stringify(data.settings));
 
         //set new Dashboard
         t.dashboards.push({

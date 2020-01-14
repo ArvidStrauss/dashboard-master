@@ -63,9 +63,9 @@ export default {
         this.dashboards[this.dashboardID].metrics.length - 1
       ].metric = m;
       //formates dashboards object
-      let jsonFile = { dashboards: [] };
+      let jsonFile = { settings: [] };
       this.dashboards.forEach(element => {
-        jsonFile.dashboards.push(element);
+        jsonFile.settings.push(element);
       });
       let t = this;
       this.$http.post("http://localhost:8080/SaveJson", jsonFile).then(() => {
@@ -87,34 +87,33 @@ export default {
   },
   mounted() {
     //this.dashboards = json;
-    const t = this;
+    //GET dashboards
+    let t = this;
     fetch("http://localhost:8080/LoadJson")
       .then(response => {
         return response.json();
       })
       .then(data => {
-        t.dashboards = JSON.parse(JSON.stringify(data.dashboards));
+        t.dashboards = JSON.parse(JSON.stringify(data.settings));
         t.dashboardID = t.dashboards
           .map(function(e) {
             return e.name;
           })
           .indexOf(t.$route.params.dashboard);
+        //GET metrics
+        t.$http
+          .get(
+            "http://localhost:8000/GetMetrics?service=" +
+              t.serviceName +
+              "&model=" +
+              t.dashboards[t.dashboardID].metrics[t.metricID].model
+          )
+          .then(response => (t.viableMetrics = response.data.metrics))
+          .catch(error => console.log(error));
       })
       .catch(err => {
         console.log(err);
       });
-    this.$http
-      .get(
-        "http://localhost:8000/GetMetrics?service=Testservice&model=model_0"
-        /*+this.serviceName +
-          "&model=" +
-          this.dashboards[this.dashboardID].metrics[this.metricID].model 
-          
-          dynamic url not necessary due to default model_0
-        */
-      )
-      .then(response => (this.viableMetrics = response.data.metrics))
-      .catch(error => console.log(error));
   }
 };
 </script>
