@@ -34,21 +34,20 @@
 
         <div>
           <i class="fa fa-phone"></i>
-          <p>+49 351 28200</p>
+          <p>0351-2820 2554</p>
         </div>
         <div>
           <i class="fa fa-envelope"></i>
           <p>
-            <a href="mailto:arvid.strauss@t-systems.com"
-              >arvid.strauss@t-systems.com</a
+            <a href="mailto:Christoph.Schmidt@t-systems.com"
+              >Christoph.Schmidt@t-systems.com</a
             >
           </p>
         </div>
       </div>
       <div class="footer-right">
         <p class="footer-company-about">
-          <span>About the company</span>
-          Machine Learning Pros
+          <span>Social Media</span>
         </p>
         <div class="footer-icons">
           <a href="#">

@@ -64,13 +64,13 @@
           "
         />
         <br />
-        <p class="text-left">{{ $t("newDashboard.desc") }}</p>
+        <p class="text-left">{{ $t("newDashboard.description") }}</p>
         <textarea
           rows="3"
           required
           class="form-control dashboards"
           placeholder="Description"
-          v-model="dashboards[dashboards.length - 1].desc"
+          v-model="dashboards[dashboards.length - 1].description"
           v-bind:style="
             validateDesc()
               ? 'border-color:  #ced4da'
@@ -138,7 +138,7 @@ export default {
     },
     validateDesc: function() {
       let validated = true;
-      let description = this.dashboards[this.dashboards.length - 1].desc;
+      let description = this.dashboards[this.dashboards.length - 1].description;
 
       if (description == null || description == "") {
         validated = false;
@@ -150,7 +150,7 @@ export default {
     validateForm: function() {
       let validated = true;
       let title = this.dashboards[this.dashboards.length - 1].name;
-      let description = this.dashboards[this.dashboards.length - 1].desc;
+      let description = this.dashboards[this.dashboards.length - 1].description;
 
       if (title == null || title == "") {
         validated = false;
@@ -181,10 +181,10 @@ export default {
           service: t.serviceName,
           metrics: [
             {
-              title: "Auto generated",
-              desc: "filler description",
+              title: "500 error",
+              desc: "Prediction of 500 errors for the next 5 minutes",
               model: "model_0",
-              metric: "100",
+              metric: "500",
               pred: "5"
             }
           ]

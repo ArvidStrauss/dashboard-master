@@ -87,8 +87,6 @@ export default {
         })
         .then(data => {
           t.services = JSON.parse(JSON.stringify(data.services));
-
-          t.loadChartData();
         })
         .catch(err => {
           console.log(err);
