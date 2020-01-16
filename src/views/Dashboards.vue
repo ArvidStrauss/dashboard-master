@@ -38,14 +38,14 @@
           <li class="breadcrumb-item active">{{ serviceName }}</li>
         </ol>
       </nav>
-      <h3 v-if="bigbrainloaded === false">
+      <h3 v-if="chartsLoaded === false">
         Loading dashboards....
         <br />
         <br />
         <br />
         Please wait.
       </h3>
-      <div v-if="bigbrainloaded === true">
+      <div v-if="chartsLoaded === true">
         <div v-for="(dashboard, index) in sortedChoice" :key="index">
           <!-- Dashboard Card -->
           <div class="row mb-4">
@@ -105,7 +105,7 @@
                   </div>
                   <div class="card__buttons--item" v-else>
                     <a href="#">
-                      <button class="button--right bg-danger text-white">
+                      <button class="button--right bg-lightgrey text-white cursor--none">
                         <i class="fa fa-trash"></i>
                         {{ $t("menu.delete") }}
                       </button>
@@ -122,7 +122,7 @@
 </template>
 
 <script>
-import json from "@/assets/dashboards.json";
+//import json from "@/assets/dashboards.json";
 //import _ from 'lodash';
 /*eslint no-console: ["error", { allow: ["warn", "log"] }] */
 export default {
@@ -132,7 +132,7 @@ export default {
       dashboards: [],
       imageToggle: true,
       sorting: -1,
-      bigbrainloaded: false
+      chartsLoaded: false
     };
   },
   computed: {
@@ -179,14 +179,6 @@ export default {
       });
       this.$http.post("http://localhost:8080/SaveJson", jsonFile);
     },
-    //sends a Post Request with the default json - Dashboards.json to reset corrupted file at server - for initiazation
-    resetJson: function() {
-      let jsonFile = { settings: [] };
-      json.forEach(element => {
-        jsonFile.settings.push(element);
-      });
-      this.$http.post("http://localhost:8080/SaveJson", jsonFile);
-    },
     loadJson: function() {
       let t = this;
       fetch("http://localhost:8080/LoadJson")
@@ -195,7 +187,7 @@ export default {
         })
         .then(data => {
           t.dashboards = data.settings;
-          t.bigbrainloaded = true;
+          t.chartsLoaded = true;
         })
         .catch(err => {
           console.log(
@@ -218,6 +210,14 @@ export default {
 <style scoped>
 h6 {
   font-size: 14pt;
+}
+
+.cursor--none{
+  cursor: default;
+}
+
+.bg-lightgrey{
+  background-color: var(--superlightgrey) !important;
 }
 
 /* Cards */

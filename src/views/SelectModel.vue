@@ -20,7 +20,7 @@
     </div>
     <h2 class="text-center mb-3">Select a model for {{ metricName }}</h2>
     <br />
-    <div v-for="(metri, index) in viableModels" :key="index">
+    <div v-for="(metri, index) in availableModels" :key="index">
       <div
         class="border rounded border--magenta-hover mb-2"
         v-on:click="editMetric(metri)"
@@ -43,7 +43,7 @@ export default {
       imageToggle: true,
       dashboardID: -1,
       metricID: -1,
-      viableModels: []
+      availableModels: []
     };
   },
   computed: {
@@ -77,36 +77,39 @@ export default {
           t.dashboards[t.dashboardID].metrics[t.metricID].title;
         t.$router.push(url);
       });
+    },
+    loadJson: function(){
+      let t = this;
+      fetch("http://localhost:8080/LoadJson")
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          t.dashboards = JSON.parse(JSON.stringify(data.settings));
+          t.dashboardID = t.dashboards
+            .map(function(e) {
+              return e.name;
+            })
+            .indexOf(t.$route.params.dashboard);
+
+          t.metricID = t.dashboards[t.dashboardID].metrics
+            .map(function(e) {
+              return e.title;
+            })
+            .indexOf(t.$route.params.metric);
+          t.$http
+            .get("http://localhost:8000/GetModels?service=" + t.serviceName)
+            .then(response => (t.availableModels = response.data.models))
+            .catch(error => console.log(error));
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
   mounted() {
     //this.dashboards = json;
-    let t = this;
-    fetch("http://localhost:8080/LoadJson")
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        t.dashboards = JSON.parse(JSON.stringify(data.settings));
-        t.dashboardID = t.dashboards
-          .map(function(e) {
-            return e.name;
-          })
-          .indexOf(t.$route.params.dashboard);
-
-        t.metricID = t.dashboards[t.dashboardID].metrics
-          .map(function(e) {
-            return e.title;
-          })
-          .indexOf(t.$route.params.metric);
-        t.$http
-          .get("http://localhost:8000/GetModels?service=" + t.serviceName)
-          .then(response => (t.viableModels = response.data.models))
-          .catch(error => console.log(error));
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.loadJson();
   }
 };
 </script>

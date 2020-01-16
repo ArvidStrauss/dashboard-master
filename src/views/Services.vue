@@ -124,7 +124,7 @@ img {
 }
 
 /*--------------------------------
-      CSS GRID für die Cards
+      CSS GRID Cards
   ---------------------------------*/
 .service__grid {
   display: grid;
@@ -137,7 +137,6 @@ img {
 } */
 
 /*Tablet*/
-/* TODO: 1000-1024px-- margin verhält sich komisch, Breiten noch anpassen */
 
 @media only screen and (max-width: 1000px) {
   .service__grid {

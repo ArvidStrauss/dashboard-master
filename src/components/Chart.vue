@@ -3,7 +3,7 @@ import { Line, mixins } from "vue-chartjs";
 const { reactiveProp } = mixins;
 
 export default {
-  extends: Line,
+  extends: Line, //Chart Type
   mixins: [reactiveProp],
   mounted() {
     // this.chartData is created in the mixin.

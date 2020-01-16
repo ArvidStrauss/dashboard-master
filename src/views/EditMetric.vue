@@ -138,7 +138,7 @@
           Prediction Time for model
           {{ dashboards[dashboardID].metrics[metricID].model }} :
 
-          <b>{{ viablePredTime }} minutes </b>.
+          <b>{{ availablePredTime }} minutes </b>.
         </p>
         <br />
         <a
@@ -170,7 +170,7 @@ export default {
       imageToggle: true,
       dashboardID: -1,
       metricID: -1,
-      viablePredTime: []
+      availablePredTime: []
     };
   },
   computed: {
@@ -239,47 +239,50 @@ export default {
       }
 
       return validated;
+    },
+    loadJson: function(){
+      //this.dashboards = json;
+      let t = this;
+      //GET dashboards
+      fetch("http://localhost:8080/LoadJson")
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          t.dashboards = JSON.parse(JSON.stringify(data.settings));
+          t.dashboardID = t.dashboards
+            .map(function(e) {
+              return e.name;
+            })
+            .indexOf(t.$route.params.dashboard);
+          t.metricID = t.dashboards[t.dashboardID].metrics
+            .map(function(e) {
+              return e.title;
+            })
+            .indexOf(t.$route.params.metric);
+          //GET prediction time for chart
+          t.$http
+            .get(
+              "http://localhost:8000/GetPredTime?service=" +
+                this.serviceName +
+                "&model=" +
+                t.dashboards[t.dashboardID].metrics[t.metricID].model
+            )
+            .then(response => {
+              t.availablePredTime = response.data.Pred_time;
+              t.dashboards[t.dashboardID].metrics[t.metricID].predtime =
+                t.availablePredTime;
+            })
+            .catch(error => console.log(error));
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
   created() {},
   mounted() {
-    //this.dashboards = json;
-    let t = this;
-    //GET dashboards
-    fetch("http://localhost:8080/LoadJson")
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        t.dashboards = JSON.parse(JSON.stringify(data.settings));
-        t.dashboardID = t.dashboards
-          .map(function(e) {
-            return e.name;
-          })
-          .indexOf(t.$route.params.dashboard);
-        t.metricID = t.dashboards[t.dashboardID].metrics
-          .map(function(e) {
-            return e.title;
-          })
-          .indexOf(t.$route.params.metric);
-        //GET prediction time for chart
-        t.$http
-          .get(
-            "http://localhost:8000/GetPredTime?service=" +
-              this.serviceName +
-              "&model=" +
-              t.dashboards[t.dashboardID].metrics[t.metricID].model
-          )
-          .then(response => {
-            t.viablePredTime = response.data.Pred_time;
-            t.dashboards[t.dashboardID].metrics[t.metricID].predtime =
-              t.viablePredTime;
-          })
-          .catch(error => console.log(error));
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.loadJson();
   }
 };
 </script>

@@ -16,6 +16,7 @@
           <a href="#">About</a>
           |
           <a href="#">Contact</a>
+          <LanguageSwitcher />
         </p>
 
         <p class="footer-company-name">
@@ -72,8 +73,12 @@
 </template>
 
 <script>
+import LanguageSwitcher from "@/components/LanguageSwitcher.vue";
 export default {
-  name: "Footer"
+  name: "Footer",
+  components: {
+    LanguageSwitcher
+  }
 };
 </script>
 

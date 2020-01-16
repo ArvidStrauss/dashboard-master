@@ -19,7 +19,7 @@
     </div>
     <h2 class="text-center mb-3">Select a metric for {{ metricName }}</h2>
     <br />
-    <div v-for="(metri, index) in viableMetrics" :key="index">
+    <div v-for="(metri, index) in availableMetrics" :key="index">
       <div
         class="border rounded border--magenta-hover mb-2"
         v-on:click="editMetric(metri)"
@@ -42,7 +42,7 @@ export default {
       imageToggle: true,
       dashboardID: -1,
       metricID: -1,
-      viableMetrics: []
+      availableMetrics: []
     };
   },
   computed: {
@@ -83,37 +83,40 @@ export default {
           ].title;
         t.$router.push(url);
       });
+    },
+    loadJson: function(){
+      //GET dashboards
+      let t = this;
+      fetch("http://localhost:8080/LoadJson")
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          t.dashboards = JSON.parse(JSON.stringify(data.settings));
+          t.dashboardID = t.dashboards
+            .map(function(e) {
+              return e.name;
+            })
+            .indexOf(t.$route.params.dashboard);
+          //GET metrics
+          t.$http
+            .get(
+              "http://localhost:8000/GetMetrics?service=" +
+                t.serviceName +
+                "&model=" +
+                t.dashboards[t.dashboardID].metrics[t.metricID].model
+            )
+            .then(response => (t.availableMetrics = response.data.metrics))
+            .catch(error => console.log(error));
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
   mounted() {
     //this.dashboards = json;
-    //GET dashboards
-    let t = this;
-    fetch("http://localhost:8080/LoadJson")
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        t.dashboards = JSON.parse(JSON.stringify(data.settings));
-        t.dashboardID = t.dashboards
-          .map(function(e) {
-            return e.name;
-          })
-          .indexOf(t.$route.params.dashboard);
-        //GET metrics
-        t.$http
-          .get(
-            "http://localhost:8000/GetMetrics?service=" +
-              t.serviceName +
-              "&model=" +
-              t.dashboards[t.dashboardID].metrics[t.metricID].model
-          )
-          .then(response => (t.viableMetrics = response.data.metrics))
-          .catch(error => console.log(error));
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.loadJson();
   }
 };
 </script>

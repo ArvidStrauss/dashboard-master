@@ -52,7 +52,7 @@
           <li class="breadcrumb-item active">{{ dashboardName }}</li>
         </ol>
       </nav>
-      <h3 v-if="bigbrainloaded === false">
+      <h3 v-if="chartsLoaded === false">
         loading Charts....
         <br />
         <br />
@@ -60,10 +60,11 @@
         Please wait
       </h3>
       <!-- DESKTOP VERSION -->
+      <!-- drag & drop is only activated at desktop version, because buttons aren't accessable in mobile version due to draggable component -> screenWidthCheck() -->
       <draggable
         v-model="dashboard.metrics"
-        v-if="screenWidthCheck() === true && bigbrainloaded === true"
-        :move="saveJson()"
+        v-if="screenWidthCheck() === true && chartsLoaded === true"
+        
         class="chart__grid"
       >
         <div v-for="(metric, index) in dashboard.metrics" :key="index">
@@ -87,7 +88,7 @@
                     </button>
                   </a>
                 </div>
-                <span v-else class="normalChartButton button--right bg-danger">
+                <span v-else class="normalChartButton button--right bg-lightgrey">
                   <i class="fa fa-trash"></i>
                   {{ $t("menu.delete") }}
                 </span>
@@ -117,7 +118,7 @@
       </draggable>
       <!-- MOBILE VERSION without draggable component -->
       <div v-else>
-        <div v-if="bigbrainloaded === true">
+        <div v-if="chartsLoaded === true">
           <div v-for="(metric, index) in dashboard.metrics" :key="index">
             <!-- CHART -->
             <div class="border">
@@ -200,8 +201,7 @@ export default {
       imageToggle: true,
       jsonData: [],
       datacollection: [],
-      bigbrainloaded: false,
-      timer: ""
+      chartsLoaded: false
     };
   },
   computed: {
@@ -257,16 +257,23 @@ export default {
       let cData = [];
       let cColor = [];
 
+      let dateFormat = (date) => {
+        let string = date.slice(5,16);
+        let day = string[3] + string[4];
+        let month = string[0] + string[1];
+        return day + "." +month +string.slice(5,11);
+      }
+
       //pushes lookback data into temporary arrays
       chart[chartMetric].lookback.forEach(lkbk => {
-        cLabel.push(lkbk[0]);
+        cLabel.push(dateFormat(lkbk[0]));
         cData.push(lkbk[1]);
         cColor.push("rgb(226,0,116)");
       });
 
       //pushes prediction data into temporary arrays
       chart[chartMetric].prediction.forEach(lkbk => {
-        cLabel.push(lkbk[0]);
+        cLabel.push(dateFormat(lkbk[0]));
         cData.push(lkbk[1]);
         cColor.push("#1bada2");
       });
@@ -293,27 +300,37 @@ export default {
           ]
         };
       });
-
+      if(this.datacollection.length === this.dashboard.metrics[index].metric.length){
+        this.datacollection = [];
+      }
       //pushes temp to datacollection for chart component
+
       this.datacollection.push(temp);
-      this.bigbrainloaded = true;
+
+      //signals view - data is loaded to render charts
+      if(index === this.dashboard.metrics.length-1){
+        this.chartsLoaded = true;
+      }
+      return true;
     },
     //loads lookback and prediction data for charts
-    loadChartData: function() {
+    loadChartData: function(element) {
       let t = this;
-      this.dashboard.metrics.forEach((element, index) => {
-        const baseURI =
-          "http://localhost:8080/ml_req?service=" +
-          t.serviceName +
-          "&model=" +
-          element.model +
-          "&lookback=5";
-        t.$http.get(baseURI).then(result => {
-          t.jsonData.push(result.data);
-          t.fillData(t.jsonData[0], index);
-          //Reset jsonData for next cycle
+      const baseURI =
+        "http://localhost:8080/ml_req?service=" +
+        t.serviceName +
+        "&model=" +
+        t.dashboard.metrics[element].model +
+        "&lookback=5";
+      t.$http.get(baseURI).then(result => {
+        t.jsonData.push(result.data);
+        let finished = t.fillData(t.jsonData[0], element);
+        if(finished === true){
           t.jsonData = [];
-        });
+          if(element != t.dashboard.metrics.length){
+            t.loadChartData(++element);
+          }  
+        }
       });
     },
     //load Dashboards json
@@ -326,7 +343,7 @@ export default {
         .then(data => {
           t.dashboards = JSON.parse(JSON.stringify(data.settings));
 
-          t.loadChartData();
+          t.loadChartData(0);
         })
         .catch(err => {
           console.log(err);
@@ -350,12 +367,16 @@ export default {
   cursor: copy;
 }
 
+.bg-lightgrey{
+  background-color: var(--superlightgrey);
+}
+
 /*--------------------------------
-      CSS GRID für die Charts
+      CSS GRID Charts
   ---------------------------------*/
 .chart__grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr); /*grid width*/
   grid-row-gap: 1em;
   grid-column-gap: 1em;
 }

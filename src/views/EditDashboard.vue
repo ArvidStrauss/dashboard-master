@@ -164,26 +164,29 @@ export default {
       }
 
       return validated;
+    },
+    loadJson: function(){
+      let t = this;
+      return fetch("http://localhost:8080/LoadJson")
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          t.dashboards = JSON.parse(JSON.stringify(data.settings));
+          t.dashboardID = t.dashboards
+            .map(function(e) {
+              return e.name;
+            })
+            .indexOf(t.$route.params.dashboard);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
   created() {},
   mounted() {
-    let t = this;
-    return fetch("http://localhost:8080/LoadJson")
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        t.dashboards = JSON.parse(JSON.stringify(data.settings));
-        t.dashboardID = t.dashboards
-          .map(function(e) {
-            return e.name;
-          })
-          .indexOf(t.$route.params.dashboard);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.loadJson();
   }
 };
 </script>

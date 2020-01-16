@@ -160,39 +160,42 @@ export default {
       }
 
       return validated;
+    },
+    loadJson: function(){
+      let t = this;
+      fetch("http://localhost:8080/LoadJson")
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          t.dashboards = JSON.parse(JSON.stringify(data.settings));
+
+          //set new Dashboard
+          t.dashboards.push({
+            name: "",
+            description: "",
+            service: t.serviceName,
+            metrics: [
+              {
+                title: "500 error",
+                desc: "Prediction of 500 errors for the next 5 minutes",
+                model: "model_0",
+                metric: "500",
+                predtime: "5"
+              }
+            ]
+          });
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
   created() {
     //this.dashboards = json;
   },
   mounted() {
-    let t = this;
-    fetch("http://localhost:8080/LoadJson")
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        t.dashboards = JSON.parse(JSON.stringify(data.settings));
-
-        //set new Dashboard
-        t.dashboards.push({
-          name: "",
-          description: "",
-          service: t.serviceName,
-          metrics: [
-            {
-              title: "500 error",
-              desc: "Prediction of 500 errors for the next 5 minutes",
-              model: "model_0",
-              metric: "500",
-              pred: "5"
-            }
-          ]
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.loadJson();
   }
 };
 </script>
