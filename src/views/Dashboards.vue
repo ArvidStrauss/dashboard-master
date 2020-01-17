@@ -105,7 +105,9 @@
                   </div>
                   <div class="card__buttons--item" v-else>
                     <a href="#">
-                      <button class="button--right bg-lightgrey text-white cursor--none">
+                      <button
+                        class="button--right bg-lightgrey text-white cursor--none"
+                      >
                         <i class="fa fa-trash"></i>
                         {{ $t("menu.delete") }}
                       </button>
@@ -212,11 +214,11 @@ h6 {
   font-size: 14pt;
 }
 
-.cursor--none{
+.cursor--none {
   cursor: default;
 }
 
-.bg-lightgrey{
+.bg-lightgrey {
   background-color: var(--superlightgrey) !important;
 }
 

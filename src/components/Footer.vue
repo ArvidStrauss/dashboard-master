@@ -13,9 +13,9 @@
           |
           <a href="#">Blog</a>
           |
-          <a href="#">About</a>
+          <a href="#">{{ $t("footer.aboutDashboard") }}</a>
           |
-          <a href="#">Contact</a>
+          <a href="#">{{ $t("footer.contact") }}</a>
           <LanguageSwitcher />
         </p>
 

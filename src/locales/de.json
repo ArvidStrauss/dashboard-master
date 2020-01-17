@@ -1,9 +1,69 @@
 {
-  "info": "Das ist das ML-Dashboard",
+  "info": "Das ist ml dashboard",
   "footer": {
-    "aboutDashboard": "Über"
+    "aboutDashboard": "Über",
+    "contact": "Kontakt"
   },
   "header": {
-    "message": "Guten Tag i18n !!"
+    "message": "Guten Morgen i18n !!"
+  },
+  "menu": {
+    "newDashboard": "Neues Dashboard",
+    "open": "Öffnen",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "closeInfo": "Info schließen",
+    "openInfo": "Info anzeigen"
+  },
+  "newDashboard": {
+    "add": "Neues Dashboard hinzufügen zu ",
+    "title": "Titel",
+    "desc": "Beschreibung",
+    "please": "Bitte bearbeiten Sie das Formular",
+    "save": "Speichern"
+  },
+  "editDashboard": {
+    "edit": "Dashboard bearbeiten - ",
+    "title": "Titel",
+    "desc": "Beschreibung",
+    "please": "Bitte bearbeiten Sie das Formular",
+    "save": "Speichern"
+  },
+  "metrics": {
+    "pred": "Prognostizierte Zeit: ",
+    "min": "Minuten",
+    "new": "Neues Diagramm hinzufügen",
+    "loading": "Diagramme werden geladen",
+    "please": "Bitte warten."
+  },
+  "newMetric": {
+    "add" :"Neues Diagramm hinzufügen zu ",
+    "title": "Titel",
+    "desc": "Beschreibung",
+    "model": "Bearbeiten Sie das Formular um ein Model zu wählen",
+    "metric": "Bearbeiten Sie das Formular um eine Metrik zu wählen",
+    "chooseModel": "Model wählen",
+    "chooseMetric": "Metrik wählen",
+    "pred": "Prognostizierte Zeit für das Model",
+    "min": "Minuten",
+    "please": "Bitte bearbeiten Sie das Formular",
+    "save": "Speichern"
+  },
+  "editMetric": {
+    "edit": "Diagramm bearbeiten -",
+    "title": "Titel",
+    "desc": "Beschreibung",
+    "model": "Bearbeiten Sie das Formular um ein Model zu wählen",
+    "metric": "Bearbeiten Sie das Formular um eine Metrik zu wählen",
+    "chooseModel": "Model wählen",
+    "chooseMetric": "Metrik wählen",
+    "pred": "Prognostizierte Zeit für das Model",
+    "min": "Minuten",
+    "please": "Bitte bearbeiten Sie das Formular",
+    "save": "Speichern"
+  },
+  "select":{
+    "model": "Wählen Sie ein Model für ",
+    "metric": "Wählen Sie eine Metrik für "
   }
 }

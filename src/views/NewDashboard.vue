@@ -55,7 +55,7 @@
           required
           class="form-control dashboards"
           name=""
-          placeholder="Title"
+          placeholder=""
           v-model="dashboards[dashboards.length - 1].name"
           v-bind:style="
             validateTitle()
@@ -64,12 +64,12 @@
           "
         />
         <br />
-        <p class="text-left">{{ $t("newDashboard.description") }}</p>
+        <p class="text-left">{{ $t("newDashboard.desc") }}</p>
         <textarea
           rows="3"
           required
           class="form-control dashboards"
-          placeholder="Description"
+          placeholder=""
           v-model="dashboards[dashboards.length - 1].description"
           v-bind:style="
             validateDesc()
@@ -161,7 +161,7 @@ export default {
 
       return validated;
     },
-    loadJson: function(){
+    loadJson: function() {
       let t = this;
       fetch("http://localhost:8080/LoadJson")
         .then(response => {

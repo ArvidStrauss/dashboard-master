@@ -18,7 +18,7 @@
       </router-link>
       <br />
     </div>
-    <h2 class="text-center mb-3">Select a model for {{ metricName }}</h2>
+    <h2 class="text-center mb-3">{{ $t("select.model") }} {{ metricName }}</h2>
     <br />
     <div v-for="(metri, index) in availableModels" :key="index">
       <div
@@ -78,7 +78,7 @@ export default {
         t.$router.push(url);
       });
     },
-    loadJson: function(){
+    loadJson: function() {
       let t = this;
       fetch("http://localhost:8080/LoadJson")
         .then(response => {

@@ -16,7 +16,7 @@
         "
       >
         <button class="normalButton pull-right cursor--add">
-          <i class="fa fa-plus"></i> New Diagram
+          <i class="fa fa-plus"></i> {{ $t("metrics.new") }}
         </button>
       </router-link>
     </div>
@@ -53,18 +53,17 @@
         </ol>
       </nav>
       <h3 v-if="chartsLoaded === false">
-        loading Charts....
+        {{ $t("metrics.loading") }}....
         <br />
         <br />
         <br />
-        Please wait
+        {{ $t("metrics.please") }}
       </h3>
       <!-- DESKTOP VERSION -->
       <!-- drag & drop is only activated at desktop version, because buttons aren't accessable in mobile version due to draggable component -> screenWidthCheck() -->
       <draggable
         v-model="dashboard.metrics"
         v-if="screenWidthCheck() === true && chartsLoaded === true"
-        
         class="chart__grid"
       >
         <div v-for="(metric, index) in dashboard.metrics" :key="index">
@@ -74,7 +73,10 @@
             <p>
               <b>{{ metric.title }}</b>
             </p>
-            <p>Predicted time: {{ metric.predtime }} minutes</p>
+            <p>
+              {{ $t("metrics.pred") }} {{ metric.predtime }}
+              {{ $t("metrics.min") }}
+            </p>
             <div class="chartButtons__grid">
               <div>
                 <Chart :chart-data="datacollection[index]"></Chart>
@@ -88,7 +90,10 @@
                     </button>
                   </a>
                 </div>
-                <span v-else class="normalChartButton button--right bg-lightgrey">
+                <span
+                  v-else
+                  class="normalChartButton button--right bg-lightgrey"
+                >
                   <i class="fa fa-trash"></i>
                   {{ $t("menu.delete") }}
                 </span>
@@ -257,12 +262,12 @@ export default {
       let cData = [];
       let cColor = [];
 
-      let dateFormat = (date) => {
-        let string = date.slice(5,16);
+      let dateFormat = date => {
+        let string = date.slice(5, 16);
         let day = string[3] + string[4];
         let month = string[0] + string[1];
-        return day + "." +month +string.slice(5,11);
-      }
+        return day + "." + month + string.slice(5, 11);
+      };
 
       //pushes lookback data into temporary arrays
       chart[chartMetric].lookback.forEach(lkbk => {
@@ -300,7 +305,10 @@ export default {
           ]
         };
       });
-      if(this.datacollection.length === this.dashboard.metrics[index].metric.length){
+      if (
+        this.datacollection.length ===
+        this.dashboard.metrics[index].metric.length
+      ) {
         this.datacollection = [];
       }
       //pushes temp to datacollection for chart component
@@ -308,7 +316,7 @@ export default {
       this.datacollection.push(temp);
 
       //signals view - data is loaded to render charts
-      if(index === this.dashboard.metrics.length-1){
+      if (index === this.dashboard.metrics.length - 1) {
         this.chartsLoaded = true;
       }
       return true;
@@ -325,11 +333,11 @@ export default {
       t.$http.get(baseURI).then(result => {
         t.jsonData.push(result.data);
         let finished = t.fillData(t.jsonData[0], element);
-        if(finished === true){
+        if (finished === true) {
           t.jsonData = [];
-          if(element != t.dashboard.metrics.length){
+          if (element != t.dashboard.metrics.length) {
             t.loadChartData(++element);
-          }  
+          }
         }
       });
     },
@@ -367,7 +375,7 @@ export default {
   cursor: copy;
 }
 
-.bg-lightgrey{
+.bg-lightgrey {
   background-color: var(--superlightgrey);
 }
 

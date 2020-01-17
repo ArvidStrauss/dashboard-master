@@ -3,14 +3,14 @@
     <div v-if="panel == 0" class="w-100 pr-4">
       <transition name="fade">
         <button class="float-right normalButton mt-2" v-on:click="showPanel()">
-          Show Info
+          {{ $t("menu.openInfo") }}
         </button>
       </transition>
     </div>
     <div v-if="panel == 1" class="w-100 pr-4">
       <transition name="fade">
         <button class="float-right normalButton mt-2" v-on:click="hidePanel()">
-          Close Info
+          {{ $t("menu.closeInfo") }}
         </button>
       </transition>
     </div>
@@ -45,7 +45,7 @@
               class="fancyButton"
               :to="'/' + $i18n.locale + '/dashboards/' + service.name"
             >
-              Open
+              {{ $t("menu.open") }}
               <i class="fa fa-step-forward"></i>
             </router-link>
           </div>

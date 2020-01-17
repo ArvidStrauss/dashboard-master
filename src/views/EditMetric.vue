@@ -16,7 +16,9 @@
     </div>
     <br />
     <div>
-      <h2 class="dashboards mb-3">add new Dashboard to {{ serviceName }}</h2>
+      <h2 class="dashboards mb-3">
+        {{ $t("editMetric.edit") }} {{ serviceName }}
+      </h2>
     </div>
     <nav class>
       <ol class="breadcrumb bg-white">
@@ -50,12 +52,12 @@
     </nav>
     <form>
       <div class="container form-group pb-4">
-        <p class="text-left">Title</p>
+        <p class="text-left">{{ $t("editMetric.title") }}</p>
         <input
           type="text"
           required
           name
-          placeholder="Title"
+          placeholder=""
           class="form-control dashboards"
           v-model="dashboards[dashboardID].metrics[metricID].title"
           v-bind:style="
@@ -65,12 +67,12 @@
           "
         />
         <br />
-        <p class="text-left">Description</p>
+        <p class="text-left">{{ $t("editMetric.desc") }}</p>
         <textarea
           rows="3"
           required
           class="form-control dashboards"
-          placeholder="Description"
+          placeholder=""
           v-model="dashboards[dashboardID].metrics[metricID].desc"
           v-bind:style="
             validateDesc()
@@ -97,13 +99,13 @@
           @click.native="saveJson"
         >
           <p class="text-left">
-            choose Model ---
+            {{ $t("editMetric.chooseModel") }} ---
             {{ dashboards[dashboardID].metrics[metricID].model }}
           </p>
         </router-link>
         <div v-else>
           <p class="card pt-2 pl-4 pb-2 text-left">
-            Fill in form to choose Model
+            {{ $t("editMetric.model") }}
           </p>
         </div>
         <br />
@@ -123,22 +125,22 @@
           @click.native="saveJson"
         >
           <p class="text-left">
-            choose Metric ---
+            {{ $t("editMetric.chooseMetric") }} ---
             {{ dashboards[dashboardID].metrics[metricID].metric }}
           </p>
         </router-link>
         <div v-else>
           <p class="card pt-2 pl-4 pb-2 text-left">
-            Fill in form to choose Metric
+            {{ $t("editMetric.metric") }}
           </p>
         </div>
         <br />
         <hr />
         <p class="text-left">
-          Prediction Time for model
+          {{ $t("editMetric.pred") }}
           {{ dashboards[dashboardID].metrics[metricID].model }} :
 
-          <b>{{ availablePredTime }} minutes </b>.
+          <b>{{ availablePredTime }} {{ $t("editMetric.min") }} </b>.
         </p>
         <br />
         <a
@@ -147,11 +149,13 @@
           class="saveButton saveButton--cyan mx-auto w-50"
           v-on:click="saveJson"
         >
-          Save
+          {{ $t("editMetric.save") }}
         </a>
         <div v-else>
-          <p>Please fill in the form</p>
-          <span class="saveButton saveButton--red w-50 mx-auto">Save</span>
+          <p>{{ $t("editMetric.please") }}</p>
+          <span class="saveButton saveButton--red w-50 mx-auto">{{
+            $t("editMetric.save")
+          }}</span>
         </div>
       </div>
     </form>
@@ -240,7 +244,7 @@ export default {
 
       return validated;
     },
-    loadJson: function(){
+    loadJson: function() {
       //this.dashboards = json;
       let t = this;
       //GET dashboards

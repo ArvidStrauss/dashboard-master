@@ -1,7 +1,8 @@
 {
   "info": "this is ml dashboard",
   "footer": {
-    "aboutDashboard": "About"
+    "aboutDashboard": "About",
+    "contact": "Contact"
   },
   "header": {
     "message": "Good Morning i18n !!"
@@ -10,13 +11,59 @@
     "newDashboard": "New Dashboard",
     "open": "Open",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "closeInfo": "close Info",
+    "openInfo": "show Info"
   },
   "newDashboard": {
     "add": "add new Dashboard to ",
     "title": "Title",
-    "desc": "description",
+    "desc": "Description",
     "please": "Please fill in the form",
     "save": "Save"
+  },
+  "editDashboard": {
+    "edit": "edit Dashboard",
+    "title": "Title",
+    "desc": "Description",
+    "please": "Please fill in the form",
+    "save": "Save"
+  },
+  "metrics": {
+    "pred": "Predicted time: ",
+    "min": "minutes",
+    "new": "add new chart",
+    "loading": "Loading charts",
+    "please": "Please wait."
+  },
+  "newMetric": {
+    "add" :"Add new chart to",
+    "title": "Title",
+    "desc": "Description",
+    "model": "Fill in the form to choose a Model",
+    "metric": "Fill in the form to choose a Metric",
+    "chooseModel": "choose Model",
+    "chooseMetric": "choose Metric",
+    "pred": "Prediction time for model",
+    "min": "minutes",
+    "please": "Please fill in the form",
+    "save": "Save"
+  },
+  "editMetric": {
+    "edit": "edit chart",
+    "title": "Title",
+    "desc": "Description",
+    "model": "Fill in the form to choose a Model",
+    "metric": "Fill in the form to choose a Metric",
+    "chooseModel": "choose Model",
+    "chooseMetric": "choose Metric",
+    "pred": "Prediction time for model",
+    "min": "minutes",
+    "please": "Please fill in the form",
+    "save": "Save"
+  },
+  "select":{
+    "model": "Select a model for ",
+    "metric": "Select a metric for "
   }
 }

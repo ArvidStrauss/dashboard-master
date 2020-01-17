@@ -13,7 +13,9 @@
     </div>
     <br />
     <div>
-      <h2 class="dashboards mb-3">add new Dashboard to {{ serviceName }}</h2>
+      <h2 class="dashboards mb-3">
+        {{ $t("editDashboard.edit") }} {{ serviceName }}
+      </h2>
     </div>
     <nav class="">
       <ol class="breadcrumb bg-white">
@@ -50,14 +52,14 @@
     </nav>
     <form v-if="dashboards">
       <div class="container form-group pb-4">
-        <p class="text-left">Title</p>
+        <p class="text-left">{{ $t("editDashboard.title") }}</p>
         <input
           type="text"
           required
           id="title"
           class="form-control dashboards"
           name=""
-          placeholder="Title"
+          placeholder=""
           v-model="dashboards[dashboardID].name"
           v-bind:style="
             validateTitle()
@@ -66,13 +68,13 @@
           "
         />
         <br />
-        <p class="text-left">Description</p>
+        <p class="text-left">{{ $t("editDashboard.desc") }}</p>
         <textarea
           rows="3"
           required
           id="desc"
           class="form-control dashboards"
-          placeholder="Description"
+          placeholder=""
           v-model="dashboards[dashboardID].description"
           v-bind:style="
             validateDesc()
@@ -87,11 +89,13 @@
           class="saveButton saveButton--cyan mx-auto w-50"
           v-on:click="saveJson"
         >
-          Save
+          {{ $t("editDashboard.save") }}
         </a>
         <div v-else>
-          <p>Please fill in the form</p>
-          <span class="saveButton saveButton--red w-50 mx-auto">Save</span>
+          <p>{{ $t("editDashboard.please") }}</p>
+          <span class="saveButton saveButton--red w-50 mx-auto">{{
+            $t("editDashboard.save")
+          }}</span>
         </div>
       </div>
     </form>
@@ -165,7 +169,7 @@ export default {
 
       return validated;
     },
-    loadJson: function(){
+    loadJson: function() {
       let t = this;
       return fetch("http://localhost:8080/LoadJson")
         .then(response => {

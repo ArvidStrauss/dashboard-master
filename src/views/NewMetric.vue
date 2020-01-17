@@ -16,7 +16,7 @@
     <br />
     <div>
       <h2 class="dashboards mb-3">
-        {{ $t("newDashboard.add") }} {{ serviceName }}
+        {{ $t("newMetric.add") }} {{ serviceName }}
       </h2>
     </div>
     <nav class="">
@@ -66,12 +66,12 @@
     </nav>
     <form>
       <div class="container form-group pb-4">
-        <p class="text-left">{{ $t("newDashboard.title") }}</p>
+        <p class="text-left">{{ $t("newMetric.title") }}</p>
         <input
           type="text"
           required
           name=""
-          placeholder="Title"
+          placeholder=""
           class="form-control dashboards"
           v-model="dashboard.metrics[dashboard.metrics.length - 1].title"
           v-bind:style="
@@ -81,12 +81,12 @@
           "
         />
         <br />
-        <p class="text-left">{{ $t("newDashboard.desc") }}</p>
+        <p class="text-left">{{ $t("newMetric.desc") }}</p>
         <textarea
           rows="3"
           required
           class="form-control dashboards"
-          placeholder="Description"
+          placeholder=""
           v-model="dashboard.metrics[dashboard.metrics.length - 1].desc"
           v-bind:style="
             validateDesc()
@@ -103,11 +103,11 @@
           class="card routerLink breadcrumb__link pt-2 pl-4"
           v-on:click="saveJson(1)"
         >
-          <p class="text-left">choose Model</p>
+          <p class="text-left">{{ $t("newMetric.chooseModel") }}</p>
         </a>
         <div v-else>
           <p class="card pt-2 pl-4 pb-2 text-left">
-            Fill in form to choose Model
+            {{ $t("newMetric.model") }}
           </p>
         </div>
         <br />
@@ -117,17 +117,17 @@
           class="card routerLink breadcrumb__link pt-2 pl-4"
           v-on:click="saveJson(2)"
         >
-          <p class="text-left">choose Metric</p>
+          <p class="text-left">{{ $t("newMetric.chooseMetric") }}</p>
         </a>
         <div v-else>
           <p class="card pt-2 pl-4 pb-2 text-left">
-            Fill in form to choose Metric
+            {{ $t("newMetric.metric") }}
           </p>
         </div>
         <br />
         <hr />
         <p class="text-left">
-          Prediction Time for model
+          {{ $t("newMetric.pred") }}
           {{
             dashboards[dashboardID].metrics[
               dashboards[dashboardID].metrics.length - 1
@@ -135,7 +135,7 @@
           }}
           :
 
-          <b>{{ availablePredTime }} minutes </b>.
+          <b>{{ availablePredTime }} {{ $t("newMetric.min") }} </b>.
         </p>
         <br />
         <a
@@ -144,11 +144,13 @@
           class="saveButton saveButton--cyan mx-auto w-50"
           v-on:click="saveJson(3)"
         >
-          {{ $t("newDashboard.save") }}
+          {{ $t("newMetric.save") }}
         </a>
         <div v-else>
-          <p>{{ $t("newDashboard.please") }}</p>
-          <span class="saveButton saveButton--red w-50 mx-auto">Save</span>
+          <p>{{ $t("newMetric.please") }}</p>
+          <span class="saveButton saveButton--red w-50 mx-auto">{{
+            $t("newMetric.save")
+          }}</span>
         </div>
       </div>
     </form>
@@ -261,7 +263,7 @@ export default {
 
       return validated;
     },
-    loadJson: function(){
+    loadJson: function() {
       //this.dashboards = json;
       let t = this;
       //GET dashboards
