@@ -19,6 +19,10 @@ a{
 	border-color: var(--magenta);
 }
 
+.border--magenta--full{
+	border: 1px solid var(--magenta);
+}
+
 .border--grey{
 	border-color: var(--darkgrey) !important;
 	border-width: 1px;

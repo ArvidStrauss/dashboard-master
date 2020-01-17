@@ -65,5 +65,10 @@
   "select":{
     "model": "Select a model for ",
     "metric": "Select a metric for "
+  },
+  "notification":{
+    "msg": "Do you really want to remove the Dashboard?",
+    "yes": "Yes",
+    "no": "No"
   }
 }

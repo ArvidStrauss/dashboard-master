@@ -65,5 +65,10 @@
   "select":{
     "model": "Wählen Sie ein Model für ",
     "metric": "Wählen Sie eine Metrik für "
+  },
+  "notification":{
+    "msg": "Wollen Sie das Dashboard wirklich löschen?",
+    "yes": "Ja",
+    "no": "Nein"
   }
 }

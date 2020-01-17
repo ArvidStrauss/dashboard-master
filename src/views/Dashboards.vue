@@ -96,7 +96,7 @@
                     </router-link>
                   </div>
                   <div v-if="dashboardsLength > 1" class="card__buttons--item">
-                    <a class id v-on:click="removeEntry(dashboard.name)">
+                    <a class id v-on:click="deleteWindow = index">
                       <button class="button--right">
                         <i class="fa fa-trash"></i>
                         {{ $t("menu.delete") }}
@@ -114,6 +114,28 @@
                     </a>
                   </div>
                 </div>
+              </div>
+              <br v-if="deleteWindow === index" />
+              <div
+                class="row w-100 border--magenta--full py-2 rounded"
+                v-if="deleteWindow === index"
+              >
+                <div class="col-6">{{ $t("notification.msg") }}</div>
+                <a
+                  class="normalChartButton col-2 text-white"
+                  id
+                  v-on:click="removeEntry(dashboard.name)"
+                >
+                  <i class="fa fa-trash"></i>
+                  {{ $t("notification.yes") }}
+                </a>
+                <a
+                  class="normalChartButton col-2 ml-2"
+                  v-on:click="deleteWindow = false"
+                  href="#"
+                >
+                  {{ $t("notification.no") }}
+                </a>
               </div>
             </div>
           </div>
@@ -134,7 +156,8 @@ export default {
       dashboards: [],
       imageToggle: true,
       sorting: -1,
-      chartsLoaded: false
+      chartsLoaded: false,
+      deleteWindow: false
     };
   },
   computed: {
@@ -173,6 +196,7 @@ export default {
         this.$delete(this.dashboards, i);
       }
       this.saveJson();
+      this.deleteWindow = false;
     },
     saveJson: function() {
       let jsonFile = { settings: [] };

@@ -66,6 +66,7 @@
         v-if="screenWidthCheck() === true && chartsLoaded === true"
         class="chart__grid"
       >
+        <!-- :move="saveJson()" -> draggable compontent -->
         <div v-for="(metric, index) in dashboard.metrics" :key="index">
           <!-- CHART -->
           <div class="border pr-2">
@@ -83,7 +84,7 @@
               </div>
               <div class="chart__flex">
                 <div v-if="dashboardsLength > 1">
-                  <a class id v-on:click="removeEntry(index)">
+                  <a class id v-on:click="deleteWindow = index">
                     <button class="normalChartButton button--right">
                       <i class="fa fa-trash"></i>
                       {{ $t("menu.delete") }}
@@ -119,6 +120,28 @@
             <div>{{ metric.desc }}</div>
             <br />
           </div>
+          <br v-if="deleteWindow === index" />
+          <div
+            class="row w-100 border--magenta--full py-2 rounded"
+            v-if="deleteWindow === index"
+          >
+            <div class="col-6">{{ $t("notification.msg") }}</div>
+            <a
+              class="normalChartButton col-2 text-white"
+              id
+              v-on:click="removeEntry(index)"
+            >
+              <i class="fa fa-trash"></i>
+              {{ $t("notification.yes") }}
+            </a>
+            <a
+              class="normalChartButton col-2 ml-2"
+              v-on:click="deleteWindow = false"
+              href="#"
+            >
+              {{ $t("notification.no") }}
+            </a>
+          </div>
         </div>
       </draggable>
       <!-- MOBILE VERSION without draggable component -->
@@ -135,14 +158,7 @@
               <Chart :chart-data="datacollection[index]"></Chart>
               <div class="chart__flex mx-auto">
                 <div v-if="dashboardsLength > 1">
-                  <a
-                    class
-                    id
-                    v-on:click="
-                      removeEntry(index);
-                      saveJson();
-                    "
-                  >
+                  <a class id v-on:click="deleteWindow = index">
                     <button class="normalChartButton button--right">
                       <i class="fa fa-trash"></i>
                       {{ $t("menu.delete") }}
@@ -181,6 +197,28 @@
             <br />
           </div>
         </div>
+        <br v-if="deleteWindow === index" />
+        <div
+          class="row w-100 border--magenta--full py-2 rounded"
+          v-if="deleteWindow === index"
+        >
+          <div class="col-6">{{ $t("notification.msg") }}</div>
+          <a
+            class="normalChartButton col-2 text-white"
+            id
+            v-on:click="removeEntry(index)"
+          >
+            <i class="fa fa-trash"></i>
+            {{ $t("notification.yes") }}
+          </a>
+          <a
+            class="normalChartButton col-2 ml-2"
+            v-on:click="deleteWindow = false"
+            href="#"
+          >
+            {{ $t("notification.no") }}
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -206,7 +244,8 @@ export default {
       imageToggle: true,
       jsonData: [],
       datacollection: [],
-      chartsLoaded: false
+      chartsLoaded: false,
+      deleteWindow: false
     };
   },
   computed: {
@@ -229,6 +268,7 @@ export default {
     removeEntry: function(index) {
       this.$delete(this.dashboard.metrics, index);
       this.saveJson();
+      this.deleteWindow = false;
     },
     screenWidthCheck: function() {
       if (window.screen.width > 1000) {
