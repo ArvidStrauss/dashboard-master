@@ -26,6 +26,8 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
+-> proxy url in vue.config.js has to be changed to the server url
+
 ## open bugs
 - double / triple post request at metrics.vue
 - deleting a chart causes 2x post request at metrics.vue because of draggable component
