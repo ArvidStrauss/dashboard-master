@@ -51,7 +51,7 @@
           <div class="row mb-4">
             <div class="card__grid">
               <div class="card__header pt-2 pb-1">
-                <h5 class="text-white">{{ dashboard.name }}</h5>
+                <h3 class="text-white">{{ dashboard.name }}</h3>
               </div>
               <div class="card__content">
                 <div class="card__description">
