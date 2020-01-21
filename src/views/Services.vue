@@ -106,6 +106,12 @@ export default {
 </script>
 
 <style scoped>
+.services {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url("../assets/img/banner.jpg");
+  background-position: center;
+  background-size: cover;
+}
 img {
   height: 150px;
 }

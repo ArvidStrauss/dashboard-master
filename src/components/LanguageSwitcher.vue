@@ -6,7 +6,7 @@
       :key="`Lang${i}`"
       class="row ml-4"
     >
-      <a :href="'http://localhost:8080/' + lang">
+      <a :href="'/' + lang">
         <span :class="'flag-icon flag-icon-' + lang" class="col"
       /></a>
     </div>
