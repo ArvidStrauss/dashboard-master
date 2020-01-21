@@ -61,41 +61,90 @@
         :move="saveJson()"
         class="chart__grid"
       >
-        <div v-for="(metric, index) in dashboard.metrics" :key="index">
-          <!-- <Chart :chart-data="chartdata[index]"></Chart> -->
-          {{ metric.title }}
+         <div class="border pr-2 pt-2 rounded">
+            <!-- <Chart :chart-data="chartdata[index]"></Chart> -->
+          <h4>Response Time</h4>
+          <p>Predicted time: <b> 15 minutes </b></p>
           <div class="chartButtons__grid">
             <div>
               <Chart :chart-data="datacollection"></Chart>
             </div>
             <div class="chart__flex">
-              <a class id v-on:click="removeEntry(index)">
+              <a class id >
                 <button class="normalChartButton button--right">
                   <i class="fa fa-trash"></i> Delete
                 </button>
               </a>
-              <router-link
-                class="normalChartButton"
-                :to="
-                  '/' +
-                    $i18n.locale +
-                    '/metrics/' +
-                    serviceName +
-                    '/' +
-                    dashboardName +
-                    '/edit/' +
-                    metric.title
-                "
+              <a class="normalChartButton" href="#"
               >
                 <i class="fa fa-edit"></i> Edit
-              </router-link>
+              </a>
               <button class="normalChartButton" @click="fillData()">
                 Fill Data
               </button>
             </div>
           </div>
-          {{ metric.desc }}
-        </div>
+          <hr>
+          Prediction of reponse time for the next 15 minutes
+         <br><br>
+         </div>
+         <div class="pr-2 border pt-2 rounded">
+            <!-- <Chart :chart-data="chartdata[index]"></Chart> -->
+          <h4>500er Errors</h4>
+          <p>Predicted time: <b> 15 minutes </b></p>
+          <div class="chartButtons__grid">
+            <div>
+              <Chart :chart-data="secondDa"></Chart>
+            </div>
+            <div class="chart__flex">
+              <a class id >
+                <button class="normalChartButton button--right">
+                  <i class="fa fa-trash"></i> Delete
+                </button>
+              </a>
+              <a
+                class="normalChartButton"
+                href="#"
+                
+              >
+                <i class="fa fa-edit"></i> Edit
+              </a>
+              <button class="normalChartButton" @click="fillData()">
+                Fill Data
+              </button>
+            </div>
+          </div>
+          <hr>
+          Prediction of 500 errors for the next 15 minutes
+         <br><br>
+         </div>
+         <div class="border pr-2 pt-2 rounded">
+            <!-- <Chart :chart-data="chartdata[index]"></Chart> -->
+          <h4>200 codes</h4>
+          <p>Predicted time: <b> 15 minutes </b></p>
+          <div class="chartButtons__grid">
+            <div>
+              <Chart :chart-data="thirdDa"></Chart>
+            </div>
+            <div class="chart__flex">
+              <a class id >
+                <button class="normalChartButton button--right">
+                  <i class="fa fa-trash"></i> Delete
+                </button>
+              </a>
+              <a class="normalChartButton" href="#"
+              >
+                <i class="fa fa-edit"></i> Edit
+              </a>
+              <button class="normalChartButton" @click="fillData()">
+                Fill Data
+              </button>
+            </div>
+          </div>
+          <hr>
+          Prediction of 200 codes for the next 15 minutes
+         <br><br>
+         </div>
       </draggable>
       <div v-else>
         <div v-for="(metric, index) in dashboard.metrics" :key="index">
@@ -148,7 +197,10 @@ export default {
     return {
       services: null,
       imageToggle: true,
-      chartdata: []
+      chartdata: [],
+      secondDa: [],
+      thirdDa: [],
+      next: 1
     };
   },
   computed: {
@@ -190,7 +242,80 @@ export default {
         labels: this.chartLabels,
         datasets: [
           {
-            label: "Count",
+            label: "Response Time",
+            pointBackgroundColor: this.chartColor,
+            pointRadius: 5,
+            pointHoverRadius: 20,
+            data: this.chartData
+          }
+        ]
+      };
+      this.next ++;
+      this.secondData();
+    },
+    secondData(){
+      this.chartLabels = [];
+      this.chartData = [];
+      this.chartColor = [];
+
+      this.services = json;
+      this.lookback = lookback; // muss durch chartData[index] ersetzt werden
+      this.chartLabels = new Array();
+      this.chartData = new Array();
+      this.chartColor = new Array();
+
+      lookback["500"].lookback.forEach(element => {
+        this.chartLabels.push(element[0]);
+        this.chartData.push(element[1]);
+        this.chartColor.push("rgb(226, 0, 116)");
+      });
+      lookback["500"].prediction.forEach(element => {
+        this.chartLabels.push(element[0]);
+        this.chartData.push(element[1]);
+        this.chartColor.push("#1bada2");
+      });
+
+      this.secondDa = {
+        labels: this.chartLabels,
+        datasets: [
+          {
+            label: "500",
+            pointBackgroundColor: this.chartColor,
+            pointRadius: 5,
+            pointHoverRadius: 20,
+            data: this.chartData
+          }
+        ]
+      };
+      this.thirdData();
+    },
+    thirdData(){
+      this.chartLabels = [];
+      this.chartData = [];
+      this.chartColor = [];
+
+      this.services = json;
+      this.lookback = lookback; // muss durch chartData[index] ersetzt werden
+      this.chartLabels = new Array();
+      this.chartData = new Array();
+      this.chartColor = new Array();
+
+      lookback["200"].lookback.forEach(element => {
+        this.chartLabels.push(element[0]);
+        this.chartData.push(element[1]);
+        this.chartColor.push("rgb(226, 0, 116)");
+      });
+      lookback["200"].prediction.forEach(element => {
+        this.chartLabels.push(element[0]);
+        this.chartData.push(element[1]);
+        this.chartColor.push("#1bada2");
+      });
+
+      this.thirdDa = {
+        labels: this.chartLabels,
+        datasets: [
+          {
+            label: "200",
             pointBackgroundColor: this.chartColor,
             pointRadius: 5,
             pointHoverRadius: 20,
@@ -207,12 +332,12 @@ export default {
     this.chartData = new Array();
     this.chartColor = new Array();
 
-    lookback.count.lookback.forEach(element => {
+    lookback["sum_result.response_time_micsec"].lookback.forEach(element => {
       this.chartLabels.push(element[0]);
       this.chartData.push(element[1]);
       this.chartColor.push("rgb(226, 0, 116)");
     });
-    lookback.count.prediction.forEach(element => {
+    lookback["sum_result.response_time_micsec"].prediction.forEach(element => {
       this.chartLabels.push(element[0]);
       this.chartData.push(element[1]);
       this.chartColor.push("#1bada2");

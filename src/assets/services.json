@@ -1,8 +1,8 @@
 [
   {
-    "name": "Siemens",
+    "name": "Congstar",
     "desc": "All Siemens Dashboards",
-    "image": "../siemens_logo.png",
+    "image": "../congstar.png",
     "alt": "Siemens-Logo"
   },
   {
@@ -12,9 +12,21 @@
     "alt": "Telekom-Logo"
   },
   {
-    "name": "Barmer",
+    "name": "ADAC",
     "desc": "All Barmer Dashboards",
-    "image": "../barmer_logo.png",
+    "image": "../adac.jpg",
+    "alt": "Barmer-Logo"
+  },
+  {
+    "name": "Zollkriminalamt",
+    "desc": "All Barmer Dashboards",
+    "image": "../zoll.png",
+    "alt": "Barmer-Logo"
+  },
+  {
+    "name": "ARD - ZDF - DLR",
+    "desc": "All Barmer Dashboards",
+    "image": "../ard.jpeg",
     "alt": "Barmer-Logo"
   }
 ]

@@ -1,8 +1,8 @@
 [
   {
-    "name": "xrequests",
+    "name": "Webserver",
     "service": "Telekom",
-    "description": "lorem ipsume",
+    "description": "Intern web developement test server",
     "metrics": [
       {
         "title": "anomalies",
@@ -21,9 +21,9 @@
     ]
   },
   {
-    "name": "response time",
+    "name": "Fileserver",
     "service": "Telekom",
-    "description": "lorem ipsume",
+    "description": "File server for intern data",
     "metrics": [
       {
         "title": "next 5 minutes",
