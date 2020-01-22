@@ -1,5 +1,5 @@
 <template>
-  <section v-if="dashboards" class="mt-4 form--width mx-auto px-2">
+  <section v-if="dashboards" class="mt-4 form--width mx-auto px-2 mb-4">
     <div>
       <router-link
         class="pull-right breadcrumb__link mr-2"
@@ -27,6 +27,9 @@
         <p>{{ metri }}</p>
       </div>
     </div>
+    <br />
+    <br />
+    <br />
   </section>
 </template>
 

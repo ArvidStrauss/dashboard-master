@@ -25,13 +25,13 @@
     </transition>
     <br v-if="panel == 0" />
     <br />
-    <h3>Services</h3>
+    <h2 class="text-white font-weight-bold">Services</h2>
     <br />
     <br />
     <div class=" w-75 mx-auto service__grid">
       <div v-for="(service, index) in services" :key="index">
         <!--Die Service Card -->
-        <div class="card border--grey" style="width: 18rem;">
+        <div class="card border--magenta" style="width: 18rem;">
           <img
             class="card-img-top border-bottom border--grey"
             :src="getImageUrl(service)"
@@ -50,6 +50,9 @@
             </router-link>
           </div>
         </div>
+        <br />
+        <br />
+        <br />
       </div>
     </div>
   </div>

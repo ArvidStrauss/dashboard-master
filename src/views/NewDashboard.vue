@@ -1,7 +1,7 @@
 <template>
   <section
     v-if="dashboards"
-    class="mt-4 form--width mx-auto border--magenta px-2"
+    class="mt-4 form--width mx-auto border--magenta px-2 mb-4"
   >
     <div>
       <router-link
@@ -92,6 +92,9 @@
         </div>
       </div>
     </form>
+    <br />
+    <br />
+    <br />
   </section>
 </template>
 

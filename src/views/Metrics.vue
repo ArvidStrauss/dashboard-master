@@ -59,6 +59,18 @@
         <br />
         {{ $t("metrics.please") }}
       </h3>
+
+      <div class="border rounded" v-if="chartsLoaded === true">
+        <div class="w-25 mx-auto">
+          <span class="">
+            <ul>
+              <li class="color--red">Historic Data</li>
+              <li class="color--cyan">Prediction Data</li>
+            </ul>
+          </span>
+        </div>
+      </div>
+      <br />
       <!-- DESKTOP VERSION -->
       <!-- drag & drop is only activated at desktop version, because buttons aren't accessable in mobile version due to draggable component -> screenWidthCheck() -->
       <draggable
@@ -220,6 +232,9 @@
           </a>
         </div>
       </div>
+      <br />
+      <br />
+      <br />
     </div>
   </div>
 </template>
@@ -417,6 +432,14 @@ export default {
 
 .bg-lightgrey {
   background-color: var(--superlightgrey);
+}
+
+.color--cyan {
+  color: #1bada2;
+}
+
+.color--red {
+  color: rgb(226, 0, 116);
 }
 
 /*--------------------------------
