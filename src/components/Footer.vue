@@ -91,7 +91,6 @@ export default {
   width: 100%;
   text-align: left;
   padding: 50px 50px 60px 50px;
-  margin-top: 80px;
 }
 
 .footer-distributed .footer-left,

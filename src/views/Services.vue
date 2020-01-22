@@ -97,6 +97,13 @@ img {
   height: 150px;
 }
 
+.services {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url("../assets/img/banner.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
 .panel--hide {
   display: none;
 }
