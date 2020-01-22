@@ -55,6 +55,11 @@
           <li class="breadcrumb-item active">{{ dashboardName }}</li>
         </ol>
       </nav>
+      <div class="w-50 mx-auto border">
+        <span class="color--red">Historic Data</span>
+        <span class="color--cyan ml-4">Prediction Data</span>
+      </div>
+      <br>
       <draggable
         v-model="dashboard.metrics"
         v-if="screenWidthCheck() === true"
