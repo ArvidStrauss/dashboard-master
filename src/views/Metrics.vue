@@ -55,9 +55,15 @@
           <li class="breadcrumb-item active">{{ dashboardName }}</li>
         </ol>
       </nav>
-      <div class="w-50 mx-auto border">
-        <span class="color--red">Historic Data</span>
-        <span class="color--cyan ml-4">Prediction Data</span>
+      <div class="border rounded">
+        <div class="w-25 mx-auto">
+          <span class="">
+            <ul>
+              <li class="color--red">Historic Data</li>
+              <li class="color--cyan">Prediction Data</li>
+            </ul>
+          </span>
+        </div>
       </div>
       <br>
       <draggable
