@@ -31,7 +31,7 @@
     <div class=" w-75 mx-auto service__grid">
       <div v-for="(service, index) in services" :key="index">
         <!--Die Service Card -->
-        <div class="card border--grey" style="width: 18rem;">
+        <div class="card border--magenta" style="width: 18rem;">
           <img
             class="card-img-top border-bottom border--grey"
             :src="service.image"
@@ -52,6 +52,9 @@
         </div>
       </div>
     </div>
+    <br>
+    <br>
+    <br>
   </div>
 </template>
 
