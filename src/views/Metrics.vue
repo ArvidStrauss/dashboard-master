@@ -380,6 +380,15 @@ export default {
   cursor: copy;
 }
 
+
+.color--cyan {
+  color: #1bada2;
+}
+
+.color--red {
+  color: rgb(226, 0, 116);
+}
+
 /*--------------------------------
       CSS GRID für die Charts
   ---------------------------------*/
