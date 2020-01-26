@@ -1,146 +1,142 @@
 /* MULTI USED CSS CLASSES */
 
 /* Elements */
-a{
-	cursor: pointer;
+a {
+  cursor: pointer;
 }
 
 /* Colours */
-.bg-primary{
-	background-color: var(--cyan) !important;
+.bg-primary {
+  background-color: var(--cyan) !important;
 }
 
-.border--magenta{
-	border-left: 1px solid;
-	border-right: 1px solid;
-	border-bottom: 1px solid;
-	border-bottom-left-radius: 8px;
-	border-bottom-right-radius: 8px;
-	border-color: var(--magenta);
+.border--magenta {
+  border: 2px solid;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-color: var(--darkgrey);
 }
 
-.border--grey{
-	border-color: var(--darkgrey) !important;
-	border-width: 1px;
+.border--grey {
+  border-color: var(--darkgrey) !important;
+  border-width: 1px;
 }
 /* Buttons */
 
 .btn.btn-primary {
-	background-color: var(--cyan);
-	border: none;
-	margin: 20px 0;
+  background-color: var(--cyan);
+  border: none;
+  margin: 20px 0;
 }
 .btn.btn-primary:hover {
-	background-color: #199E94;
+  background-color: #199e94;
 }
 
-.normalButton{
-	display: block;
-	padding: 6px;
-	background-color: var(--darkgrey);
-	color: white;
-	border-radius: 1px;
-	border: none;
-	outline: none;
+.normalButton {
+  display: block;
+  padding: 6px;
+  background-color: var(--darkgrey);
+  color: white;
+  border-radius: 1px;
+  border: none;
+  outline: none;
 }
 
-.normalChartButton{
-	display: block;
-	padding: 6px;
-	margin-top: 4px;
-	background-color: var(--darkgrey);
-	color: white;
-	border-radius: 2px;
-	border: none;
-	outline: none;
+.normalChartButton {
+  display: block;
+  padding: 6px;
+  margin-top: 10px;
+  margin-left: 5px;
+  background-color: var(--darkgrey);
+  color: white;
+  border-radius: 2px;
+  border: none;
+  outline: none;
 }
 
-.normalButton:hover{
-	padding: 7px;
+.normalButton:hover {
+  padding: 7px;
 }
 
-.normalChartButton:hover{
-	text-decoration: underline;
-	color: white;
+.normalChartButton:hover {
+  text-decoration: underline;
+  color: white;
 }
-.normalButton:focus{
-	outline: none;
-}
-
-.fancyButton{
-	display: block;
-	padding-top: 4px;
-	padding-bottom: 4px;
-	border: 1px solid var(--magenta);
-	color: var(--magenta);
-	font-weight: bold;
-	background: linear-gradient(to right, var(--magenta) 50%, white 50%);
-	background-size: 200% 100%;
-	background-position:right bottom;
-	transition:all 1.2s ease;
+.normalButton:focus {
+  outline: none;
 }
 
-.fancyButton:hover{
-	background-position:left bottom;
-	color: white;
+.fancyButton {
+  display: block;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border: 1px solid var(--darkgrey);
+  color: var(--white);
+  background-color: var(--darkgrey);
+  font-weight: bold;
 }
 
-.saveButton{
-	display: block;
-	padding: 8px;
-	font-size: 14pt;
-	color: white;
-	border-radius: 5px;
-	border: none;
-	outline: none;
+.fancyButton:hover {
+  background-color: var(--white);
+  color: var(--darkgrey);
 }
 
-.saveButton--cyan{
-	background-color: var(--cyan);
+.saveButton {
+  display: block;
+  padding: 8px;
+  font-size: 14pt;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  outline: none;
 }
 
-.saveButton--red{
-	background-color: var(--red);
+.saveButton--cyan {
+  background-color: var(--cyan);
 }
 
-.saveButton:hover{
-	text-decoration: none;
-	color: white;
-	background-color: #178E85;
+.saveButton--red {
+  background-color: var(--red);
+}
+
+.saveButton:hover {
+  text-decoration: none;
+  color: white;
+  background-color: #178e85;
 }
 /* Forms */
 
-.form--width{
-	width: 50%;
+.form--width {
+  width: 50%;
 }
 
 .form-control:focus {
-	outline: 1px solid #FC4EA8;
-	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0), 0 0 1px var(--magenta);
+  outline: 1px solid #fc4ea8;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0), 0 0 1px var(--magenta);
 }
 
 /* other Components */
 
 .routerLink:hover {
-	text-decoration: none;
+  text-decoration: none;
 }
 
-.breadcrumb__link{
-	color: black;
+.breadcrumb__link {
+  color: black;
 }
 
-.breadcrumb__link:hover{
-	color: var(--magenta);
-	cursor: pointer;
+.breadcrumb__link:hover {
+  color: var(--magenta);
+  cursor: pointer;
 }
 
-.breadcrumb__img{
-	height: 20px;
-	width: 20px;
+.breadcrumb__img {
+  height: 20px;
+  width: 20px;
 }
 
 @media only screen and (max-width: 1000px) {
-	.normalChartButton{
-		margin-left: 4px;
-	}
+  .normalChartButton {
+    margin-left: 4px;
+  }
 }

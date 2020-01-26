@@ -15,10 +15,7 @@
             '/new'
         "
       >
-        <button
-          class="normalButton pull-right cursor--add"
-          @click="newMetric()"
-        >
+        <button class="normalButton pull-right cursor--add" @click="newMetric()">
           <i class="fa fa-plus"></i> New Diagram
         </button>
       </router-link>
@@ -33,11 +30,7 @@
             @mouseleave="imageToggle = true"
           >
             <router-link class="breadcrumb__link" :to="'/'">
-              <img
-                src="@/assets/img/home.png"
-                class="breadcrumb__img"
-                v-if="imageToggle == true"
-              />
+              <img src="@/assets/img/home.png" class="breadcrumb__img" v-if="imageToggle == true" />
               <img
                 src="@/assets/img/home--magenta.png"
                 class="breadcrumb__img"
@@ -49,113 +42,98 @@
             <router-link
               class="breadcrumb__link"
               :to="'/' + $i18n.locale + '/dashboards/' + serviceName"
-              >{{ serviceName }}</router-link
-            >
+            >{{ serviceName }}</router-link>
           </li>
           <li class="breadcrumb-item active">{{ dashboardName }}</li>
         </ol>
       </nav>
-      <div class="border rounded">
-        <div class="w-25 mx-auto">
-          <span class="">
-            <ul>
-              <li class="color--red">Historic Data</li>
-              <li class="color--cyan">Prediction Data</li>
-            </ul>
-          </span>
-        </div>
-      </div>
-      <br>
       <draggable
         v-model="dashboard.metrics"
         v-if="screenWidthCheck() === true"
         :move="saveJson()"
         class="chart__grid"
       >
-         <div class="border pr-2 pt-2 rounded">
-            <!-- <Chart :chart-data="chartdata[index]"></Chart> -->
+        <div class="border pr-2 pt-2 rounded">
+          <!-- <Chart :chart-data="chartdata[index]"></Chart> -->
           <h4>Response Time</h4>
-          <p>Predicted time: <b> 15 minutes </b></p>
+          <p>
+            Predicted time:
+            <b>15 minutes</b>
+          </p>
           <div class="chartButtons__grid">
             <div>
               <Chart :chart-data="datacollection"></Chart>
             </div>
             <div class="chart__flex">
-              <a class id >
+              <a class id>
                 <button class="normalChartButton button--right">
                   <i class="fa fa-trash"></i> Delete
                 </button>
               </a>
-              <a class="normalChartButton" href="#"
-              >
+              <a class="normalChartButton" href="#">
                 <i class="fa fa-edit"></i> Edit
               </a>
-              <button class="normalChartButton" @click="fillData()">
-                Fill Data
-              </button>
+              <button class="normalChartButton" @click="fillData()">Fill Data</button>
             </div>
           </div>
-          <hr>
-          Prediction of reponse time for the next 15 minutes
-         <br><br>
-         </div>
-         <div class="pr-2 border pt-2 rounded">
-            <!-- <Chart :chart-data="chartdata[index]"></Chart> -->
+          <hr />Prediction of reponse time for the next 15 minutes
+          <br />
+          <br />
+        </div>
+        <div class="pr-2 border pt-2 rounded">
+          <!-- <Chart :chart-data="chartdata[index]"></Chart> -->
           <h4>500er Errors</h4>
-          <p>Predicted time: <b> 15 minutes </b></p>
+          <p>
+            Predicted time:
+            <b>15 minutes</b>
+          </p>
           <div class="chartButtons__grid">
             <div>
               <Chart :chart-data="secondDa"></Chart>
             </div>
             <div class="chart__flex">
-              <a class id >
+              <a class id>
                 <button class="normalChartButton button--right">
                   <i class="fa fa-trash"></i> Delete
                 </button>
               </a>
-              <a
-                class="normalChartButton"
-                href="#"
-                
-              >
+              <a class="normalChartButton" href="#">
                 <i class="fa fa-edit"></i> Edit
               </a>
-              <button class="normalChartButton" @click="fillData()">
-                Fill Data
-              </button>
+              <button class="normalChartButton" @click="fillData()">Fill Data</button>
             </div>
           </div>
-          <hr>
-          Prediction of 500 errors for the next 15 minutes
-         <br><br>
-         </div>
-         <div class="border pr-2 pt-2 rounded">
-            <!-- <Chart :chart-data="chartdata[index]"></Chart> -->
+          <hr />Prediction of 500 errors for the next 15 minutes
+          <br />
+          <br />
+        </div>
+        <div class="border pr-2 pt-2 rounded">
+          <!-- <Chart :chart-data="chartdata[index]"></Chart> -->
           <h4>200 codes</h4>
-          <p>Predicted time: <b> 15 minutes </b></p>
+          <p>
+            Predicted time:
+            <b>15 minutes</b>
+          </p>
           <div class="chartButtons__grid">
             <div>
               <Chart :chart-data="thirdDa"></Chart>
             </div>
             <div class="chart__flex">
-              <a class id >
+              <a class id>
                 <button class="normalChartButton button--right">
                   <i class="fa fa-trash"></i> Delete
                 </button>
               </a>
-              <a class="normalChartButton" href="#"
-              >
+              <a class="normalChartButton" href="#">
                 <i class="fa fa-edit"></i> Edit
               </a>
-              <button class="normalChartButton" @click="fillData()">
-                Fill Data
-              </button>
+              <button class="normalChartButton" @click="fillData()">Fill Data</button>
             </div>
           </div>
-          <hr>
-          Prediction of 200 codes for the next 15 minutes
-         <br><br>
-         </div>
+          <hr />Prediction of 200 codes for the next 15 minutes
+          <br />
+          <br />
+        </div>
       </draggable>
       <div v-else>
         <div v-for="(metric, index) in dashboard.metrics" :key="index">
@@ -182,15 +160,13 @@
             >
               <i class="fa fa-edit"></i> Edit
             </router-link>
-            <button class="normalChartButton" @click="fillData()">
-              Fill Data
-            </button>
+            <button class="normalChartButton" @click="fillData()">Fill Data</button>
           </div>
         </div>
       </div>
-      <br>
-      <br>
-      <br>
+      <br />
+      <br />
+      <br />
     </div>
   </div>
 </template>
@@ -264,10 +240,10 @@ export default {
           }
         ]
       };
-      this.next ++;
+      this.next++;
       this.secondData();
     },
-    secondData(){
+    secondData() {
       this.chartLabels = [];
       this.chartData = [];
       this.chartColor = [];
@@ -303,7 +279,7 @@ export default {
       };
       this.thirdData();
     },
-    thirdData(){
+    thirdData() {
       this.chartLabels = [];
       this.chartData = [];
       this.chartColor = [];
@@ -379,7 +355,6 @@ export default {
 .cursor--add {
   cursor: copy;
 }
-
 
 .color--cyan {
   color: #1bada2;
