@@ -1,9 +1,25 @@
 {
-  "info": "Das ist das ML-Dashboard",
+  "info": "Dies ist ein Dashboard zur Visualisierung von Machine-Learning Vorhersage-Daten. Bitte wählen Sie einen Service, erstellen Sie ein Dashboard und fügen Sie diesem anschließend verschiedene Diagramme hinzu (bestehend aus einer Kombination von Metriken und Modellen)",
+  "closeInfo": "Info schließen",
+  "showInfo": "Info anzeigen",
   "footer": {
-    "aboutDashboard": "Über"
+    "aboutDashboard": "Über",
+    "aboutCompany": "Über uns"
   },
   "header": {
-    "message": "Guten Tag i18n !!"
+    "message": "Good Morning i18n !!"
+  },
+  "menu": {
+    "newDashboard": "New Dashboard",
+    "open": "Öffnen",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "newDashboard": {
+    "add": "add new Dashboard to ",
+    "title": "Title",
+    "desc": "description",
+    "please": "Please fill in the form",
+    "save": "Save"
   }
 }

@@ -1,7 +1,10 @@
 {
-  "info": "this is ml dashboard",
+  "info": "This is a Machine-Learning Dashboard to visualize prediction data for Service Manager and System-Engineers. Please choose a service, create your dashboard and create your charts (choosing from a wide range of models and metrics)",
+  "closeInfo": "Close Info",
+  "showInfo": "Show Info",
   "footer": {
-    "aboutDashboard": "About"
+    "aboutDashboard": "About",
+    "aboutCompany": "About the Company"
   },
   "header": {
     "message": "Good Morning i18n !!"

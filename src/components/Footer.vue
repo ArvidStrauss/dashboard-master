@@ -18,9 +18,7 @@
           <a href="#">Contact</a>
         </p>
 
-        <p class="footer-company-name">
-          © 2019 T-Systems Multi-Media-Solutions.
-        </p>
+        <p class="footer-company-name">© 2020 T-Systems Multi-Media-Solutions.</p>
       </div>
 
       <div class="footer-center">
@@ -39,15 +37,13 @@
         <div>
           <i class="fa fa-envelope"></i>
           <p>
-            <a href="mailto:arvid.strauss@t-systems.com"
-              >arvid.strauss@t-systems.com</a
-            >
+            <a href="mailto:arvid.strauss@t-systems.com">arvid.strauss@t-systems.com</a>
           </p>
         </div>
       </div>
       <div class="footer-right">
         <p class="footer-company-about">
-          <span>About the company</span>
+          <span>{{ $t("footer.aboutCompany") }}</span>
           Machine Learning Pros
         </p>
         <div class="footer-icons">

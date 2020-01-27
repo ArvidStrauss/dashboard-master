@@ -2,7 +2,7 @@
   <div class="top-nav-bar">
     <div class="search-box">
       <img src="@/assets/img/T_Logo_3c_p.png" alt="Plant-Shop-Logo" class="logo" />
-      <router-link class :to="'/'">
+      <router-link class :to="'/' + $i18n.locale">
         <h1 class="text-center">Dashboard ML</h1>
       </router-link>
       <LanguageSwitcher />

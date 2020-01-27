@@ -1,31 +1,31 @@
 [
   {
     "name": "Congstar",
-    "desc": "All Siemens Dashboards",
+    "desc": "Congstar WebServer und MailServer - Portfolio Kunde",
     "image": "../congstar.png",
     "alt": "Siemens-Logo"
   },
   {
     "name": "Telekom",
-    "desc": "All Telekom Dashboards",
+    "desc": "Telekom als hauseigener Kunde. Alle relevanten Applikationen",
     "image": "../telekom_logo.png",
     "alt": "Telekom-Logo"
   },
   {
     "name": "ADAC",
-    "desc": "All Barmer Dashboards",
+    "desc": "ADAC - Neukunde - Mail- und Webserver",
     "image": "../adac.jpg",
     "alt": "Barmer-Logo"
   },
   {
     "name": "Zollkriminalamt",
-    "desc": "All Barmer Dashboards",
+    "desc": "Hochsensible Daten - Vorsicht Firewall",
     "image": "../zoll.png",
     "alt": "Barmer-Logo"
   },
   {
     "name": "ARD - ZDF - DLR",
-    "desc": "All Barmer Dashboards",
+    "desc": "Bestandskunde - Monitoring Logdaten",
     "image": "../ard.jpeg",
     "alt": "Barmer-Logo"
   }

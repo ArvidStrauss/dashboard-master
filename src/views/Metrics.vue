@@ -20,8 +20,7 @@
         </button>
       </router-link>
     </div>
-    <br />
-    <div class="w-75 mx-auto">
+    <div class="w-75">
       <nav class>
         <ol class="breadcrumb bg-white">
           <li
@@ -73,7 +72,7 @@
               <a class="normalChartButton" href="#">
                 <i class="fa fa-edit"></i> Edit
               </a>
-              <button class="normalChartButton" @click="fillData()">Fill Data</button>
+              <!-- <button class="normalChartButton" @click="fillData()">Fill Data</button> -->
             </div>
           </div>
           <hr />Prediction of reponse time for the next 15 minutes
@@ -82,7 +81,7 @@
         </div>
         <div class="pr-2 border pt-2 rounded">
           <!-- <Chart :chart-data="chartdata[index]"></Chart> -->
-          <h4>500er Errors</h4>
+          <h4>500 Status Codes</h4>
           <p>
             Predicted time:
             <b>15 minutes</b>
@@ -100,7 +99,7 @@
               <a class="normalChartButton" href="#">
                 <i class="fa fa-edit"></i> Edit
               </a>
-              <button class="normalChartButton" @click="fillData()">Fill Data</button>
+              <!-- <button class="normalChartButton" @click="fillData()">Fill Data</button> -->
             </div>
           </div>
           <hr />Prediction of 500 errors for the next 15 minutes
@@ -109,7 +108,7 @@
         </div>
         <div class="border pr-2 pt-2 rounded">
           <!-- <Chart :chart-data="chartdata[index]"></Chart> -->
-          <h4>200 codes</h4>
+          <h4>200 Status Codes</h4>
           <p>
             Predicted time:
             <b>15 minutes</b>
@@ -127,7 +126,7 @@
               <a class="normalChartButton" href="#">
                 <i class="fa fa-edit"></i> Edit
               </a>
-              <button class="normalChartButton" @click="fillData()">Fill Data</button>
+              <!-- <button class="normalChartButton" @click="fillData()">Fill Data</button> -->
             </div>
           </div>
           <hr />Prediction of 200 codes for the next 15 minutes

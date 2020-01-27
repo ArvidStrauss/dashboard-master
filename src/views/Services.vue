@@ -2,24 +2,18 @@
   <div v-if="services" class="services">
     <div v-if="panel == 0" class="w-100 pr-4">
       <transition name="fade">
-        <button class="float-right normalButton mt-2" v-on:click="showPanel()">
-          Show Info
-        </button>
+        <button class="float-right normalButton mt-2" v-on:click="showPanel()">{{ $t('showInfo') }}</button>
       </transition>
     </div>
     <div v-if="panel == 1" class="w-100 pr-4">
       <transition name="fade">
-        <button class="float-right normalButton mt-2" v-on:click="hidePanel()">
-          Close Info
-        </button>
+        <button class="float-right normalButton mt-2" v-on:click="hidePanel()">{{ $t('closeInfo') }}</button>
       </transition>
     </div>
     <transition name="fade">
       <div v-if="panel == 1" id="panel" class="bg-primary text-white w-100">
-        <h1 class="">Info</h1>
-        <p class="w-75 mx-auto">
-          {{ $t("info") }}
-        </p>
+        <h1 class>Info</h1>
+        <p class="w-75 mx-auto">{{ $t("info") }}</p>
         <br />
       </div>
     </transition>
@@ -28,7 +22,7 @@
     <h2 class="text-white font-weight-bold">Services</h2>
     <br />
     <br />
-    <div class=" w-75 mx-auto service__grid">
+    <div class="w-75 mx-auto service__grid">
       <div v-for="(service, index) in services" :key="index">
         <!--Die Service Card -->
         <div class="card border--magenta" style="width: 18rem;">
@@ -39,22 +33,22 @@
           />
           <!--zum Test hardcodiert-->
           <div class="card-body">
-            <h3 class="card-title ">{{ service.name }}</h3>
+            <h3 class="card-title">{{ service.name }}</h3>
             <p class="card-text">{{ service.desc }}</p>
             <router-link
               class="fancyButton"
               :to="'/' + $i18n.locale + '/dashboards/' + service.name"
             >
-              Open
+              {{ $t('menu.open')}}
               <i class="fa fa-step-forward"></i>
             </router-link>
           </div>
         </div>
       </div>
     </div>
-    <br>
-    <br>
-    <br>
+    <br />
+    <br />
+    <br />
   </div>
 </template>
 

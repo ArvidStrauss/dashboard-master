@@ -11,10 +11,10 @@ a {
 }
 
 .border--magenta {
-  border: 2px solid;
+  border: 10px solid;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
-  border-color: var(--darkgrey);
+  border-color: var(--white);
 }
 
 .border--grey {

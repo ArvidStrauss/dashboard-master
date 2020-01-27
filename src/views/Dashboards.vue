@@ -1,5 +1,5 @@
 <template>
-  <div v-if="dashboards" class="container mt-4">
+  <div v-if="dashboards" class="container mt-4 dashboards">
     <h3>{{ serviceName }}</h3>
     <br />
     <div class="w-100 pr-4">
@@ -23,11 +23,7 @@
             @mouseleave="imageToggle = true"
           >
             <router-link class="breadcrumb__link" :to="'/'">
-              <img
-                src="@/assets/img/home.png"
-                class="breadcrumb__img"
-                v-if="imageToggle == true"
-              />
+              <img src="@/assets/img/home.png" class="breadcrumb__img" v-if="imageToggle == true" />
               <img
                 src="@/assets/img/home--magenta.png"
                 class="breadcrumb__img"
