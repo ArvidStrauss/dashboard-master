@@ -64,8 +64,8 @@
         <div class="w-25 mx-auto">
           <span class="">
             <ul>
-              <li class="color--red">Historic Data</li>
-              <li class="color--cyan">Prediction Data</li>
+              <li class="color--red">{{ $t("metrics.lookbackData") }}</li>
+              <li class="color--cyan">{{ $t("metrics.predictionData") }}</li>
             </ul>
           </span>
         </div>

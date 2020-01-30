@@ -34,7 +34,9 @@
     "min": "Minuten",
     "new": "Neues Diagramm hinzufügen",
     "loading": "Diagramme werden geladen",
-    "please": "Bitte warten."
+    "please": "Bitte warten.",
+    "lookbackData": "Historische Daten",
+    "predictionData": "Vorhergesagte Daten"
   },
   "newMetric": {
     "add" :"Neues Diagramm hinzufügen zu ",
