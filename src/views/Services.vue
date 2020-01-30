@@ -60,13 +60,15 @@
 
 <script>
 //import json from "@/assets/services.json";
+import urlConfig from "@/assets/urlConfig.json";
 /*eslint no-console: ["error", { allow: ["warn", "log"] }] */
 export default {
   name: "Services",
   data: function() {
     return {
       services: null,
-      panel: 1
+      panel: 1,
+      urlConfig
     };
   },
   methods: {
@@ -79,12 +81,12 @@ export default {
       sessionStorage.setItem("panel", "1");
     },
     getImageUrl: function(service) {
-      let url = "http://localhost:8000/GetImg?img=" + service.image;
+      let url = this.urlConfig[0].MLServer + "GetImg?img=" + service.image;
       return url;
     },
     loadServices: function() {
       let t = this;
-      return fetch("http://localhost:8080/GetServices")
+      return fetch(this.urlConfig[0].MLServer + "GetServices")
         .then(response => {
           return response.json();
         })

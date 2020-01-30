@@ -246,6 +246,7 @@ import draggable from "vuedraggable";
 //import lookback from "@/assets/lookback.json";
 import Chart from "@/components/Chart.vue";
 import _ from "lodash";
+import urlConfig from "@/assets/urlConfig.json";
 
 export default {
   name: "Dashboards",
@@ -256,6 +257,7 @@ export default {
   data: function() {
     return {
       dashboards: null,
+      urlConfig,
       imageToggle: true,
       jsonData: [],
       datacollection: [],
@@ -298,7 +300,7 @@ export default {
         jsonFile.settings.push(element);
       });
       this.$http
-        .post("http://localhost:8080/SaveJson", this.jsonFile)
+        .post(this.urlConfig[0].MLServer + "SaveJson", this.jsonFile)
         .then(function(response) {
           console.log(response);
         })
@@ -380,7 +382,8 @@ export default {
     loadChartData: function(element) {
       let t = this;
       const baseURI =
-        "http://localhost:8080/ml_req?service=" +
+        this.urlConfig[0].MLServer +
+        "ml_req?service=" +
         t.serviceName +
         "&model=" +
         t.dashboard.metrics[element].model +
@@ -399,7 +402,7 @@ export default {
     //load Dashboards json
     loadDashboardData: function() {
       let t = this;
-      return fetch("http://localhost:8080/LoadJson")
+      return fetch(this.urlConfig[0].MLServer + "LoadJson")
         .then(response => {
           return response.json();
         })

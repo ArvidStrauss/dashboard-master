@@ -36,6 +36,7 @@
 <script>
 /*eslint no-console: ["error", { allow: ["warn", "log"] }] */
 //import json from "@/assets/dashboards.json";
+import urlConfig from "@/assets/urlConfig.json";
 
 export default {
   name: "EditDashboards",
@@ -45,7 +46,8 @@ export default {
       imageToggle: true,
       dashboardID: -1,
       metricID: -1,
-      availableModels: []
+      availableModels: [],
+      urlConfig
     };
   },
   computed: {
@@ -72,27 +74,29 @@ export default {
       });
 
       let t = this;
-      this.$http.post("http://localhost:8080/SaveJson", jsonFile).then(() => {
-        //reroute after post
-        let url =
-          "/" +
-          t.$i18n.locale +
-          "/metrics/" +
-          t.serviceName +
-          "/" +
-          t.dashboardName +
-          "/edit/" +
-          t.dashboards[t.dashboardID].metrics[
-            t.dashboards[t.dashboardID].metrics.length - 1
-          ].title;
+      this.$http
+        .post(this.urlConfig[0].MLServer + "SaveJson", jsonFile)
+        .then(() => {
+          //reroute after post
+          let url =
+            "/" +
+            t.$i18n.locale +
+            "/metrics/" +
+            t.serviceName +
+            "/" +
+            t.dashboardName +
+            "/edit/" +
+            t.dashboards[t.dashboardID].metrics[
+              t.dashboards[t.dashboardID].metrics.length - 1
+            ].title;
 
-        t.$router.push(url);
-      });
+          t.$router.push(url);
+        });
     },
     loadJson: function() {
       let t = this;
       //GET dashboards
-      fetch("http://localhost:8080/LoadJson")
+      fetch(this.urlConfig[0].MLServer + "LoadJson")
         .then(response => {
           return response.json();
         })

@@ -108,6 +108,7 @@
 <script>
 /*eslint no-console: ["error", { allow: ["warn", "log"] }] */
 //import json from "@/assets/dashboards.json";
+import urlConfig from "@/assets/urlConfig.json";
 
 export default {
   name: "EditDashboards",
@@ -115,7 +116,8 @@ export default {
     return {
       dashboards: [],
       dashboardID: -1,
-      imageToggle: true
+      imageToggle: true,
+      urlConfig
     };
   },
   computed: {
@@ -133,9 +135,11 @@ export default {
         jsonFile.settings.push(element);
       });
       let t = this;
-      this.$http.post("http://localhost:8080/SaveJson", jsonFile).then(() => {
-        t.$router.push("/" + t.$i18n.locale + "/dashboards/" + t.serviceName);
-      });
+      this.$http
+        .post(this.urlConfig[0].MLServer + "SaveJson", jsonFile)
+        .then(() => {
+          t.$router.push("/" + t.$i18n.locale + "/dashboards/" + t.serviceName);
+        });
     },
     //FORM INPUT VALIDATIONS
     validateTitle: function() {
@@ -174,7 +178,7 @@ export default {
     },
     loadJson: function() {
       let t = this;
-      return fetch("http://localhost:8080/LoadJson")
+      return fetch(this.urlConfig[0].MLServer + "LoadJson")
         .then(response => {
           return response.json();
         })

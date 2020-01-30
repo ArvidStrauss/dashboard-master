@@ -163,6 +163,7 @@
 <script>
 /*eslint no-console: ["error", { allow: ["warn", "log"] }] */
 //import json from "@/assets/dashboards.json";
+import urlConfig from "@/assets/urlConfig.json";
 
 export default {
   name: "EditDashboards",
@@ -170,7 +171,8 @@ export default {
     return {
       dashboards: null,
       imageToggle: true,
-      availablePredTime: []
+      availablePredTime: [],
+      urlConfig
     };
   },
   computed: {
@@ -224,9 +226,11 @@ export default {
         jsonFile.settings.push(element);
       });
       let t = this;
-      this.$http.post("http://localhost:8080/SaveJson", jsonFile).then(() => {
-        t.$router.push(url);
-      });
+      this.$http
+        .post(this.urlConfig[0].MLServer + "SaveJson", jsonFile)
+        .then(() => {
+          t.$router.push(url);
+        });
     },
 
     //FORM INPUT VALIDATIONS
@@ -270,7 +274,7 @@ export default {
       //this.dashboards = json;
       let t = this;
       //GET dashboards
-      fetch("http://localhost:8080/LoadJson")
+      fetch(this.urlConfig[0].MLServer + "LoadJson")
         .then(response => {
           return response.json();
         })

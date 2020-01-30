@@ -152,6 +152,8 @@
 //import json from "@/assets/dashboards.json";
 //import _ from 'lodash';
 /*eslint no-console: ["error", { allow: ["warn", "log"] }] */
+import urlConfig from "@/assets/urlConfig.json";
+
 export default {
   name: "Dashboards",
   data: function() {
@@ -160,7 +162,8 @@ export default {
       imageToggle: true,
       sorting: -1,
       chartsLoaded: false,
-      deleteWindow: false
+      deleteWindow: false,
+      urlConfig
     };
   },
   computed: {
@@ -206,11 +209,11 @@ export default {
       this.dashboards.forEach(element => {
         jsonFile.settings.push(element);
       });
-      this.$http.post("http://localhost:8080/SaveJson", jsonFile);
+      this.$http.post(this.urlConfig[0].MLServer + "SaveJson", jsonFile);
     },
     loadJson: function() {
       let t = this;
-      fetch("http://localhost:8080/LoadJson")
+      fetch(this.urlConfig[0].MLServer + "LoadJson")
         .then(response => {
           return response.json();
         })
