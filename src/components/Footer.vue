@@ -16,7 +16,6 @@
           <a href="#">{{ $t("footer.aboutDashboard") }}</a>
           |
           <a href="#">{{ $t("footer.contact") }}</a>
-          <LanguageSwitcher />
         </p>
 
         <p class="footer-company-name">
@@ -73,12 +72,9 @@
 </template>
 
 <script>
-import LanguageSwitcher from "@/components/LanguageSwitcher.vue";
 export default {
   name: "Footer",
-  components: {
-    LanguageSwitcher
-  }
+  components: {}
 };
 </script>
 

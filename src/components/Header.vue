@@ -9,19 +9,16 @@
       <router-link class="" :to="'/'">
         <h1 class="text-center">Dashboard ML</h1>
       </router-link>
-      <Switcher></Switcher>
+      <LanguageSwitcher />
     </div>
   </div>
 </template>
 
 <script>
-import Switcher from '@assets/components/LanguageSwitcher.vue';
+import LanguageSwitcher from "@/components/LanguageSwitcher.vue";
 export default {
   name: "Header",
-  components: {},
-  data: {
-    Switcher
-  }
+  components: { LanguageSwitcher }
 };
 </script>
 
