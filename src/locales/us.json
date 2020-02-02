@@ -35,7 +35,7 @@
     "new": "add new chart",
     "loading": "Loading charts",
     "please": "Please wait.",
-    "lookbackData": "Historoci Data",
+    "lookbackData": "Historic Data",
     "predictionData": "Predicted Data"
   },
   "newMetric": {
